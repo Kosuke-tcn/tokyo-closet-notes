@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google" content="notranslate" />
+  <title>Tokyo Closet Notes — Find your Japanese fashion direction</title>
+  <meta name="description" content="Tell us what you like, and Tokyo Closet Notes will help you discover Japanese brands, shops, and outfit moods that match your style." />
+
+  <meta property="og:title" content="Tokyo Closet Notes — Japan Fashion Finder" />
+  <meta property="og:description" content="Japanese street style notes, brand research, and shopping direction." />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" type="image/png" href="assets/tcn-logo.png" />
+
+  <!-- Warm, rounded type. If these fail to load (offline / preview),
+       the CSS falls back to rounded system fonts so the page still
+       looks soft and stays readable — never a broken layout. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- ============================================================
+       Styles inlined so the page renders correctly everywhere
+       (file://, any host, any preview). The only external dependency
+       is the web font above, which degrades gracefully to rounded
+       system fonts.
+       ============================================================ -->
+  <style>
+  :root {
+    --bg:        #f6f3ed;   /* off-white */
+    --surface:   #fbfaf7;   /* card / form surface */
+    --surface-2: #ffffff;   /* input surface */
+    --ink:       #111111;   /* near-black text */
+    --ink-soft:  #2e2b27;   /* strong secondary */
+    --muted:     #6f6a61;   /* muted text */
+    --border:    #d8d2c6;   /* warm grey border */
+    --border-2:  #c7c0b2;
+    --accent:    #1f2933;   /* muted charcoal */
+    --indigo:    #44506b;   /* faded indigo */
+    --indigo-soft: #ecedf1;
+    --btn-bg:    #111111;
+    --btn-text:  #ffffff;
+
+    --maxw: 1120px;
+    --narrow: 680px;
+    --r: 12px;
+
+    /* warm, rounded type — web fonts with rounded system fallbacks */
+    --sans: "Nunito Sans", ui-rounded, "Hiragino Maru Gothic ProN", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --round: "Quicksand", ui-rounded, "Hiragino Maru Gothic ProN", "Nunito Sans", system-ui, sans-serif;
+    --serif: var(--round); /* legacy alias — headings now use the rounded display */
+
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+
+  .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+  .container-narrow { max-width: var(--narrow); }
+
+  /* ---------- type helpers ---------- */
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 18px; font-weight: 600;
+  }
+  .section-title {
+    font-family: var(--round); font-weight: 700; line-height: 1.14;
+    letter-spacing: -0.005em; font-size: clamp(26px, 5.2vw, 36px); margin: 0 0 18px;
+  }
+  .section-lead { color: var(--ink-soft); font-size: 17px; margin: 0 0 28px; max-width: 56ch; }
+
+  /* ---------- buttons & links ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    font: inherit; font-weight: 700; letter-spacing: 0.01em;
+    padding: 15px 30px; border-radius: 999px; border: 1px solid transparent;
+    cursor: pointer; text-decoration: none;
+    transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease), transform .12s var(--ease), box-shadow .2s var(--ease);
+  }
+  .btn-primary { box-shadow: 0 10px 24px -14px rgba(17,17,17,0.8); }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-text); border-color: var(--btn-bg); }
+  .btn-primary:hover { background: #000; transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--ink); border-color: var(--border-2); }
+  .btn-outline:hover { border-color: var(--ink); background: var(--surface); transform: translateY(-1px); }
+  .btn-block { width: 100%; }
+
+  .tlink {
+    color: var(--ink); text-decoration: none; font-size: 14px; letter-spacing: .01em;
+    padding: 7px 14px; border: 1px solid var(--border-2); border-radius: 999px;
+    transition: border-color .2s var(--ease), background .2s var(--ease), color .2s var(--ease);
+  }
+  .tlink:hover { border-color: var(--ink); background: var(--ink); color: #fff; }
+
+  /* ---------- scroll reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .reveal.is-visible { opacity: 1; transform: none; }
+  .reveal.d1 { transition-delay: .08s; }
+  .reveal.d2 { transition-delay: .16s; }
+  .reveal.d3 { transition-delay: .24s; }
+
+  /* ============ HEADER ============ */
+  .site-header {
+    position: sticky; top: 0; z-index: 60;
+    background: rgba(246,243,237,0.9);
+    backdrop-filter: saturate(140%) blur(10px);
+    -webkit-backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 10px; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; color: var(--ink); min-width: 0; }
+  .brand-logo { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; background: #fff; flex: none; }
+  .brand-mark {
+    width: 36px; height: 36px; border-radius: 50%;
+    align-items: center; justify-content: center;
+    font-family: var(--round); font-weight: 700; font-size: 17px;
+    color: #fff; background: var(--accent); letter-spacing: .01em;
+  }
+  .brand-name { font-family: var(--round); font-size: 17px; font-weight: 700; letter-spacing: .01em;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .brand-name small { display: block; font-family: var(--sans); font-size: 9.5px; letter-spacing: .24em;
+    text-transform: uppercase; color: var(--muted); font-weight: 600; margin-top: 1px; white-space: nowrap; }
+  .header-social { display: flex; gap: 8px; flex: none; }
+
+  /* compact header on phones — keep brand + social on one line, no overflow */
+  @media (max-width: 460px) {
+    .header-inner { height: 56px; gap: 8px; }
+    .brand { gap: 9px; }
+    .brand-logo { width: 30px; height: 30px; }
+    .brand-name { font-size: 15.5px; }
+    .brand-name small { display: none; }      /* hide subtitle when space is tight */
+    .header-social { gap: 6px; }
+    .tlink { font-size: 12.5px; padding: 6px 11px; }
+  }
+  @media (max-width: 360px) {
+    .tlink { font-size: 12px; padding: 6px 10px; }
+    .brand-name { font-size: 15px; }
+  }
+
+  /* ============ HERO ============ */
+  .hero { padding: clamp(36px, 7vw, 68px) 0 clamp(44px, 8vw, 80px); border-bottom: 1px solid var(--border); }
+  .hero-grid { display: grid; grid-template-columns: 1fr; gap: 30px; align-items: center; }
+  .hero-title {
+    font-family: var(--round); font-weight: 700; letter-spacing: -0.005em; line-height: 1.1;
+    font-size: clamp(30px, 6.4vw, 46px); margin: 0 0 18px;
+  }
+  .hero-sub { font-size: clamp(16px, 2vw, 19px); color: var(--ink-soft); max-width: 44ch; margin: 0 0 26px; }
+  .hero-cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .hero-note { margin: 24px 0 0; font-size: 14px; color: var(--muted); max-width: 46ch; }
+
+  /* hero image — one dominant image + two smaller details (editorial) */
+  .hero-art { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .hero-art figure { margin: 0; overflow: hidden; border-radius: 16px; background: var(--border);
+    box-shadow: 0 14px 34px -22px rgba(31,41,51,0.5); }
+  .hero-art img { width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 1.1s var(--ease); }
+  .hero-art figure:hover img { transform: scale(1.045); }
+  /* mobile: big image full-width on top, two smaller side by side below */
+  .hero-art .a1 { grid-column: 1 / -1; aspect-ratio: 4 / 3.3; }
+  .hero-art .a2, .hero-art .a3 { aspect-ratio: 3 / 3.7; }
+
+  @media (min-width: 900px) {
+    .hero-grid { grid-template-columns: 1.02fr 0.98fr; gap: 56px; }
+    /* desktop: dominant tall image left, two stacked details right */
+    .hero-art { grid-template-columns: 1.45fr 1fr; grid-template-rows: 1fr 1fr; gap: 14px; }
+    .hero-art .a1 { grid-column: 1; grid-row: 1 / span 2; aspect-ratio: auto; }
+    .hero-art .a2 { grid-column: 2; grid-row: 1; aspect-ratio: auto; }
+    .hero-art .a3 { grid-column: 2; grid-row: 2; aspect-ratio: auto; }
+  }
+
+  /* ============ MARQUEE / VALUES STRIP ============ */
+  .strip { border-bottom: 1px solid var(--border); background: var(--surface); }
+  .strip-inner { display: flex; flex-wrap: wrap; gap: 8px 26px; padding: 16px 22px; justify-content: center;
+    max-width: var(--maxw); margin: 0 auto; }
+  .strip-inner span { font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .strip-inner span b { color: var(--ink); font-weight: 600; }
+
+  /* ============ HOW IT WORKS ============ */
+  .how { padding: clamp(56px, 10vw, 92px) 0; }
+  .steps { list-style: none; margin: 32px 0 0; padding: 0; display: grid; gap: 0; grid-template-columns: 1fr; }
+  .step { padding: 30px 0; border-top: 1px solid var(--border); }
+  .step:last-child { border-bottom: 1px solid var(--border); }
+  .step-num {
+    font-family: var(--round); font-weight: 700; font-size: 22px; color: var(--indigo);
+    display: block; margin-bottom: 12px; letter-spacing: .02em;
+  }
+  .step-title { font-size: 21px; font-weight: 600; margin: 0 0 7px; letter-spacing: -0.01em; }
+  .step p { margin: 0; color: var(--ink-soft); }
+  @media (min-width: 800px) {
+    .steps { grid-template-columns: repeat(3, 1fr); }
+    .step { border-bottom: 1px solid var(--border); padding: 32px 32px 32px 0; }
+    .step + .step { padding-left: 32px; border-left: 1px solid var(--border); }
+  }
+
+  /* ============ VALUE / WHAT YOU RECEIVE ============ */
+  .value { padding: clamp(56px, 10vw, 92px) 0; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .value-grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: start; }
+  .promise { font-family: var(--serif); font-size: clamp(21px, 3.2vw, 27px); line-height: 1.4;
+    letter-spacing: -0.01em; margin: 0 0 18px; }
+  .promise-meta { font-size: 13.5px; letter-spacing: .04em; color: var(--muted); margin: 0 0 4px; }
+  .receive-title { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted);
+    margin: 0 0 16px; font-weight: 600; }
+  .receive-list { list-style: none; margin: 0; padding: 0; }
+  .receive-list li { position: relative; padding: 14px 0 14px 26px; border-top: 1px solid var(--border);
+    color: var(--ink-soft); font-size: 16px; }
+  .receive-list li:first-child { border-top: 0; }
+  .receive-list li::before { content: "→"; position: absolute; left: 0; color: var(--indigo); }
+  @media (min-width: 860px) { .value-grid { grid-template-columns: 1.1fr 0.9fr; gap: 64px; } }
+
+  /* ============ FORM ============ */
+  .finder { padding: clamp(56px, 10vw, 92px) 0; background: var(--accent); color: #eef0f2; }
+  .finder .eyebrow { color: #97a0ab; }
+  .finder .section-title { color: #fff; }
+  .finder .finder-lead { color: #c2c7ce; font-size: 17px; max-width: 52ch; margin: 0 0 8px; }
+  .finder-mood { display: flex; gap: 12px; margin: 26px 0 0; }
+  .finder-mood figure { margin: 0; flex: 1; aspect-ratio: 3/4; overflow: hidden; border-radius: 14px; background: #2a3540; }
+  .finder-mood img { transition: transform 1s var(--ease); }
+  .finder-mood figure:hover img { transform: scale(1.05); }
+  .finder-mood img { width: 100%; height: 100%; object-fit: cover; opacity: .92; }
+  @media (max-width: 560px) { .finder-mood figure:nth-child(3) { display: none; } }
+
+  /* sticky progress */
+  .progress-wrap {
+    position: sticky; top: 64px; z-index: 30; margin: 30px 0 0;
+    background: rgba(31,41,51,0.95); backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 9px 16px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .progress-label { font-size: 12.5px; letter-spacing: .06em; color: #cfd4da; white-space: nowrap; font-weight: 600; }
+  .progress-track { flex: 1; height: 4px; background: rgba(255,255,255,0.16); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 0%; background: #fff; border-radius: 999px; transition: width .5s var(--ease); }
+  .progress-pct { font-size: 12.5px; color: #9aa2ac; white-space: nowrap; }
+
+  #style-form { margin-top: 22px; background: var(--surface); color: var(--ink); border-radius: 20px; padding: clamp(22px, 5vw, 40px); }
+
+  /* honeypot — fully hidden */
+  .hp-field { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+  .fs { border: 0; margin: 0; padding: 32px 0; border-top: 1px solid var(--border); scroll-margin-top: 130px; }
+  .fs:first-of-type { border-top: 0; padding-top: 6px; }
+  .fs-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+  .fs-step { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--indigo); font-weight: 700; }
+  .fs-legend { font-family: var(--serif); font-size: 23px; font-weight: 600; padding: 0; margin: 0;
+    letter-spacing: -0.01em; }
+  .fs-hint { margin: 4px 0 18px; font-size: 14px; color: var(--muted); }
+  .req { color: var(--indigo); font-weight: 700; }
+
+  .field { margin-bottom: 18px; }
+  .field:last-child { margin-bottom: 0; }
+  .grid-2 { display: grid; gap: 18px; grid-template-columns: 1fr; }
+  @media (min-width: 560px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+  .field label { display: block; font-size: 13.5px; font-weight: 600; margin-bottom: 8px; letter-spacing: .01em; }
+  .field input, .field textarea, .select-wrap select {
+    width: 100%; font: inherit; color: var(--ink); background: var(--surface-2);
+    border: 1px solid var(--border-2); border-radius: var(--r);
+    padding: 14px; transition: border-color .15s, box-shadow .15s;
+  }
+  .field textarea { resize: vertical; min-height: 108px; }
+  .field input:focus, .field textarea:focus, .select-wrap select:focus {
+    outline: none; border-color: var(--indigo); box-shadow: 0 0 0 3px rgba(68,80,107,0.15);
+  }
+  .field input::placeholder, .field textarea::placeholder { color: #aba499; }
+
+  .select-wrap { position: relative; }
+  .select-wrap select { appearance: none; -webkit-appearance: none; padding-right: 42px; cursor: pointer; }
+  .select-wrap::after {
+    content: ""; position: absolute; right: 17px; top: 50%; width: 8px; height: 8px;
+    border-right: 1.5px solid var(--ink-soft); border-bottom: 1.5px solid var(--ink-soft);
+    transform: translateY(-65%) rotate(45deg); pointer-events: none;
+  }
+
+  /* chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 9px; }
+  .chip {
+    position: relative; font: inherit; font-size: 14.5px; font-weight: 600; color: var(--ink-soft);
+    background: var(--surface-2); border: 1px solid var(--border-2); border-radius: 999px;
+    padding: 11px 18px; cursor: pointer; min-height: 44px;
+    transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease), padding .2s var(--ease), transform .12s var(--ease), box-shadow .2s var(--ease);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .chip:hover { border-color: var(--indigo); transform: translateY(-1px); }
+  .chip:active { transform: scale(.95); }
+  .chip.is-selected { background: var(--indigo); color: #fff; border-color: var(--indigo);
+    padding-left: 35px; box-shadow: 0 6px 16px -8px rgba(68,80,107,0.7); }
+  .chip.is-selected::before {
+    content: ""; position: absolute; left: 15px; top: 50%; width: 11px; height: 6px;
+    border-left: 1.6px solid #fff; border-bottom: 1.6px solid #fff;
+    transform: translateY(-70%) rotate(-45deg);
+  }
+
+  /* radio + checkbox lists */
+  .radio-list, .consent { display: flex; flex-direction: column; gap: 0; }
+  .opt {
+    display: flex; align-items: flex-start; gap: 13px; padding: 14px;
+    border: 1px solid var(--border); border-radius: var(--r); cursor: pointer;
+    font-size: 15.5px; transition: border-color .15s, background .15s; margin-top: -1px;
+  }
+  .opt:first-child { margin-top: 0; }
+  .opt:hover { border-color: var(--border-2); }
+  .opt input { margin-top: 2px; accent-color: var(--accent); width: 18px; height: 18px; flex: none; }
+  .opt:has(input:checked) { border-color: var(--ink); background: var(--indigo-soft); position: relative; z-index: 1; }
+  .opt-check span { color: var(--ink-soft); }
+
+  /* form footer */
+  .form-foot { margin-top: 32px; }
+  .submit-micro { font-size: 13px; color: var(--muted); text-align: center; margin: 0 0 14px; }
+  .form-error {
+    color: #8a1f1f; background: #fbeceb; border: 1px solid #efc9c6; border-radius: var(--r);
+    padding: 13px 15px; font-size: 14.5px; margin: 0 0 16px;
+  }
+  .form-success {
+    padding: 34px 26px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; text-align: center;
+  }
+  .form-success .fs-tick { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--indigo);
+    margin: 0 auto 18px; position: relative; }
+  .form-success .fs-tick::before { content: ""; position: absolute; left: 16px; top: 21px; width: 14px; height: 7px;
+    border-left: 2px solid var(--indigo); border-bottom: 2px solid var(--indigo); transform: rotate(-45deg); }
+  .form-success h3 { font-family: var(--serif); font-size: 23px; font-weight: 600; margin: 0 0 10px; }
+  .form-success p { color: var(--ink-soft); margin: 0 auto; max-width: 42ch; }
+  .form-success .success-next { margin: 16px auto 0; padding-top: 16px; border-top: 1px solid var(--border);
+    max-width: 46ch; font-size: 15px; }
+  .form-success .success-next b { color: var(--ink); font-weight: 700; }
+  .form-success .micro { font-size: 13px; color: var(--muted); margin-top: 16px; }
+
+  #submit-btn[disabled] { opacity: 0.72; cursor: progress; }
+  .btn-spinner {
+    width: 17px; height: 17px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff;
+    border-radius: 50%; display: none; animation: spin .7s linear infinite;
+  }
+  #submit-btn.is-loading .btn-spinner { display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ============ TEASERS ============ */
+  .teaser { padding: clamp(56px, 10vw, 92px) 0; border-bottom: 1px solid var(--border); }
+  .teaser-map { background: var(--bg); }
+  .map-grid { display: grid; grid-template-columns: 1fr; gap: 36px; align-items: center; }
+  .city-chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 30px; }
+  .city-chip { font-family: var(--serif); font-size: 16px; padding: 9px 19px;
+    border: 1px solid var(--border-2); border-radius: 999px; background: var(--surface);
+    transition: background .2s var(--ease), color .2s var(--ease); }
+  .city-chip:hover { background: var(--accent); color: #fff; }
+  .map-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .map-strip figure { margin: 0; aspect-ratio: 3/4; overflow: hidden; border-radius: 14px; background: var(--border); }
+  .map-strip img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
+  .map-strip figure:hover img { transform: scale(1.05); }
+  @media (min-width: 860px) { .map-grid { grid-template-columns: 1fr 1fr; gap: 56px; } }
+
+  .teaser-proxy { background: var(--surface); }
+  .fine-note { font-size: 14px; color: var(--muted); border-left: 2px solid var(--indigo);
+    padding-left: 16px; margin: 0 0 28px; max-width: 60ch; }
+
+  /* ============ BUILT FOR ============ */
+  .builtfor { padding: clamp(56px, 10vw, 92px) 0; }
+  .bf-list { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 0; grid-template-columns: 1fr; }
+  .bf-list li { padding: 22px 0; border-top: 1px solid var(--border); font-size: 17px; color: var(--ink-soft); }
+  .bf-list li:last-child { border-bottom: 1px solid var(--border); }
+  .bf-list li b { color: var(--ink); font-weight: 600; }
+  @media (min-width: 760px) {
+    .bf-list { grid-template-columns: repeat(3, 1fr); gap: 0; }
+    .bf-list li { border-bottom: 1px solid var(--border); padding: 24px 28px 24px 0; }
+    .bf-list li + li { padding-left: 28px; border-left: 1px solid var(--border); }
+  }
+
+  /* ============ TRUST ============ */
+  .trust { padding: clamp(56px, 10vw, 92px) 0; background: var(--surface); border-top: 1px solid var(--border); }
+  .trust-list { list-style: none; margin: 26px 0 0; padding: 0; }
+  .trust-list li { position: relative; padding: 17px 0 17px 30px; border-top: 1px solid var(--border);
+    color: var(--ink-soft); font-size: 16px; }
+  .trust-list li:last-child { border-bottom: 1px solid var(--border); }
+  .trust-list li::before { content: "—"; position: absolute; left: 0; color: var(--indigo); }
+
+  /* ============ FOOTER ============ */
+  .site-footer { background: var(--accent); color: #d4d8dd; padding: 60px 0 30px; }
+  .footer-inner { display: flex; flex-direction: column; gap: 30px; }
+  .footer-brand-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .footer-logo { width: 42px; height: 42px; border-radius: 50%; background: #fff; object-fit: cover; }
+  .footer-mark { width: 42px; height: 42px; border-radius: 50%; align-items: center; justify-content: center;
+    font-family: var(--round); font-weight: 700; font-size: 19px; color: var(--accent); background: #fff; }
+  .footer-name { font-family: var(--serif); font-size: 20px; font-weight: 600; color: #fff; margin: 0; }
+  .footer-tag { margin: 0; color: #9aa0a8; max-width: 42ch; font-size: 15px; }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 10px; }
+  .footer-links a { color: #d4d8dd; text-decoration: none; font-size: 14px; padding: 7px 14px;
+    border: 1px solid rgba(255,255,255,0.18); border-radius: 999px;
+    transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease); }
+  .footer-links a:hover { background: #fff; color: var(--accent); border-color: #fff; }
+  .footer-fine { max-width: var(--maxw); margin: 44px auto 0; padding: 22px 22px 0;
+    border-top: 1px solid rgba(255,255,255,0.12); font-size: 13px; color: #868c94; }
+  @media (min-width: 720px) { .footer-inner { flex-direction: row; justify-content: space-between; align-items: flex-end; } }
+
+  /* ============ STICKY MOBILE CTA ============ */
+  .mobile-cta {
+    position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 70;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 15px 22px; border-radius: 999px; text-decoration: none;
+    background: var(--btn-bg); color: #fff; font-weight: 700; font-size: 15.5px;
+    box-shadow: 0 14px 30px -10px rgba(17,17,17,0.55);
+    opacity: 0; transform: translateY(120%); pointer-events: none;
+    transition: opacity .35s var(--ease), transform .35s var(--ease);
+  }
+  .mobile-cta::after { content: "→"; font-size: 16px; }
+  .mobile-cta.show { opacity: 1; transform: none; pointer-events: auto; }
+  @media (min-width: 720px) { .mobile-cta { display: none !important; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    .mobile-cta { transition: opacity .2s linear; transform: none; }
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+  </style>
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="brand">
+        <img src="assets/tcn-logo.png" alt="Tokyo Closet Notes logo" class="brand-logo"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" />
+        <span class="brand-mark" style="display:none" aria-hidden="true">tcn</span>
+        <span class="brand-name">Tokyo Closet Notes<small>Japan fashion finder</small></span>
+      </a>
+      <nav class="header-social" aria-label="Social links">
+        <a class="tlink" href="https://www.instagram.com/tokyo_closet_notes" target="_blank" rel="noopener">Instagram</a>
+        <a class="tlink" href="https://www.tiktok.com/@tokyo_closet_notes" target="_blank" rel="noopener">TikTok</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-main reveal">
+            <p class="eyebrow">Japan Fashion Finder</p>
+            <h1 class="hero-title">Find your Japan style mood.</h1>
+            <p class="hero-sub">
+              Answer a few quick questions and we’ll help you discover Japanese brands,
+              shops, and outfit ideas that match your taste.
+            </p>
+            <div class="hero-cta-row">
+              <a href="#finder" class="btn btn-primary" data-scroll>Start the style finder</a>
+              <a href="#map" class="btn btn-outline" data-scroll>Explore the map</a>
+            </div>
+            <p class="hero-note">
+              For people who love Japanese street style, quiet details, and real shopping routes.
+            </p>
+          </div>
+
+          <div class="hero-art reveal d1" aria-hidden="false">
+            <figure class="a1"><img src="assets/editorial-linen.jpg" alt="Linen layering, riverside Tokyo street style" loading="eager" /></figure>
+            <figure class="a2"><img src="assets/editorial-grey.jpg" alt="Grey knit and long skirt, quiet Tokyo street style" loading="lazy" /></figure>
+            <figure class="a3"><img src="assets/editorial-utility.jpg" alt="Utility jacket and wide denim, Tokyo arcade mood" loading="lazy" /></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VALUES STRIP ============ -->
+    <div class="strip">
+      <div class="strip-inner reveal">
+        <span><b>2 minutes</b> to complete</span>
+        <span><b>No login</b> required</span>
+        <span><b>No purchase</b> required</span>
+        <span>Reviewed <b>by hand</b></span>
+      </div>
+    </div>
+
+    <!-- ============ HOW IT WORKS ============ -->
+    <section class="how" aria-labelledby="how-title">
+      <div class="container">
+        <p class="eyebrow reveal">The process</p>
+        <h2 id="how-title" class="section-title reveal">How it works</h2>
+        <ol class="steps">
+          <li class="step reveal">
+            <span class="step-num">01</span>
+            <h3 class="step-title">Tell us your style</h3>
+            <p>Choose the moods, items, colors, and textures you like.</p>
+          </li>
+          <li class="step reveal d1">
+            <span class="step-num">02</span>
+            <h3 class="step-title">Get a direction</h3>
+            <p>We suggest Japanese brand categories, shop types, and outfit references.</p>
+          </li>
+          <li class="step reveal d2">
+            <span class="step-num">03</span>
+            <h3 class="step-title">Go deeper</h3>
+            <p>Request a brand list, shopping map, or personal Japan fashion search.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ VALUE / WHAT YOU RECEIVE ============ -->
+    <section class="value" aria-labelledby="value-title">
+      <div class="container">
+        <div class="value-grid">
+          <div class="reveal">
+            <p class="eyebrow">Why answer</p>
+            <h2 id="value-title" class="section-title">A first direction, made for your taste.</h2>
+            <p class="promise">
+              Answer a few style notes and we’ll send a first direction:
+              brands to look at, cities to explore, and outfit moods that match your taste.
+            </p>
+            <p class="promise-meta">2 minutes. No login. No purchase required.</p>
+            <p class="promise-meta">We read every request manually before suggesting brands or shopping routes.</p>
+          </div>
+          <div class="reveal d1">
+            <p class="receive-title">What you may receive</p>
+            <ul class="receive-list">
+              <li>Japanese brand directions</li>
+              <li>Shop and city ideas</li>
+              <li>Outfit mood notes</li>
+              <li>Future Japan Fashion Map updates</li>
+              <li>Personal search options</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FORM ============ -->
+    <section id="finder" class="finder" aria-labelledby="finder-title">
+      <div class="container container-narrow">
+        <p class="eyebrow">The Style Finder</p>
+        <h2 id="finder-title" class="section-title">Japan Fashion Finder</h2>
+        <p class="finder-lead">A few quick taste questions — there are no wrong answers, just tap what you like. Under two minutes.</p>
+
+        <div class="finder-mood reveal" aria-hidden="true">
+          <figure><img src="assets/detail-knit.jpg" alt="" loading="lazy" /></figure>
+          <figure><img src="assets/detail-utility.jpg" alt="" loading="lazy" /></figure>
+          <figure><img src="assets/detail-linen.jpg" alt="" loading="lazy" /></figure>
+        </div>
+
+        <!-- sticky progress -->
+        <div class="progress-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Form progress">
+          <span class="progress-label" id="progress-label">Step 1 of 4 · About you</span>
+          <span class="progress-track"><span class="progress-fill" id="progress-fill"></span></span>
+          <span class="progress-pct" id="progress-pct">0%</span>
+        </div>
+
+        <form id="style-form" novalidate>
+
+          <!-- honeypot -->
+          <div class="hp-field" aria-hidden="true">
+            <label>Company<input type="text" name="company" id="hp-company" tabindex="-1" autocomplete="off" /></label>
+          </div>
+
+          <!-- Stage 1 -->
+          <fieldset class="fs" id="fs-1" data-stage="1">
+            <div class="fs-head"><span class="fs-step">Step 01</span></div>
+            <legend class="fs-legend">About you</legend>
+            <p class="fs-hint">So we know who we’re writing back to.</p>
+            <div class="grid-2">
+              <div class="field">
+                <label for="name">Name or nickname</label>
+                <input type="text" id="name" name="name" autocomplete="name" placeholder="Alex" />
+              </div>
+              <div class="field">
+                <label for="email">Email <span class="req">*</span></label>
+                <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required />
+              </div>
+              <div class="field">
+                <label for="handle">Instagram or TikTok handle</label>
+                <input type="text" id="handle" name="handle" placeholder="@yourhandle" />
+              </div>
+              <div class="field">
+                <label for="country">Country <span class="req">*</span></label>
+                <div class="select-wrap">
+                  <select id="country" name="country" autocomplete="country-name" required>
+                    <option value="" disabled selected>Select your country</option>
+                    <optgroup label="North America">
+                      <option>United States</option>
+                      <option>Canada</option>
+                      <option>Mexico</option>
+                    </optgroup>
+                    <optgroup label="Latin America &amp; Caribbean">
+                      <option>Argentina</option>
+                      <option>Bolivia</option>
+                      <option>Brazil</option>
+                      <option>Chile</option>
+                      <option>Colombia</option>
+                      <option>Costa Rica</option>
+                      <option>Cuba</option>
+                      <option>Dominican Republic</option>
+                      <option>Ecuador</option>
+                      <option>El Salvador</option>
+                      <option>Guatemala</option>
+                      <option>Honduras</option>
+                      <option>Jamaica</option>
+                      <option>Nicaragua</option>
+                      <option>Panama</option>
+                      <option>Paraguay</option>
+                      <option>Peru</option>
+                      <option>Puerto Rico</option>
+                      <option>Trinidad and Tobago</option>
+                      <option>Uruguay</option>
+                      <option>Venezuela</option>
+                    </optgroup>
+                    <optgroup label="Europe">
+                      <option>Austria</option>
+                      <option>Belgium</option>
+                      <option>Bulgaria</option>
+                      <option>Croatia</option>
+                      <option>Czechia</option>
+                      <option>Denmark</option>
+                      <option>Estonia</option>
+                      <option>Finland</option>
+                      <option>France</option>
+                      <option>Germany</option>
+                      <option>Greece</option>
+                      <option>Hungary</option>
+                      <option>Iceland</option>
+                      <option>Ireland</option>
+                      <option>Italy</option>
+                      <option>Latvia</option>
+                      <option>Lithuania</option>
+                      <option>Luxembourg</option>
+                      <option>Malta</option>
+                      <option>Netherlands</option>
+                      <option>Norway</option>
+                      <option>Poland</option>
+                      <option>Portugal</option>
+                      <option>Romania</option>
+                      <option>Russia</option>
+                      <option>Serbia</option>
+                      <option>Slovakia</option>
+                      <option>Slovenia</option>
+                      <option>Spain</option>
+                      <option>Sweden</option>
+                      <option>Switzerland</option>
+                      <option>Ukraine</option>
+                      <option>United Kingdom</option>
+                    </optgroup>
+                    <optgroup label="East Asia">
+                      <option>China</option>
+                      <option>Hong Kong</option>
+                      <option>Japan</option>
+                      <option>Macau</option>
+                      <option>Mongolia</option>
+                      <option>South Korea</option>
+                      <option>Taiwan</option>
+                    </optgroup>
+                    <optgroup label="Southeast Asia">
+                      <option>Brunei</option>
+                      <option>Cambodia</option>
+                      <option>Indonesia</option>
+                      <option>Laos</option>
+                      <option>Malaysia</option>
+                      <option>Myanmar</option>
+                      <option>Philippines</option>
+                      <option>Singapore</option>
+                      <option>Thailand</option>
+                      <option>Vietnam</option>
+                    </optgroup>
+                    <optgroup label="South Asia">
+                      <option>Bangladesh</option>
+                      <option>Bhutan</option>
+                      <option>India</option>
+                      <option>Maldives</option>
+                      <option>Nepal</option>
+                      <option>Pakistan</option>
+                      <option>Sri Lanka</option>
+                    </optgroup>
+                    <optgroup label="Middle East">
+                      <option>Bahrain</option>
+                      <option>Iran</option>
+                      <option>Iraq</option>
+                      <option>Israel</option>
+                      <option>Jordan</option>
+                      <option>Kuwait</option>
+                      <option>Lebanon</option>
+                      <option>Oman</option>
+                      <option>Qatar</option>
+                      <option>Saudi Arabia</option>
+                      <option>Turkey</option>
+                      <option>United Arab Emirates</option>
+                    </optgroup>
+                    <optgroup label="Africa">
+                      <option>Algeria</option>
+                      <option>Egypt</option>
+                      <option>Ethiopia</option>
+                      <option>Ghana</option>
+                      <option>Kenya</option>
+                      <option>Morocco</option>
+                      <option>Nigeria</option>
+                      <option>Rwanda</option>
+                      <option>Senegal</option>
+                      <option>South Africa</option>
+                      <option>Tanzania</option>
+                      <option>Tunisia</option>
+                      <option>Uganda</option>
+                    </optgroup>
+                    <optgroup label="Oceania">
+                      <option>Australia</option>
+                      <option>Fiji</option>
+                      <option>New Zealand</option>
+                      <option>Papua New Guinea</option>
+                    </optgroup>
+                    <optgroup label="Other">
+                      <option>Other / not listed</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field" style="margin-top:18px">
+              <label for="visitJapan">Your Japan plan — are you planning to visit?</label>
+              <div class="select-wrap">
+                <select id="visitJapan" name="visitJapan">
+                  <option value="" disabled selected>Choose one</option>
+                  <option>Yes, soon</option>
+                  <option>Maybe someday</option>
+                  <option>Not currently</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Stage 2 -->
+          <fieldset class="fs" id="fs-2" data-stage="2">
+            <div class="fs-head"><span class="fs-step">Step 02</span></div>
+            <legend class="fs-legend">Your mood</legend>
+            <p class="fs-hint">Select all that feel like you.</p>
+            <div class="chips" data-group="styleMoods" role="group" aria-label="Style mood">
+              <button type="button" class="chip" data-value="Minimal">Minimal</button>
+              <button type="button" class="chip" data-value="Vintage">Vintage</button>
+              <button type="button" class="chip" data-value="Streetwear">Streetwear</button>
+              <button type="button" class="chip" data-value="Techwear">Techwear</button>
+              <button type="button" class="chip" data-value="Designer">Designer</button>
+              <button type="button" class="chip" data-value="Quiet luxury">Quiet luxury</button>
+              <button type="button" class="chip" data-value="Workwear">Workwear</button>
+              <button type="button" class="chip" data-value="Japanese casual">Japanese casual</button>
+              <button type="button" class="chip" data-value="Harajuku / playful">Harajuku / playful</button>
+              <button type="button" class="chip" data-value="Dark / monochrome">Dark / monochrome</button>
+              <button type="button" class="chip" data-value="Soft neutral">Soft neutral</button>
+              <button type="button" class="chip" data-value="Used clothing / thrift">Used clothing / thrift</button>
+            </div>
+          </fieldset>
+
+          <!-- Stage 2b -->
+          <fieldset class="fs" data-stage="2">
+            <legend class="fs-legend">What you are looking for</legend>
+            <p class="fs-hint">Pieces, services, or both — select all that apply.</p>
+            <div class="chips" data-group="desiredItems" role="group" aria-label="Desired items">
+              <button type="button" class="chip" data-value="Jackets">Jackets</button>
+              <button type="button" class="chip" data-value="Pants">Pants</button>
+              <button type="button" class="chip" data-value="Shirts">Shirts</button>
+              <button type="button" class="chip" data-value="Knitwear">Knitwear</button>
+              <button type="button" class="chip" data-value="Shoes">Shoes</button>
+              <button type="button" class="chip" data-value="Bags">Bags</button>
+              <button type="button" class="chip" data-value="Accessories">Accessories</button>
+              <button type="button" class="chip" data-value="Full outfits">Full outfits</button>
+              <button type="button" class="chip" data-value="Japanese brands">Japanese brands</button>
+              <button type="button" class="chip" data-value="Shopping map">Shopping map</button>
+              <button type="button" class="chip" data-value="Proxy shopping help">Proxy shopping help</button>
+            </div>
+          </fieldset>
+
+          <!-- Stage 3 -->
+          <fieldset class="fs" id="fs-3" data-stage="3">
+            <div class="fs-head"><span class="fs-step">Step 03</span></div>
+            <legend class="fs-legend">Details that matter</legend>
+            <p class="fs-hint">The quiet things that make a piece feel right.</p>
+            <div class="chips" data-group="details" role="group" aria-label="Details you care about">
+              <button type="button" class="chip" data-value="Wide silhouette">Wide silhouette</button>
+              <button type="button" class="chip" data-value="Heavy shoes">Heavy shoes</button>
+              <button type="button" class="chip" data-value="Soft fabrics">Soft fabrics</button>
+              <button type="button" class="chip" data-value="Linen / cotton">Linen / cotton</button>
+              <button type="button" class="chip" data-value="Denim">Denim</button>
+              <button type="button" class="chip" data-value="Nylon / technical fabrics">Nylon / technical fabrics</button>
+              <button type="button" class="chip" data-value="Layering">Layering</button>
+              <button type="button" class="chip" data-value="Neutral colors">Neutral colors</button>
+              <button type="button" class="chip" data-value="Black outfits">Black outfits</button>
+              <button type="button" class="chip" data-value="Unique cuts">Unique cuts</button>
+              <button type="button" class="chip" data-value="Made in Japan">Made in Japan</button>
+              <button type="button" class="chip" data-value="Hard-to-find brands">Hard-to-find brands</button>
+            </div>
+          </fieldset>
+
+          <!-- Stage 3b: budget + new/used -->
+          <fieldset class="fs" data-stage="3">
+            <legend class="fs-legend">Budget</legend>
+            <div class="radio-list" data-radio="budget">
+              <label class="opt"><input type="radio" name="budget" value="Under $100" /><span>Under $100</span></label>
+              <label class="opt"><input type="radio" name="budget" value="$100-$250" /><span>$100–$250</span></label>
+              <label class="opt"><input type="radio" name="budget" value="$250-$500" /><span>$250–$500</span></label>
+              <label class="opt"><input type="radio" name="budget" value="$500+" /><span>$500+</span></label>
+              <label class="opt"><input type="radio" name="budget" value="I'm just researching" /><span>I’m just researching</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs" data-stage="3">
+            <legend class="fs-legend">New or used</legend>
+            <div class="radio-list" data-radio="newUsed">
+              <label class="opt"><input type="radio" name="newUsed" value="New only" /><span>New only</span></label>
+              <label class="opt"><input type="radio" name="newUsed" value="Used / vintage is okay" /><span>Used / vintage is okay</span></label>
+              <label class="opt"><input type="radio" name="newUsed" value="Both" /><span>Both</span></label>
+              <label class="opt"><input type="radio" name="newUsed" value="Not sure" /><span>Not sure</span></label>
+            </div>
+          </fieldset>
+
+          <!-- Stage 4 -->
+          <fieldset class="fs" id="fs-4" data-stage="4">
+            <div class="fs-head"><span class="fs-step">Step 04</span></div>
+            <legend class="fs-legend">What do you want from us? <span class="req">*</span></legend>
+            <p class="fs-hint">Pick everything you’re interested in — choose as many as you like.</p>
+            <div class="chips" data-group="requestType" role="group" aria-label="What you want from Tokyo Closet Notes">
+              <button type="button" class="chip" data-value="Free brand direction">Free brand direction</button>
+              <button type="button" class="chip" data-value="Paid brand research list">Paid brand research list</button>
+              <button type="button" class="chip" data-value="Japan fashion shopping map">Japan fashion shopping map</button>
+              <button type="button" class="chip" data-value="Personal shopping support">Personal shopping support</button>
+              <button type="button" class="chip" data-value="Proxy buying / shipping support">Proxy buying / shipping support</button>
+              <button type="button" class="chip" data-value="I'm not sure yet">I’m not sure yet</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs" data-stage="4">
+            <legend class="fs-legend">In your words</legend>
+            <p class="fs-hint">Tell us about a brand, outfit, photo, city, or mood you like.</p>
+            <div class="field">
+              <textarea id="freeText" name="freeText" rows="4" placeholder="Example: “I like wide black pants, soft layering, and brands that feel like Tokyo street style but not too loud.”"></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset class="fs" data-stage="4">
+            <legend class="fs-legend">Before you send <span class="req">*</span></legend>
+            <div class="consent">
+              <label class="opt opt-check"><input type="checkbox" name="consentStyleInquiry" /><span>I understand this is a style inquiry, not a confirmed purchase.</span></label>
+              <label class="opt opt-check"><input type="checkbox" name="consentExtraCosts" /><span>I understand proxy shopping, shipping, customs, and taxes may involve additional costs.</span></label>
+              <label class="opt opt-check"><input type="checkbox" name="consentContact" /><span>I agree that Tokyo Closet Notes may contact me by email or social DM.</span></label>
+            </div>
+          </fieldset>
+
+          <!-- hidden tracking -->
+          <input type="hidden" name="source" id="f-source" value="" />
+          <input type="hidden" name="utmSource" id="f-utm-source" value="" />
+          <input type="hidden" name="utmMedium" id="f-utm-medium" value="" />
+          <input type="hidden" name="utmCampaign" id="f-utm-campaign" value="" />
+
+          <div class="form-foot">
+            <p class="form-error" id="form-error" role="alert" hidden></p>
+            <p class="submit-micro">Your answers help us build a more personal Japanese fashion guide.</p>
+            <button type="submit" class="btn btn-primary btn-block" id="submit-btn">
+              <span class="btn-label">Send my style notes</span>
+              <span class="btn-spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+        </form>
+
+        <!-- success replaces form -->
+        <div class="form-success" id="form-success" role="status" hidden>
+          <div class="fs-tick" aria-hidden="true"></div>
+          <h3>Thank you.</h3>
+          <p>We’ll review your style notes and send a first direction soon.</p>
+          <p class="success-next">You’re on the list for <b>Japan Fashion Map</b> updates — a city-by-city guide to shops, brands, and areas worth exploring. We’ll share it with you first.</p>
+          <a href="#map" class="btn btn-outline" data-scroll style="margin-top:18px">Preview the Japan Fashion Map</a>
+          <p class="micro">We read every request manually before suggesting brands or shopping routes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ JAPAN FASHION MAP TEASER ============ -->
+    <section id="map" class="teaser teaser-map" aria-labelledby="map-title">
+      <div class="container">
+        <div class="map-grid">
+          <div class="reveal">
+            <p class="eyebrow">Coming soon · members first</p>
+            <h2 id="map-title" class="section-title">Japan Fashion Map</h2>
+            <p class="section-lead">A city-by-city guide to Japanese fashion shops, brands, and areas worth exploring. Tell us your style through the finder to receive map updates first.</p>
+            <div class="city-chips">
+              <span class="city-chip">Tokyo</span>
+              <span class="city-chip">Osaka</span>
+              <span class="city-chip">Kyoto</span>
+              <span class="city-chip">Nagoya</span>
+              <span class="city-chip">Fukuoka</span>
+            </div>
+            <a href="#finder" class="btn btn-outline" data-scroll>Join the map waitlist</a>
+          </div>
+          <div class="map-strip reveal d1" aria-hidden="true">
+            <figure><img src="assets/editorial-utility.jpg" alt="" loading="lazy" /></figure>
+            <figure><img src="assets/editorial-grey.jpg" alt="" loading="lazy" /></figure>
+            <figure><img src="assets/editorial-linen.jpg" alt="" loading="lazy" /></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROXY TEASER ============ -->
+    <section class="teaser teaser-proxy" aria-labelledby="proxy-title">
+      <div class="container container-narrow">
+        <p class="eyebrow reveal">Personal search</p>
+        <h2 id="proxy-title" class="section-title reveal">Need help finding a specific Japanese piece?</h2>
+        <p class="section-lead reveal">
+          We can help research real Japanese brands, shop links, availability, and possible
+          buying routes. Proxy shopping may be available for selected requests after confirmation.
+        </p>
+        <p class="fine-note reveal">
+          We do not guarantee availability, sizing, customs fees, or delivery times. All item
+          costs, shipping fees, duties, and taxes are the buyer’s responsibility.
+        </p>
+        <a href="#finder" class="btn btn-outline reveal" data-scroll>Request a personal search</a>
+      </div>
+    </section>
+
+    <!-- ============ BUILT FOR ============ -->
+    <section class="builtfor" aria-labelledby="bf-title">
+      <div class="container">
+        <p class="eyebrow reveal">Who it’s for</p>
+        <h2 id="bf-title" class="section-title reveal">Built for</h2>
+        <ul class="bf-list">
+          <li class="reveal"><b>People discovering Japanese brands</b><br />quietly, at their own pace.</li>
+          <li class="reveal d1"><b>Travelers planning Tokyo / Osaka / Kyoto</b><br />shopping with a real route in mind.</li>
+          <li class="reveal d2"><b>Fans of quiet details</b><br />wide silhouettes, good fabric, and real shopping routes.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ TRUST NOTES ============ -->
+    <section class="trust" aria-labelledby="trust-title">
+      <div class="container container-narrow">
+        <p class="eyebrow reveal">How we work</p>
+        <h2 id="trust-title" class="section-title reveal">Trust notes</h2>
+        <ul class="trust-list">
+          <li class="reveal">We never pretend AI outfit studies are real street snaps.</li>
+          <li class="reveal">We do not fake brand names.</li>
+          <li class="reveal">We only suggest real brands when researched.</li>
+          <li class="reveal">Proxy shopping is handled case by case.</li>
+          <li class="reveal">Customs duties, import taxes, and shipping delays are the buyer’s responsibility.</li>
+          <li class="reveal">Some items may be unavailable, sold out, or not eligible for international shipping.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="footer-brand-row">
+          <img src="assets/tcn-logo.png" alt="Tokyo Closet Notes logo" class="footer-logo"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" />
+          <span class="footer-mark" style="display:none" aria-hidden="true">tcn</span>
+          <p class="footer-name">Tokyo Closet Notes</p>
+        </div>
+        <p class="footer-tag">Japanese street style notes, brand research, and shopping direction.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer links">
+        <a href="https://www.instagram.com/tokyo_closet_notes" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.tiktok.com/@tokyo_closet_notes" target="_blank" rel="noopener">TikTok</a>
+        <a href="mailto:tokyoclosetnotes@outlook.jp">Email</a>
+      </nav>
+    </div>
+    <p class="footer-fine">© <span id="year"></span> Tokyo Closet Notes</p>
+  </footer>
+
+  <!-- sticky mobile CTA (appears after scrolling past the hero) -->
+  <a href="#finder" class="mobile-cta" id="mobile-cta" data-scroll aria-label="Start the style finder">Start the style finder</a>
+
+  <!-- ============================================================
+       Inlined script — behavior never depends on a separate file.
+       Replace the URL below after deploying the Apps Script Web App
+       (see README.md).
+       ============================================================ -->
+  <script>
+  /* 1. Paste your deployed Google Apps Script Web App URL here. */
+  const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby72ayXgnUzw7TZkqqHa3F6_ix5CJgNUXwsup-UUQZzaPQeJdwnH8rMNMexYCXHSPJl/exec";
+
+  /* Default "source" when opened without a ?source= param. */
+  const DEFAULT_SOURCE = "website";
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var y = document.getElementById("year");
+    if (y) y.textContent = String(new Date().getFullYear());
+    setupReveal();
+    setupSmoothScroll();
+    setupChips();
+    captureTracking();
+    setupProgress();
+    setupForm();
+    setupMobileCta();
+  });
+
+  /* ---------- sticky mobile CTA ---------- */
+  function setupMobileCta() {
+    var cta = document.getElementById("mobile-cta");
+    var hero = document.querySelector(".hero");
+    var finder = document.getElementById("finder");
+    if (!cta || !hero) return;
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var pastHero = (hero.getBoundingClientRect().bottom) < 40;
+      // hide once the form itself is on screen (they're already there)
+      var formVisible = finder && finder.getBoundingClientRect().top < window.innerHeight * 0.6
+                        && finder.getBoundingClientRect().bottom > 0;
+      cta.classList.toggle("show", pastHero && !formVisible);
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    update();
+  }
+
+  /* ---------- scroll reveal ---------- */
+  function setupReveal() {
+    var els = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window)) {
+      els.forEach(function (el) { el.classList.add("is-visible"); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---------- smooth scroll for in-page CTAs ---------- */
+  function setupSmoothScroll() {
+    document.querySelectorAll('a[data-scroll]').forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        var id = a.getAttribute("href");
+        if (id && id.charAt(0) === "#") {
+          var target = document.querySelector(id);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+            history.replaceState(null, "", id);
+          }
+        }
+      });
+    });
+  }
+
+  /* ---------- chips ---------- */
+  function setupChips() {
+    document.querySelectorAll(".chip").forEach(function (chip) {
+      chip.setAttribute("aria-pressed", "false");
+      chip.addEventListener("click", function () {
+        var on = chip.classList.toggle("is-selected");
+        chip.setAttribute("aria-pressed", String(on));
+        updateProgress();
+      });
+    });
+  }
+  function getChipValues(group) {
+    var wrap = document.querySelector('.chips[data-group="' + group + '"]');
+    if (!wrap) return [];
+    return Array.prototype.slice.call(wrap.querySelectorAll(".chip.is-selected"))
+      .map(function (c) { return c.dataset.value; });
+  }
+
+  /* ---------- tracking ---------- */
+  function captureTracking() {
+    var params = new URLSearchParams(window.location.search);
+    var get = function (k) { return (params.get(k) || "").trim(); };
+    document.getElementById("f-source").value = get("source") || DEFAULT_SOURCE;
+    document.getElementById("f-utm-source").value = get("utm_source");
+    document.getElementById("f-utm-medium").value = get("utm_medium");
+    document.getElementById("f-utm-campaign").value = get("utm_campaign");
+  }
+
+  /* ---------- progress ---------- */
+  var STAGES = [
+    { label: "About you",       done: function (d) { return !!d.email && !!d.country; } },
+    { label: "Your style",      done: function (d) { return d.styleMoods.length > 0 || d.desiredItems.length > 0; } },
+    { label: "Preferences",     done: function (d) { return !!d.budget || !!d.newUsed || d.details.length > 0; } },
+    { label: "Your request",    done: function (d) { return d.requestType.length > 0 && d.consentStyleInquiry && d.consentExtraCosts && d.consentContact; } }
+  ];
+  function setupProgress() {
+    var form = document.getElementById("style-form");
+    form.addEventListener("input", updateProgress);
+    form.addEventListener("change", updateProgress);
+    updateProgress();
+  }
+  function updateProgress() {
+    var d = collectData();
+    var done = 0, current = STAGES.length;
+    for (var i = 0; i < STAGES.length; i++) {
+      if (STAGES[i].done(d)) done++;
+    }
+    for (var j = 0; j < STAGES.length; j++) {
+      if (!STAGES[j].done(d)) { current = j; break; }
+    }
+    var pct = Math.round((done / STAGES.length) * 100);
+    var fill = document.getElementById("progress-fill");
+    var label = document.getElementById("progress-label");
+    var pctEl = document.getElementById("progress-pct");
+    var wrap = document.querySelector(".progress-wrap");
+    fill.style.width = pct + "%";
+    pctEl.textContent = pct + "%";
+    if (wrap) wrap.setAttribute("aria-valuenow", String(pct));
+    if (done >= STAGES.length) {
+      label.textContent = "Ready to send";
+    } else {
+      label.textContent = "Step " + (current + 1) + " of 4 · " + STAGES[current].label;
+    }
+  }
+
+  /* ---------- submit ---------- */
+  function setupForm() {
+    var form = document.getElementById("style-form");
+    var errorEl = document.getElementById("form-error");
+    var successEl = document.getElementById("form-success");
+    var btn = document.getElementById("submit-btn");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      hide(errorEl);
+
+      var data = collectData();
+      if (data._hp) return; // honeypot tripped
+
+      var problem = validate(data);
+      if (problem) {
+        showError(errorEl, problem.message);
+        if (problem.focusId) {
+          var el = document.getElementById(problem.focusId);
+          if (el) { el.scrollIntoView({ behavior: "smooth", block: "center" }); try { el.focus({ preventScroll: true }); } catch (_) {} }
+        }
+        return;
+      }
+      if (GOOGLE_APPS_SCRIPT_URL === "PASTE_WEB_APP_URL_HERE") {
+        showError(errorEl, "Form is not connected yet. Add your Google Apps Script Web App URL at the top of the script (see README).");
+        return;
+      }
+
+      setLoading(btn, true);
+      try {
+        var res = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(stripInternal(data))
+        });
+        var json = null;
+        try { json = await res.json(); } catch (_) {}
+
+        if (res.ok && json && json.result === "success") {
+          form.style.display = "none";
+          var pw = document.querySelector(".progress-wrap"); if (pw) pw.style.display = "none";
+          show(successEl);
+          successEl.scrollIntoView({ behavior: "smooth", block: "center" });
+        } else {
+          showError(errorEl, (json && json.message) || "Something went wrong. Please try again.");
+        }
+      } catch (err) {
+        showError(errorEl, "We couldn’t send your notes. Check your connection and try again.");
+      } finally {
+        setLoading(btn, false);
+      }
+    });
+  }
+
+  function collectData() {
+    var val = function (id) { var el = document.getElementById(id); return el ? el.value.trim() : ""; };
+    var radio = function (name) { var el = document.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ""; };
+    var checked = function (name) { return !!document.querySelector('input[name="' + name + '"]:checked'); };
+    return {
+      name: val("name"), email: val("email"), handle: val("handle"), country: val("country"),
+      visitJapan: val("visitJapan"),
+      styleMoods: getChipValues("styleMoods"),
+      desiredItems: getChipValues("desiredItems"),
+      details: getChipValues("details"),
+      budget: radio("budget"), newUsed: radio("newUsed"),
+      requestType: getChipValues("requestType"),
+      freeText: val("freeText"),
+      consentStyleInquiry: checked("consentStyleInquiry"),
+      consentExtraCosts: checked("consentExtraCosts"),
+      consentContact: checked("consentContact"),
+      source: val("f-source"), utmSource: val("f-utm-source"),
+      utmMedium: val("f-utm-medium"), utmCampaign: val("f-utm-campaign"),
+      _hp: val("hp-company")
+    };
+  }
+  function stripInternal(data) { var c = {}; for (var k in data) { if (k !== "_hp") c[k] = data[k]; } return c; }
+
+  function validate(d) {
+    if (!d.email) return { message: "Please add your email so we can reply.", focusId: "email" };
+    if (!isEmail(d.email)) return { message: "That email doesn’t look right. Please check it.", focusId: "email" };
+    if (!d.country) return { message: "Please tell us your country.", focusId: "country" };
+    if (!d.requestType || !d.requestType.length) return { message: "Please choose at least one thing you’d like from Tokyo Closet Notes (Step 04)." };
+    if (!d.consentStyleInquiry || !d.consentExtraCosts || !d.consentContact)
+      return { message: "Please check all three boxes before sending." };
+    return null;
+  }
+  function isEmail(s) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s); }
+
+  function setLoading(btn, on) {
+    btn.disabled = on;
+    btn.classList.toggle("is-loading", on);
+    btn.querySelector(".btn-label").textContent = on ? "Sending…" : "Send my style notes";
+  }
+  function showError(el, msg) { el.textContent = msg; show(el); }
+  function show(el) { el.hidden = false; }
+  function hide(el) { el.hidden = true; }
+  </script>
+</body>
+</html>
