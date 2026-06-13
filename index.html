@@ -20,6 +20,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
 
+  <!-- Leaflet (custom Japan Fashion Map — OpenStreetMap tiles, no Google My Maps) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
   <!-- ============================================================
        Styles inlined so the page renders correctly everywhere
        (file://, any host, any preview). The only external dependency
@@ -39,6 +43,9 @@
     --accent:    #1f2933;   /* muted charcoal */
     --indigo:    #44506b;   /* faded indigo */
     --indigo-soft: #ecedf1;
+    --navy:      #1a2238;   /* deep navy (map editorial) */
+    --tcn-red:   #b5302a;   /* Tokyo Closet Notes red (markers / accents) */
+    --tcn-red-d: #97231e;   /* darker red for hover */
     --btn-bg:    #111111;
     --btn-text:  #ffffff;
 
@@ -139,19 +146,53 @@
     text-transform: uppercase; color: var(--muted); font-weight: 600; margin-top: 1px; white-space: nowrap; }
   .header-social { display: flex; gap: 8px; flex: none; }
 
-  /* compact header on phones — keep brand + social on one line, no overflow */
+  /* mobile menu — hidden on desktop (desktop keeps the social pills) */
+  .menu-btn { display: none; }
+  .mobile-menu { display: none; }
+
+  /* phones: collapse secondary nav into a single clean Menu button */
+  @media (max-width: 640px) {
+    .header-social { display: none; }
+    .menu-btn {
+      display: inline-flex; align-items: center; gap: 8px; flex: none;
+      font: inherit; font-family: var(--round); font-weight: 700; font-size: 13.5px; color: var(--ink);
+      background: var(--surface); border: 1px solid var(--border-2); border-radius: 999px;
+      padding: 9px 16px; min-height: 40px; cursor: pointer;
+      transition: border-color .18s var(--ease), background .18s var(--ease);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .menu-btn:hover, .menu-btn[aria-expanded="true"] { border-color: var(--ink); }
+    .menu-bars { display: inline-flex; flex-direction: column; justify-content: center; gap: 4px; width: 15px; }
+    .menu-bars span { display: block; width: 15px; height: 2px; background: var(--ink); border-radius: 2px;
+      transition: transform .2s var(--ease); }
+    .menu-btn[aria-expanded="true"] .menu-bars span:first-child { transform: translateY(3px) rotate(45deg); }
+    .menu-btn[aria-expanded="true"] .menu-bars span:last-child { transform: translateY(-3px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: block; overflow: hidden; max-height: 0; background: var(--bg);
+      border-top: 1px solid transparent;
+      transition: max-height .28s var(--ease), border-color .28s var(--ease);
+    }
+    .mobile-menu.open { max-height: 380px; border-top-color: var(--border); }
+    .mobile-menu .container { padding-top: 4px; padding-bottom: 8px; }
+    .mm-link {
+      display: block; text-decoration: none; color: var(--ink);
+      font-family: var(--round); font-weight: 700; font-size: 16px;
+      padding: 15px 2px; border-bottom: 1px solid var(--border); min-height: 48px;
+    }
+    .mm-link:last-child { border-bottom: 0; }
+    .mm-link:active { color: var(--indigo); }
+  }
   @media (max-width: 460px) {
     .header-inner { height: 56px; gap: 8px; }
     .brand { gap: 9px; }
     .brand-logo { width: 30px; height: 30px; }
     .brand-name { font-size: 15.5px; }
     .brand-name small { display: none; }      /* hide subtitle when space is tight */
-    .header-social { gap: 6px; }
-    .tlink { font-size: 12.5px; padding: 6px 11px; }
   }
   @media (max-width: 360px) {
-    .tlink { font-size: 12px; padding: 6px 10px; }
     .brand-name { font-size: 15px; }
+    .menu-btn { padding: 9px 13px; }
   }
 
   /* ============ HERO ============ */
@@ -406,6 +447,185 @@
     border-top: 1px solid rgba(255,255,255,0.12); font-size: 13px; color: #868c94; }
   @media (min-width: 720px) { .footer-inner { flex-direction: row; justify-content: space-between; align-items: flex-end; } }
 
+  /* ============ JAPAN FASHION MAP ============ */
+  .fashionmap { background: var(--navy); color: #e9ecf2; padding: clamp(54px, 9vw, 88px) 0;
+    border-bottom: 1px solid var(--border); }
+  .fashionmap .eyebrow { color: #8a93ad; }
+  .fashionmap .section-title { color: #fff; }
+  .fashionmap .map-lead { color: #b9c0d2; max-width: 56ch; margin: 0 0 8px; font-size: 17px; }
+
+  /* map gating */
+  #map-locked { text-align: center; padding: clamp(12px,3vw,30px) 0 8px; }
+  #map-locked .map-lead { margin: 0 auto 22px; }
+  .unlock-badge { display: inline-block; margin-left: 8px; font-family: var(--sans); font-size: 9.5px;
+    letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: #fff;
+    background: var(--tcn-red); border-radius: 999px; padding: 2px 8px; vertical-align: middle; }
+  .map-unlock-note { font-size: 12.5px; color: #7d87a3; margin: 22px 0 0; text-align: center; }
+  .gate-msg { margin: 14px 0 0; padding: 12px 15px; border-radius: 10px;
+    background: rgba(181,48,42,0.16); border: 1px solid rgba(181,48,42,0.5);
+    color: #ffd9d6; font-size: 14.5px; font-weight: 600; }
+
+  /* map head: title left, city tabs right */
+  .map-head { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+  .city-tabs { display: flex; gap: 6px; width: 100%; }
+  .city-tab {
+    font: inherit; font-family: var(--round); font-weight: 700; font-size: 15px; color: #9aa3bb;
+    background: none; border: 0; border-bottom: 2px solid transparent; padding: 8px 4px 9px;
+    cursor: pointer; white-space: nowrap; transition: color .18s var(--ease), border-color .18s var(--ease);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .city-tab:hover { color: #e9ecf2; }
+  .city-tab.active { color: #fff; border-bottom-color: var(--tcn-red); }
+  @media (max-width: 720px) {
+    .city-tabs { overflow-x: auto; gap: 10px; padding-bottom: 2px;
+      scrollbar-width: none; -ms-overflow-style: none; }
+    .city-tabs::-webkit-scrollbar { display: none; }
+  }
+  @media (min-width: 860px) {
+    .map-head { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+    .city-tabs { width: auto; gap: 4px; }
+    .city-tab { font-size: 15.5px; padding: 8px 12px 10px; }
+  }
+
+  /* coming-soon empty state (non-Tokyo cities) */
+  .map-comingsoon {
+    grid-column: 1 / -1; text-align: center; padding: clamp(30px,6vw,52px) 24px;
+    background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.22); border-radius: 18px;
+  }
+  .map-comingsoon h3 { font-family: var(--round); font-weight: 700; font-size: clamp(22px,4vw,28px);
+    color: #fff; margin: 0 0 10px; }
+  .map-comingsoon p { color: #b9c0d2; max-width: 44ch; margin: 0 auto 22px; font-size: 15.5px; }
+
+  /* filters */
+  .map-filters { margin: 28px 0 0; }
+  .filter-group { margin-bottom: 14px; }
+  .filter-group:last-child { margin-bottom: 0; }
+  .filter-label { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #7d87a3;
+    font-weight: 700; margin: 0 0 9px; }
+  .filter-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .filter-chip {
+    font: inherit; font-size: 13.5px; font-weight: 600; color: #d7dbe6;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 999px; padding: 9px 16px; cursor: pointer; white-space: nowrap;
+    transition: background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease);
+    -webkit-tap-highlight-color: transparent; min-height: 40px;
+  }
+  .filter-chip:hover { border-color: #fff; }
+  .filter-chip.active { background: var(--tcn-red); border-color: var(--tcn-red); color: #fff; }
+  @media (max-width: 620px) {
+    .filter-row { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px;
+      scrollbar-width: none; -ms-overflow-style: none; }
+    .filter-row::-webkit-scrollbar { display: none; }
+  }
+
+  /* area intro card */
+  .area-intro {
+    margin: 24px 0 0; padding: 22px 24px; border-radius: 16px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+    display: grid; gap: 16px; grid-template-columns: 1fr;
+  }
+  .area-intro h3 { font-family: var(--round); font-weight: 700; font-size: clamp(20px,3.4vw,26px);
+    margin: 0 0 8px; color: #fff; letter-spacing: -0.01em; }
+  .area-intro .area-tagline { color: #c4cad9; margin: 0; font-size: 15.5px; max-width: 60ch; }
+  .area-meta { display: flex; flex-wrap: wrap; gap: 10px 26px; align-self: center; }
+  .area-meta div { font-size: 13.5px; }
+  .area-meta .k { display: block; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+    color: #7d87a3; font-weight: 700; margin-bottom: 3px; }
+  .area-meta .v { color: #eef0f4; }
+  .area-meta .v b { color: var(--tcn-red-2, #ff8f88); }
+  @media (min-width: 820px) { .area-intro { grid-template-columns: 1.1fr 1fr; gap: 30px; align-items: center; } }
+
+  /* map container */
+  .map-wrap { margin: 18px 0 0; border-radius: 16px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 20px 50px -28px rgba(0,0,0,0.8); }
+  #tcn-map { height: 360px; width: 100%; background: #dfe3e8; }
+  @media (min-width: 820px) { #tcn-map { height: 480px; } }
+  .map-foot-note { font-size: 12.5px; color: #7d87a3; margin: 10px 2px 0; }
+
+  /* custom red markers — bold red circle, white "S", white ring + shadow */
+  .tcn-marker { background: none; border: 0; }
+  .tcn-pin { width: 34px; height: 34px; border-radius: 50%; background: var(--tcn-red);
+    border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-family: var(--round); font-weight: 700; font-size: 17px; line-height: 1;
+    transition: transform .15s var(--ease), background .15s var(--ease); cursor: pointer; }
+  .tcn-pin:hover { transform: scale(1.16); background: var(--tcn-red-d); }
+  .tcn-marker.active .tcn-pin { transform: scale(1.22); background: var(--tcn-red-d);
+    box-shadow: 0 0 0 4px rgba(181,48,42,0.32), 0 6px 16px rgba(0,0,0,0.5); }
+
+  /* leaflet popup theming */
+  .leaflet-popup-content-wrapper { border-radius: 14px; box-shadow: 0 16px 40px -16px rgba(0,0,0,0.5);
+    font-family: var(--sans); }
+  .leaflet-popup-content { margin: 0; width: 248px !important; }
+  .pop { overflow: hidden; border-radius: 14px; }
+  .pop-ph { height: 116px; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--navy), #33426b); color: #fff; position: relative; }
+  .pop-ph img { width: 100%; height: 100%; object-fit: cover; }
+  .pop-ph .mono { font-family: var(--round); font-weight: 700; font-size: 30px; letter-spacing: .04em; }
+  .pop-body { padding: 13px 15px 15px; }
+  .pop-body h4 { font-family: var(--round); font-weight: 700; font-size: 16.5px; margin: 0 0 5px; color: var(--ink); }
+  .pop-body .pop-desc { font-size: 13px; color: var(--ink-soft); margin: 0 0 9px; line-height: 1.45; }
+  .pop-meta { font-size: 12px; color: var(--muted); margin: 0 0 9px; }
+  .pop-meta b { color: var(--ink-soft); font-weight: 600; }
+  .pop-tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 11px; }
+  .pop-tags span, .shop-tags span { font-size: 11px; font-weight: 600; color: var(--indigo);
+    background: var(--indigo-soft); border-radius: 999px; padding: 3px 9px; }
+  .pop-actions { display: flex; gap: 7px; }
+  .pop-actions a { flex: 1; text-align: center; text-decoration: none; font-size: 12.5px; font-weight: 700;
+    padding: 9px 8px; border-radius: 8px; }
+  .pop-actions .a-maps { background: var(--tcn-red); color: #fff; }
+  .pop-actions .a-maps:hover { background: var(--tcn-red-d); }
+  .pop-actions .a-site { background: #fff; color: var(--ink); border: 1px solid var(--border-2); }
+  .pop-actions .a-site:hover { border-color: var(--ink); }
+
+  /* shop card list */
+  .shop-listhead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    margin: 38px 0 16px; }
+  .shop-listhead h3 { font-family: var(--round); font-weight: 700; font-size: 20px; color: #fff; margin: 0; }
+  .shop-count { font-size: 13px; color: #8a93ad; }
+  .shop-grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+  @media (min-width: 600px) { .shop-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 980px) { .shop-grid { grid-template-columns: 1fr 1fr 1fr; } }
+  .shop-card { background: var(--surface); color: var(--ink); border-radius: 16px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1); cursor: pointer; text-align: left;
+    display: flex; flex-direction: column; font: inherit; padding: 0;
+    transition: transform .18s var(--ease), box-shadow .18s var(--ease); }
+  .shop-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -22px rgba(0,0,0,0.7); }
+  .shop-card.active { outline: 2px solid var(--tcn-red); outline-offset: 0; }
+  .shop-ph { aspect-ratio: 16/10; position: relative; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--navy), #34436c); color: #fff; }
+  .shop-ph img { width: 100%; height: 100%; object-fit: cover; }
+  .shop-ph .mono { font-family: var(--round); font-weight: 700; font-size: 34px; letter-spacing: .05em; opacity: .96; }
+  .shop-ph .ph-area { position: absolute; left: 12px; bottom: 10px; font-size: 10.5px; letter-spacing: .14em;
+    text-transform: uppercase; color: rgba(255,255,255,0.8); }
+  .shop-ph::after { content: ""; position: absolute; right: 12px; top: 12px; width: 9px; height: 9px;
+    border-radius: 50%; background: var(--tcn-red); box-shadow: 0 0 0 3px rgba(181,48,42,0.3); }
+  .shop-body { padding: 16px 16px 18px; display: flex; flex-direction: column; flex: 1; }
+  .shop-body h4 { font-family: var(--round); font-weight: 700; font-size: 17px; margin: 0 0 5px; }
+  .shop-body .shop-desc { font-size: 13.5px; color: var(--ink-soft); margin: 0 0 11px; line-height: 1.5; }
+  .shop-tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 12px; }
+  .shop-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    border-top: 1px solid var(--border); padding-top: 11px; }
+  .shop-price { font-size: 13px; font-weight: 700; color: var(--ink); }
+  .shop-foot .shop-area-tag { font-size: 11.5px; color: var(--muted); }
+  .shop-empty { color: #b9c0d2; font-size: 15px; padding: 22px 0; }
+
+  /* paid CTA / locked teaser */
+  .paid-cta { margin: 40px 0 0; padding: clamp(26px,5vw,40px); border-radius: 18px;
+    background: linear-gradient(135deg, rgba(181,48,42,0.16), rgba(255,255,255,0.04));
+    border: 1px solid rgba(255,255,255,0.16); position: relative; overflow: hidden; }
+  .paid-cta .lock-eyebrow { display: inline-flex; align-items: center; gap: 7px; font-size: 11px;
+    letter-spacing: .18em; text-transform: uppercase; color: #ff9b94; font-weight: 700; margin: 0 0 12px; }
+  .paid-cta .lock-eyebrow::before { content: "🔒"; font-size: 12px; }
+  .paid-cta h3 { font-family: var(--round); font-weight: 700; font-size: clamp(21px,3.6vw,28px);
+    color: #fff; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .paid-cta p { color: #c4cad9; margin: 0 0 8px; max-width: 56ch; font-size: 15.5px; }
+  .paid-cta .paid-stats { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 16px 0 22px; }
+  .paid-cta .paid-stats div { font-size: 13px; color: #b9c0d2; }
+  .paid-cta .paid-stats b { display: block; font-family: var(--round); font-size: 24px; color: #fff; }
+  .btn-red { background: var(--tcn-red); color: #fff; border-color: var(--tcn-red); }
+  .btn-red:hover { background: var(--tcn-red-d); }
+
   /* ============ STICKY MOBILE CTA ============ */
   .mobile-cta {
     position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 70;
@@ -443,7 +663,22 @@
         <a class="tlink" href="https://www.instagram.com/tokyo_closet_notes" target="_blank" rel="noopener">Instagram</a>
         <a class="tlink" href="https://www.tiktok.com/@tokyo_closet_notes" target="_blank" rel="noopener">TikTok</a>
       </nav>
+      <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="menu-bars" aria-hidden="true"><span></span><span></span></span>
+        <span class="menu-word">Menu</span>
+      </button>
     </div>
+
+    <!-- mobile slide-down menu -->
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile menu">
+      <div class="container">
+        <a class="mm-link" href="#finder" data-scroll data-menu-close>Finder</a>
+        <a class="mm-link" href="#map" data-scroll data-menu-close>Map</a>
+        <a class="mm-link" href="#proxy" data-scroll data-menu-close>Proxy Support</a>
+        <a class="mm-link" href="https://www.instagram.com/tokyo_closet_notes" target="_blank" rel="noopener" data-menu-close>Instagram</a>
+        <a class="mm-link" href="https://www.tiktok.com/@tokyo_closet_notes" target="_blank" rel="noopener" data-menu-close>TikTok</a>
+      </div>
+    </nav>
   </header>
 
   <main id="top">
@@ -546,6 +781,7 @@
         <p class="eyebrow">The Style Finder</p>
         <h2 id="finder-title" class="section-title">Japan Fashion Finder</h2>
         <p class="finder-lead">A few quick taste questions — there are no wrong answers, just tap what you like. Under two minutes.</p>
+        <p class="gate-msg" id="gate-msg" role="status" hidden>Answer the Style Finder to unlock the free Tokyo Fashion Map preview.</p>
 
         <div class="finder-mood reveal" aria-hidden="true">
           <figure><img src="assets/detail-knit.jpg" alt="" loading="lazy" /></figure>
@@ -801,7 +1037,7 @@
 
           <!-- Stage 3b: budget + new/used -->
           <fieldset class="fs" data-stage="3">
-            <legend class="fs-legend">Budget</legend>
+            <legend class="fs-legend">Your fashion shopping budget</legend>
             <div class="radio-list" data-radio="budget">
               <label class="opt"><input type="radio" name="budget" value="Under $100" /><span>Under $100</span></label>
               <label class="opt"><input type="radio" name="budget" value="$100-$250" /><span>$100–$250</span></label>
@@ -875,40 +1111,104 @@
           <h3>Thank you.</h3>
           <p>We’ll review your style notes and send a first direction soon.</p>
           <p class="success-next">You’re on the list for <b>Japan Fashion Map</b> updates — a city-by-city guide to shops, brands, and areas worth exploring. We’ll share it with you first.</p>
-          <a href="#map" class="btn btn-outline" data-scroll style="margin-top:18px">Preview the Japan Fashion Map</a>
+          <a href="#map" class="btn btn-outline" data-scroll style="margin-top:18px">Open the Free Tokyo Fashion Map</a>
           <p class="micro">We read every request manually before suggesting brands or shopping routes.</p>
         </div>
       </div>
     </section>
 
-    <!-- ============ JAPAN FASHION MAP TEASER ============ -->
-    <section id="map" class="teaser teaser-map" aria-labelledby="map-title">
+    <!-- ============ JAPAN FASHION MAP (custom Leaflet) ============ -->
+    <section id="map" class="fashionmap" aria-labelledby="map-title">
       <div class="container">
-        <div class="map-grid">
+
+        <!-- LOCKED state — shown until the Style Finder is submitted -->
+        <div id="map-locked">
+          <p class="eyebrow">Japan Fashion Map · free preview</p>
+          <h2 class="section-title">Unlock the free Tokyo Fashion Map.</h2>
+          <p class="map-lead">Answer the Style Finder and we’ll unlock your free preview — curated areas, real shops, and walking routes. It takes under two minutes.</p>
+          <a href="#finder" class="btn btn-red" id="map-unlock-cta" data-gate-finder>Answer the Style Finder</a>
+        </div>
+
+        <!-- UNLOCKED map — revealed after a successful submission (or returning visitor) -->
+        <div id="map-unlocked" hidden>
+        <div class="map-head">
           <div class="reveal">
-            <p class="eyebrow">Coming soon · members first</p>
-            <h2 id="map-title" class="section-title">Japan Fashion Map</h2>
-            <p class="section-lead">A city-by-city guide to Japanese fashion shops, brands, and areas worth exploring. Tell us your style through the finder to receive map updates first.</p>
-            <div class="city-chips">
-              <span class="city-chip">Tokyo</span>
-              <span class="city-chip">Osaka</span>
-              <span class="city-chip">Kyoto</span>
-              <span class="city-chip">Nagoya</span>
-              <span class="city-chip">Fukuoka</span>
-            </div>
-            <a href="#finder" class="btn btn-outline" data-scroll>Join the map waitlist</a>
+            <p class="eyebrow">Japan Fashion Map · free preview <span class="unlock-badge">Unlocked</span></p>
+            <h2 id="map-title" class="section-title">A curated Tokyo fashion map.</h2>
           </div>
-          <div class="map-strip reveal d1" aria-hidden="true">
-            <figure><img src="assets/editorial-utility.jpg" alt="" loading="lazy" /></figure>
-            <figure><img src="assets/editorial-grey.jpg" alt="" loading="lazy" /></figure>
-            <figure><img src="assets/editorial-linen.jpg" alt="" loading="lazy" /></figure>
+          <!-- reusable city tabs -->
+          <div class="city-tabs reveal" id="city-tabs" role="tablist" aria-label="Choose a city"></div>
+        </div>
+        <p class="map-lead reveal" id="map-lead">Not a search tool — a small, edited guide. Choose an area and we’ll focus the map on that neighborhood and the shops worth the walk.</p>
+
+        <!-- filters -->
+        <div class="map-filters reveal">
+          <div class="filter-group">
+            <p class="filter-label">Area</p>
+            <!-- area buttons are rendered per active city by setupMap() -->
+            <div class="filter-row" id="area-filters" role="group" aria-label="Filter by area"></div>
+          </div>
+          <div class="filter-group">
+            <p class="filter-label">Style</p>
+            <div class="filter-row" id="style-filters" role="group" aria-label="Filter by style">
+              <button type="button" class="filter-chip" data-style="all">All styles</button>
+              <button type="button" class="filter-chip" data-style="Made in Japan">Made in Japan</button>
+              <button type="button" class="filter-chip" data-style="Select Shop">Select Shop</button>
+              <button type="button" class="filter-chip" data-style="Vintage">Vintage</button>
+              <button type="button" class="filter-chip" data-style="Designer">Designer</button>
+              <button type="button" class="filter-chip" data-style="Street">Street</button>
+              <button type="button" class="filter-chip" data-style="Soft Neutral">Soft Neutral</button>
+            </div>
           </div>
         </div>
+
+        <!-- area intro card (updates with selected area) -->
+        <div class="area-intro reveal" id="area-intro">
+          <div>
+            <h3 id="ai-name">Area</h3>
+            <p class="area-tagline" id="ai-tagline"></p>
+          </div>
+          <div class="area-meta">
+            <div><span class="k">Best for</span><span class="v" id="ai-bestfor"></span></div>
+            <div><span class="k">Start at</span><span class="v" id="ai-station"></span></div>
+            <div><span class="k">Preview shops</span><span class="v"><b id="ai-count">0</b></span></div>
+          </div>
+        </div>
+
+        <!-- the map -->
+        <div class="map-wrap reveal">
+          <div id="tcn-map" role="application" aria-label="Tokyo fashion map"></div>
+        </div>
+        <p class="map-foot-note">Pins are curated and approximate. Tap “Open in Google Maps” for exact, up-to-date directions — and please confirm opening hours before visiting.</p>
+
+        <!-- shop card list -->
+        <div class="shop-listhead">
+          <h3>Shops in view</h3>
+          <span class="shop-count" id="shop-count"></span>
+        </div>
+        <div class="shop-grid" id="shop-grid"></div>
+
+        <!-- paid CTA / locked full map -->
+        <div class="paid-cta reveal">
+          <p class="lock-eyebrow">Full map locked</p>
+          <h3>Unlock the full Tokyo Fashion Shopping Map</h3>
+          <p>The preview above is a small edit. The full map adds many more researched shops, more districts, walking routes, and notes — built for travelers planning a real shopping day.</p>
+          <div class="paid-stats">
+            <div><b id="paid-shops">120+</b> researched shops</div>
+            <div><b id="paid-districts">8</b> Tokyo districts</div>
+            <div><b>Routes</b> walk-by-walk</div>
+          </div>
+          <p style="font-size:13px;color:#8a93ad" id="paid-note"></p>
+          <a href="#finder" class="btn btn-red" data-scroll style="margin-top:8px">Tell us your style to get early access</a>
+        </div>
+
+        <p class="map-unlock-note">Unlocked after Style Finder submission.</p>
+        </div><!-- /#map-unlocked -->
       </div>
     </section>
 
     <!-- ============ PROXY TEASER ============ -->
-    <section class="teaser teaser-proxy" aria-labelledby="proxy-title">
+    <section id="proxy" class="teaser teaser-proxy" aria-labelledby="proxy-title">
       <div class="container container-narrow">
         <p class="eyebrow reveal">Personal search</p>
         <h2 id="proxy-title" class="section-title reveal">Need help finding a specific Japanese piece?</h2>
@@ -978,6 +1278,11 @@
   <!-- sticky mobile CTA (appears after scrolling past the hero) -->
   <a href="#finder" class="mobile-cta" id="mobile-cta" data-scroll aria-label="Start the style finder">Start the style finder</a>
 
+  <!-- Leaflet library + separated map data (loaded before the main script) -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="map-data.js"></script>
+
   <!-- ============================================================
        Inlined script — behavior never depends on a separate file.
        Replace the URL below after deploying the Apps Script Web App
@@ -1000,7 +1305,374 @@
     setupProgress();
     setupForm();
     setupMobileCta();
+    setupMobileMenu();
+    setupMapGate();
   });
+
+  /* ============================================================
+     MAP GATING — the free map opens only after a successful
+     Style Finder submission (remembered per device via localStorage).
+     ============================================================ */
+  var mapInited = false;
+
+  function isMapUnlocked() {
+    try { return localStorage.getItem("tcnMapUnlocked") === "true"; } catch (e) { return false; }
+  }
+  function setMapUnlocked() {
+    try { localStorage.setItem("tcnMapUnlocked", "true"); } catch (e) {}
+  }
+  function ensureMapInit() {
+    if (mapInited) return;
+    mapInited = true;
+    setupMap(); // builds Leaflet only once, on a now-visible container
+  }
+  function revealMap() {
+    var locked = document.getElementById("map-locked");
+    var unlocked = document.getElementById("map-unlocked");
+    if (locked) locked.hidden = true;
+    if (unlocked) unlocked.hidden = false;
+    ensureMapInit();
+  }
+  function goToFinderWithGate() {
+    var msg = document.getElementById("gate-msg");
+    if (msg) msg.hidden = false;
+    var t = document.getElementById("finder");
+    if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  function setupMapGate() {
+    if (isMapUnlocked()) { revealMap(); }              // returning visitor on this device
+    document.querySelectorAll("[data-gate-finder]").forEach(function (a) {
+      a.addEventListener("click", function (e) { e.preventDefault(); goToFinderWithGate(); });
+    });
+  }
+
+  /* ---------- mobile slide-down menu ---------- */
+  function setupMobileMenu() {
+    var btn = document.getElementById("menu-btn");
+    var menu = document.getElementById("mobile-menu");
+    if (!btn || !menu) return;
+    function close() { menu.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); }
+    function toggle() {
+      var open = menu.classList.toggle("open");
+      btn.setAttribute("aria-expanded", String(open));
+    }
+    btn.addEventListener("click", toggle);
+    // close after choosing an item
+    menu.querySelectorAll("[data-menu-close]").forEach(function (a) {
+      a.addEventListener("click", close);
+    });
+    // close if resized up to desktop
+    window.addEventListener("resize", function () { if (window.innerWidth > 640) close(); }, { passive: true });
+  }
+
+  /* ============================================================
+     JAPAN FASHION MAP (Leaflet + OpenStreetMap)
+     UI logic only — shop/area data lives in map-data.js
+     ============================================================ */
+  function setupMap() {
+    var el = document.getElementById("tcn-map");
+    if (!el || typeof L === "undefined" || !window.TCN_MAP_DATA) return;
+
+    var DATA = window.TCN_MAP_DATA;
+    var CITIES = DATA.cities || {};
+    var startCity = (DATA.defaultCityId && CITIES[DATA.defaultCityId]) ? DATA.defaultCityId : Object.keys(CITIES)[0];
+    var state = { city: startCity, area: "all", style: "all" };
+    var markers = {}; // shopId -> marker
+
+    var map = L.map(el, { scrollWheelZoom: false, zoomControl: true, attributionControl: true });
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // build a bold red "S" marker for every preview shop, once (keyed by id)
+    DATA.shops.forEach(function (shop) {
+      if (shop.preview === false) return; // locked shops never plot in the free preview
+      var icon = L.divIcon({
+        className: "tcn-marker",
+        html: '<span class="tcn-pin">S</span>',
+        iconSize: [34, 34],
+        iconAnchor: [17, 17],
+        popupAnchor: [0, -18]
+      });
+      var m = L.marker(shop.coords, { icon: icon, title: shop.name });
+      m.bindPopup(popupHtml(shop), { closeButton: true, maxWidth: 260 });
+      m._shopId = shop.id;
+      markers[shop.id] = m;
+    });
+
+    // initialize wiring
+    renderCityTabs();
+    wireStyleFilters();
+    applyPaidTeaser();
+    selectCity(startCity, true);
+
+    // Leaflet needs a size recalc once the section is actually laid out
+    setTimeout(function () { map.invalidateSize(); applyView(); }, 250);
+
+    /* ---------- city helpers ---------- */
+    function city() { return CITIES[state.city]; }
+
+    function areaById(id) {
+      // active city first, then any city (so popups always resolve their area name)
+      var c = city(), i;
+      if (c) for (i = 0; i < c.areas.length; i++) if (c.areas[i].id === id) return c.areas[i];
+      var keys = Object.keys(CITIES);
+      for (var k = 0; k < keys.length; k++) {
+        var ar = CITIES[keys[k]].areas;
+        for (i = 0; i < ar.length; i++) if (ar[i].id === id) return ar[i];
+      }
+      return null;
+    }
+
+    function visibleShops() {
+      return DATA.shops.filter(function (s) {
+        if (s.preview === false) return false;
+        if (s.cityId !== state.city) return false;
+        if (state.area !== "all" && s.areaId !== state.area) return false;
+        if (state.style !== "all" && s.styles.indexOf(state.style) === -1) return false;
+        return true;
+      });
+    }
+
+    function cityHasPreviewShops() {
+      return DATA.shops.some(function (s) { return s.preview !== false && s.cityId === state.city; });
+    }
+
+    /* ---------- city tabs + per-city filters ---------- */
+    function renderCityTabs() {
+      var wrap = document.getElementById("city-tabs");
+      if (!wrap) return;
+      wrap.innerHTML = "";
+      Object.keys(CITIES).forEach(function (id) {
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "city-tab";
+        b.setAttribute("role", "tab"); b.setAttribute("data-city", id);
+        b.textContent = CITIES[id].name;
+        b.addEventListener("click", function () { selectCity(id, false); });
+        wrap.appendChild(b);
+      });
+    }
+
+    function renderAreaFilters() {
+      var wrap = document.getElementById("area-filters");
+      wrap.innerHTML = "";
+      function mk(val, label) {
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "filter-chip";
+        b.setAttribute("data-area", val); b.textContent = label;
+        b.addEventListener("click", function () { state.area = val; markActive("#area-filters", b); render(); });
+        return b;
+      }
+      wrap.appendChild(mk("all", "All areas"));
+      city().areas.forEach(function (a) { wrap.appendChild(mk(a.id, a.name)); });
+    }
+
+    function selectCity(id, initial) {
+      if (!CITIES[id]) return;
+      state.city = id;
+      var c = city();
+      state.area = c.defaultAreaId || "all";
+      state.style = "all";
+      document.getElementById("map-title").textContent = "A curated " + c.name + " fashion map.";
+      document.querySelectorAll("#city-tabs .city-tab").forEach(function (t) {
+        t.classList.toggle("active", t.getAttribute("data-city") === id);
+      });
+      renderAreaFilters();
+      var defArea = document.querySelector('#area-filters .filter-chip[data-area="' + state.area + '"]')
+                 || document.querySelector('#area-filters .filter-chip');
+      markActive("#area-filters", defArea);
+      markActive("#style-filters", document.querySelector('#style-filters .filter-chip[data-style="all"]'));
+      render();
+      if (!initial && map) setTimeout(function () { map.invalidateSize(); }, 60);
+    }
+
+    function wireStyleFilters() {
+      document.querySelectorAll("#style-filters .filter-chip").forEach(function (b) {
+        b.addEventListener("click", function () {
+          state.style = b.getAttribute("data-style");
+          markActive("#style-filters", b);
+          render();
+        });
+      });
+    }
+
+    function applyPaidTeaser() {
+      if (!DATA.fullMap) return;
+      if (DATA.fullMap.shopCount) document.getElementById("paid-shops").textContent = DATA.fullMap.shopCount;
+      if (DATA.fullMap.districtCount) document.getElementById("paid-districts").textContent = String(DATA.fullMap.districtCount);
+      if (DATA.fullMap.note) document.getElementById("paid-note").textContent = DATA.fullMap.note;
+    }
+
+    function render() {
+      var shops = visibleShops();
+      // markers: show only the ones currently in view
+      Object.keys(markers).forEach(function (id) {
+        var on = shops.some(function (s) { return s.id === id; });
+        if (on) { markers[id].addTo(map); }
+        else if (map.hasLayer(markers[id])) { map.removeLayer(markers[id]); }
+      });
+      renderAreaIntro();
+      if (city().comingSoon || !cityHasPreviewShops()) { renderComingSoon(); }
+      else { renderCards(shops); }
+      applyView(shops);
+    }
+
+    function applyView(shops) {
+      shops = shops || visibleShops();
+      var c = city();
+      if (state.area !== "all") {
+        var a = areaById(state.area);
+        if (a && a.center) { map.setView(a.center, a.zoom || c.zoom, { animate: true }); return; }
+      }
+      if (shops.length) {
+        var b = L.latLngBounds(shops.map(function (s) { return s.coords; }));
+        map.fitBounds(b, { padding: [40, 40], maxZoom: 14 });
+      } else {
+        map.setView(c.center, c.zoom, { animate: true }); // city overview / coming-soon
+      }
+    }
+
+    function renderAreaIntro() {
+      var c = city();
+      var nameEl = document.getElementById("ai-name");
+      var tagEl = document.getElementById("ai-tagline");
+      if (state.area === "all") {
+        nameEl.textContent = c.comingSoon ? (c.name + " — coming soon") : ("All " + c.name + " areas");
+        tagEl.textContent = c.intro;
+        document.getElementById("ai-bestfor").textContent = c.comingSoon ? "New routes in research" : "Street, designer, vintage & neutral";
+        document.getElementById("ai-station").textContent = c.comingSoon ? "—" : (c.areas[0] ? "Begins in " + c.areas[0].name.split(" / ")[0] : "—");
+        document.getElementById("ai-count").textContent = String(visibleShops().length);
+        return;
+      }
+      var a = areaById(state.area);
+      if (!a) return;
+      nameEl.textContent = a.name;
+      tagEl.textContent = a.tagline || "Coming soon — we’re researching shops in this area.";
+      document.getElementById("ai-bestfor").textContent = a.bestFor || "Coming soon";
+      document.getElementById("ai-station").textContent = a.station || "—";
+      var count = DATA.shops.filter(function (s) { return s.cityId === state.city && s.areaId === a.id && s.preview !== false; }).length;
+      document.getElementById("ai-count").textContent = String(count);
+    }
+
+    function renderComingSoon() {
+      var grid = document.getElementById("shop-grid");
+      document.getElementById("shop-count").textContent = "Coming soon";
+      grid.innerHTML =
+        '<div class="map-comingsoon">' +
+          '<h3>Coming soon</h3>' +
+          '<p>We’re building this city map next. Join the Style Finder list to get updates when new Japan fashion routes are added.</p>' +
+          '<a class="btn btn-red" href="#finder">Join the map waitlist</a>' +
+        '</div>';
+      var link = grid.querySelector("a.btn");
+      if (link) link.addEventListener("click", function (e) {
+        e.preventDefault();
+        var t = document.getElementById("finder");
+        if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+
+    function renderCards(shops) {
+      var grid = document.getElementById("shop-grid");
+      var countEl = document.getElementById("shop-count");
+      grid.innerHTML = "";
+      countEl.textContent = shops.length + (shops.length === 1 ? " shop" : " shops");
+      if (!shops.length) {
+        var empty = document.createElement("p");
+        empty.className = "shop-empty";
+        empty.textContent = "No preview shops match that style here yet — try “All styles”.";
+        grid.appendChild(empty);
+        return;
+      }
+      shops.forEach(function (shop) {
+        var area = areaById(shop.areaId);
+        var card = document.createElement("button");
+        card.type = "button";
+        card.className = "shop-card";
+        card.setAttribute("data-shop", shop.id);
+        card.innerHTML =
+          '<div class="shop-ph">' + phMedia(shop) +
+            '<span class="ph-area">' + esc(area ? area.name : "") + '</span>' +
+          '</div>' +
+          '<div class="shop-body">' +
+            '<h4>' + esc(shop.name) + '</h4>' +
+            '<p class="shop-desc">' + esc(shop.description) + '</p>' +
+            '<div class="shop-tags">' + tagsHtml(shop.styles) + '</div>' +
+            '<div class="shop-foot">' +
+              '<span class="shop-price">' + esc(shop.price || "") + '</span>' +
+              '<span class="shop-area-tag">' + esc(addrShort(shop.address)) + '</span>' +
+            '</div>' +
+          '</div>';
+        card.addEventListener("click", function () { focusShop(shop.id); });
+        grid.appendChild(card);
+      });
+    }
+
+    function focusShop(id) {
+      var shop = DATA.shops.filter(function (s) { return s.id === id; })[0];
+      var m = markers[id];
+      if (!shop || !m) return;
+      map.setView(shop.coords, Math.max(map.getZoom(), 16), { animate: true });
+      m.openPopup();
+      // active states
+      document.querySelectorAll(".shop-card").forEach(function (c) {
+        c.classList.toggle("active", c.getAttribute("data-shop") === id);
+      });
+      document.querySelectorAll(".tcn-marker").forEach(function (mk) { mk.classList.remove("active"); });
+      if (m._icon) m._icon.classList.add("active");
+      document.getElementById("tcn-map").scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function markActive(scope, btn) {
+      document.querySelectorAll(scope + " .filter-chip").forEach(function (c) { c.classList.remove("active"); });
+      if (btn) btn.classList.add("active");
+    }
+
+    /* ---- popup + card helpers ---- */
+    function popupHtml(shop) {
+      var area = areaById(shop.areaId);
+      var actions = '<a class="a-maps" target="_blank" rel="noopener" href="' + mapsUrl(shop, area) + '">Open in Google Maps</a>';
+      if (shop.site) actions += '<a class="a-site" target="_blank" rel="noopener" href="' + esc(shop.site) + '">Official Site</a>';
+      return '<div class="pop">' +
+        '<div class="pop-ph">' + phMedia(shop) + '</div>' +
+        '<div class="pop-body">' +
+          '<h4>' + esc(shop.name) + '</h4>' +
+          '<p class="pop-desc">' + esc(shop.description) + '</p>' +
+          '<p class="pop-meta"><b>Area:</b> ' + esc(area ? area.name : "") + '<br>' +
+            '<b>Address:</b> ' + esc(shop.address || "—") + '<br>' +
+            '<b>Price:</b> ' + esc(shop.price || "—") + '</p>' +
+          '<div class="pop-tags">' + tagsHtml(shop.styles) + '</div>' +
+          '<div class="pop-actions">' + actions + '</div>' +
+        '</div>' +
+      '</div>';
+    }
+
+    function phMedia(shop) {
+      if (shop.image) return '<img src="' + esc(shop.image) + '" alt="' + esc(shop.name) + '" loading="lazy" />';
+      return '<span class="mono">' + esc(initials(shop.name)) + '</span>';
+    }
+    function tagsHtml(styles) {
+      return (styles || []).map(function (s) { return '<span>' + esc(s) + '</span>'; }).join("");
+    }
+    function mapsUrl(shop, area) {
+      var q = shop.name + (area ? ", " + area.name.split(" / ")[0] : "") + ", Tokyo, Japan";
+      return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+    }
+    function initials(name) {
+      var parts = String(name).replace(/[^A-Za-z0-9 ]/g, "").trim().split(/\s+/);
+      var s = (parts[0] ? parts[0][0] : "") + (parts[1] ? parts[1][0] : "");
+      return (s || name.slice(0, 2)).toUpperCase();
+    }
+    function addrShort(addr) {
+      if (!addr) return "";
+      return addr.split(",")[0];
+    }
+    function esc(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+  }
 
   /* ---------- sticky mobile CTA ---------- */
   function setupMobileCta() {
@@ -1044,6 +1716,12 @@
       a.addEventListener("click", function (e) {
         var id = a.getAttribute("href");
         if (id && id.charAt(0) === "#") {
+          // gate: clicking "Map" before unlocking sends the user to the Style Finder
+          if (id === "#map" && !isMapUnlocked()) {
+            e.preventDefault();
+            goToFinderWithGate();
+            return;
+          }
           var target = document.querySelector(id);
           if (target) {
             e.preventDefault();
@@ -1159,6 +1837,8 @@
         try { json = await res.json(); } catch (_) {}
 
         if (res.ok && json && json.result === "success") {
+          setMapUnlocked();   // remember on this device
+          revealMap();        // reveal the free map (only after a confirmed save)
           form.style.display = "none";
           var pw = document.querySelector(".progress-wrap"); if (pw) pw.style.display = "none";
           show(successEl);
