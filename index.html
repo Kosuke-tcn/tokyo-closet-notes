@@ -632,6 +632,59 @@
   .btn-red { background: var(--tcn-red); color: #fff; border-color: var(--tcn-red); }
   .btn-red:hover { background: var(--tcn-red-d); }
 
+  /* ============ FULL MAP SALES (paid) ============ */
+  .paidmap { padding: clamp(54px, 9vw, 88px) 0; background: var(--bg); border-bottom: 1px solid var(--border); }
+  .paidmap-lead { color: var(--ink-soft); font-size: 17px; max-width: 58ch; margin: 0 0 30px; }
+
+  .paid-hero { display: grid; grid-template-columns: 1fr; gap: 24px;
+    background: var(--navy); color: #e9ecf2; border-radius: 18px; padding: clamp(24px,5vw,38px); }
+  .paid-price { display: flex; flex-direction: column; gap: 4px; }
+  .paid-price b { font-family: var(--round); font-weight: 700; font-size: clamp(40px,9vw,58px); color: #fff; line-height: 1; }
+  .paid-price span { font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; color: #97a0ab; }
+  .paid-value { list-style: none; margin: 0 0 22px; padding: 0; }
+  .paid-value li { position: relative; padding: 9px 0 9px 26px; border-top: 1px solid rgba(255,255,255,0.1);
+    color: #d4d8df; font-size: 15px; }
+  .paid-value li:first-child { border-top: 0; }
+  .paid-value li::before { content: "→"; position: absolute; left: 0; color: var(--tcn-red-2, #ff8f88); }
+  .paid-note { font-size: 13px; color: #97a0ab; margin: 12px 0 0; }
+  @media (min-width: 820px) { .paid-hero { grid-template-columns: 0.8fr 1.2fr; gap: 40px; align-items: center; } }
+
+  .paid-subhead { font-family: var(--round); font-weight: 700; font-size: clamp(18px,3vw,22px);
+    color: var(--ink); margin: 40px 0 16px; letter-spacing: -0.01em; }
+
+  /* comparison */
+  .compare { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  .compare-col { border: 1px solid var(--border); border-radius: 14px; padding: 22px 22px; background: var(--surface); }
+  .compare-col ul { list-style: none; margin: 0; padding: 0; }
+  .compare-col li { position: relative; padding: 8px 0 8px 22px; font-size: 14.5px; color: var(--ink-soft);
+    border-top: 1px solid var(--border); }
+  .compare-col li:first-child { border-top: 0; }
+  .compare-col li::before { content: "·"; position: absolute; left: 6px; color: var(--muted); font-weight: 700; }
+  .compare-tag { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700;
+    color: var(--muted); margin: 0 0 12px; }
+  .compare-paid { background: var(--navy); border-color: var(--navy); color: #e9ecf2; }
+  .compare-paid .compare-tag { color: #ff9b94; }
+  .compare-paid li { color: #d4d8df; border-top-color: rgba(255,255,255,0.1); }
+  .compare-paid li::before { content: "→"; left: 0; color: #ff9b94; }
+  @media (min-width: 720px) { .compare { grid-template-columns: 1fr 1fr; gap: 16px; } }
+
+  /* sample route cards */
+  .route-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 620px) { .route-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 980px) { .route-grid { grid-template-columns: 1fr 1fr 1fr; } }
+  .route-card { border: 1px solid var(--border); border-radius: 14px; padding: 20px 20px 22px; background: var(--surface);
+    position: relative; transition: transform .18s var(--ease), box-shadow .18s var(--ease), border-color .18s var(--ease); }
+  .route-card:hover { transform: translateY(-2px); box-shadow: 0 16px 36px -24px rgba(0,0,0,0.5); border-color: var(--border-2); }
+  .route-city { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700;
+    color: var(--tcn-red); margin: 0 0 8px; }
+  .route-name { font-family: var(--round); font-weight: 700; font-size: 17px; margin: 0 0 9px;
+    letter-spacing: -0.01em; line-height: 1.25; }
+  .route-desc { font-size: 13.5px; color: var(--ink-soft); margin: 0 0 13px; line-height: 1.5; }
+  .route-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .route-tags span { font-size: 11px; font-weight: 600; color: var(--indigo); background: var(--indigo-soft);
+    border-radius: 999px; padding: 3px 9px; }
+  .paid-fineprint { font-size: 12.5px; color: var(--muted); margin: 22px 0 0; max-width: 64ch; }
+
   /* ============ STICKY MOBILE CTA ============ */
   .mobile-cta {
     position: fixed; left: 14px; right: 14px; bottom: 14px; z-index: 70;
@@ -1210,6 +1263,94 @@
 
         <p class="map-unlock-note">Unlocked after Style Finder submission.</p>
         </div><!-- /#map-unlocked -->
+      </div>
+    </section>
+
+    <!-- ============ FULL MAP SALES (paid product — public marketing only) ============ -->
+    <section id="full-map" class="paidmap" aria-labelledby="full-map-title">
+      <div class="container">
+        <p class="eyebrow reveal">Paid · in preparation</p>
+        <h2 id="full-map-title" class="section-title reveal">Full Japan Fashion Map</h2>
+        <p class="paidmap-lead reveal">A researched, route-based shopping map for a real Japan trip — the shops worth crossing a city for, with the routes to walk them.</p>
+
+        <div class="paid-hero reveal">
+          <div class="paid-price">
+            <b>$19</b>
+            <span>Full Japan Fashion Map · v1</span>
+          </div>
+          <div class="paid-value-wrap">
+            <ul class="paid-value">
+              <li>100+ curated shops across Tokyo, Osaka, Kyoto, Nagoya & Fukuoka</li>
+              <li>City &amp; area routes you can actually walk</li>
+              <li>Hidden select shops, vintage, designer archive, Made in Japan, denim &amp; craft</li>
+              <li>Address + Google Maps link for every shop</li>
+              <li>“Why go” notes, not just names</li>
+              <li>Travel-friendly shopping routes</li>
+            </ul>
+            <a href="#finder" class="btn btn-red" data-scroll>Join the Full Map waitlist</a>
+            <p class="paid-note">No purchase yet — answer the Style Finder and we’ll notify you when the full map opens.</p>
+          </div>
+        </div>
+
+        <!-- comparison -->
+        <h3 class="paid-subhead reveal">Free preview vs Full Map</h3>
+        <div class="compare reveal">
+          <div class="compare-col">
+            <p class="compare-tag">Free preview</p>
+            <ul>
+              <li>54 preview shops</li>
+              <li>Basic city &amp; area filters</li>
+              <li>Enough to start exploring</li>
+            </ul>
+          </div>
+          <div class="compare-col compare-paid">
+            <p class="compare-tag">Full Map · $19</p>
+            <ul>
+              <li>100+ researched shops in v1</li>
+              <li>Deeper city &amp; area routes</li>
+              <li>Hidden and niche shops</li>
+              <li>Brand &amp; shopping notes</li>
+              <li>Designed for an actual Japan trip</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- sample routes (editorial only — full shop lists stay private until purchase) -->
+        <h3 class="paid-subhead reveal">Sample routes — one per city</h3>
+        <div class="route-grid">
+          <article class="route-card reveal">
+            <p class="route-city">Tokyo</p>
+            <h4 class="route-name">Designer Archive + Quiet Select</h4>
+            <p class="route-desc">From Harajuku's designer-archive and used-designer rooms into the quiet, architectural select shops of Sendagaya and Nakameguro.</p>
+            <div class="route-tags"><span>Designer</span><span>Archive</span><span>Quiet Select</span></div>
+          </article>
+          <article class="route-card reveal d1">
+            <p class="route-city">Osaka</p>
+            <h4 class="route-name">Denim / Repro Craft + Amerikamura Vintage</h4>
+            <p class="route-desc">Osaka's selvedge-denim and repro-workwear makers, then a vintage loop through the Amerikamura backstreets.</p>
+            <div class="route-tags"><span>Denim</span><span>Made in Japan</span><span>Vintage</span></div>
+          </article>
+          <article class="route-card reveal d2">
+            <p class="route-city">Kyoto</p>
+            <h4 class="route-name">Textile / Machiya Designer Walk</h4>
+            <p class="route-desc">Kyoto weaving and dye houses beside machiya-set Japanese minimalist designers around Sanjo and Teramachi.</p>
+            <div class="route-tags"><span>Made in Japan</span><span>Textile</span><span>Designer</span></div>
+          </article>
+          <article class="route-card reveal">
+            <p class="route-city">Nagoya</p>
+            <h4 class="route-name">Sakae Designer Archive + Osu Vintage</h4>
+            <p class="route-desc">Sakae's designer and used-designer floors, then the Osu arcades for Americana and craft denim.</p>
+            <div class="route-tags"><span>Designer</span><span>Archive</span><span>Vintage</span></div>
+          </article>
+          <article class="route-card reveal d1">
+            <p class="route-city">Fukuoka</p>
+            <h4 class="route-name">Daimyo / Imaizumi Select Core</h4>
+            <p class="route-desc">Fukuoka's strongest domestic-brand select shops through the walkable Daimyo and Imaizumi backstreets.</p>
+            <div class="route-tags"><span>Select Shop</span><span>Made in Japan</span><span>Local</span></div>
+          </article>
+        </div>
+
+        <p class="paid-fineprint">Routes shown are an editorial preview. Full shop lists, addresses, and notes are delivered after purchase — they are not stored in this public page.</p>
       </div>
     </section>
 
