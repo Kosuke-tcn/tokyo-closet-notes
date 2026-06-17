@@ -602,7 +602,13 @@
     border-radius: 50%; background: var(--tcn-red); box-shadow: 0 0 0 3px rgba(181,48,42,0.3); }
   .shop-body { padding: 16px 16px 18px; display: flex; flex-direction: column; flex: 1; }
   .shop-body h4 { font-family: var(--round); font-weight: 700; font-size: 17px; margin: 0 0 5px; }
-  .shop-body .shop-desc { font-size: 13.5px; color: var(--ink-soft); margin: 0 0 11px; line-height: 1.5; }
+  .shop-body .shop-desc { font-size: 13.5px; color: var(--ink-soft); margin: 0 0 9px; line-height: 1.5; }
+  .shop-why { font-size: 13px; color: var(--ink-soft); margin: 0 0 12px; line-height: 1.5;
+    border-left: 2px solid var(--tcn-red); padding-left: 10px; }
+  .shop-why span { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--tcn-red); margin-right: 4px; }
+  .pop-why { font-size: 12.5px; color: var(--ink-soft); margin: 0 0 9px; line-height: 1.45; }
+  .pop-why b { color: var(--tcn-red); }
   .shop-tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 12px; }
   .shop-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px;
     border-top: 1px solid var(--border); padding-top: 11px; }
@@ -1191,11 +1197,11 @@
         <!-- paid CTA / locked full map -->
         <div class="paid-cta reveal">
           <p class="lock-eyebrow">Full map locked</p>
-          <h3>Unlock the full Tokyo Fashion Shopping Map</h3>
-          <p>The preview above is a small edit. The full map adds many more researched shops, more districts, walking routes, and notes — built for travelers planning a real shopping day.</p>
+          <h3>Unlock the full Japan Fashion Shopping Map</h3>
+          <p>This is a free preview. The full map adds many more researched shops, hidden routes, and notes across Tokyo, Osaka, Kyoto, Nagoya, Fukuoka and beyond — built for travelers planning a real shopping day.</p>
           <div class="paid-stats">
-            <div><b id="paid-shops">120+</b> researched shops</div>
-            <div><b id="paid-districts">8</b> Tokyo districts</div>
+            <div><b id="paid-shops">150+</b> researched shops</div>
+            <div><b id="paid-districts">12</b> districts</div>
             <div><b>Routes</b> walk-by-walk</div>
           </div>
           <p style="font-size:13px;color:#8a93ad" id="paid-note"></p>
@@ -1281,7 +1287,8 @@
   <!-- Leaflet library + separated map data (loaded before the main script) -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="map-data.js"></script>
+  <!-- bump ?v= when you edit map-data.js so browsers load the new data -->
+  <script src="map-data.js?v=3"></script>
 
   <!-- ============================================================
        Inlined script — behavior never depends on a separate file.
@@ -1597,6 +1604,7 @@
           '<div class="shop-body">' +
             '<h4>' + esc(shop.name) + '</h4>' +
             '<p class="shop-desc">' + esc(shop.description) + '</p>' +
+            (shop.whyGo ? '<p class="shop-why"><span>Why go</span> ' + esc(shop.whyGo) + '</p>' : '') +
             '<div class="shop-tags">' + tagsHtml(shop.styles) + '</div>' +
             '<div class="shop-foot">' +
               '<span class="shop-price">' + esc(shop.price || "") + '</span>' +
@@ -1631,13 +1639,14 @@
     /* ---- popup + card helpers ---- */
     function popupHtml(shop) {
       var area = areaById(shop.areaId);
-      var actions = '<a class="a-maps" target="_blank" rel="noopener" href="' + mapsUrl(shop, area) + '">Open in Google Maps</a>';
+      var actions = '<a class="a-maps" target="_blank" rel="noopener" href="' + mapsUrl(shop) + '">Open in Google Maps</a>';
       if (shop.site) actions += '<a class="a-site" target="_blank" rel="noopener" href="' + esc(shop.site) + '">Official Site</a>';
       return '<div class="pop">' +
         '<div class="pop-ph">' + phMedia(shop) + '</div>' +
         '<div class="pop-body">' +
           '<h4>' + esc(shop.name) + '</h4>' +
           '<p class="pop-desc">' + esc(shop.description) + '</p>' +
+          (shop.whyGo ? '<p class="pop-why"><b>Why go:</b> ' + esc(shop.whyGo) + '</p>' : '') +
           '<p class="pop-meta"><b>Area:</b> ' + esc(area ? area.name : "") + '<br>' +
             '<b>Address:</b> ' + esc(shop.address || "—") + '<br>' +
             '<b>Price:</b> ' + esc(shop.price || "—") + '</p>' +
@@ -1654,9 +1663,14 @@
     function tagsHtml(styles) {
       return (styles || []).map(function (s) { return '<span>' + esc(s) + '</span>'; }).join("");
     }
-    function mapsUrl(shop, area) {
-      var q = shop.name + (area ? ", " + area.name.split(" / ")[0] : "") + ", Tokyo, Japan";
-      return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
+    function mapsUrl(shop) {
+      var c = CITIES[shop.cityId];
+      var a = areaById(shop.areaId);
+      var parts = [shop.name];
+      if (shop.address) parts.push(shop.address);
+      else { if (a) parts.push(a.name.split(" / ")[0]); if (c) parts.push(c.name); }
+      parts.push("Japan");
+      return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(parts.join(", "));
     }
     function initials(name) {
       var parts = String(name).replace(/[^A-Za-z0-9 ]/g, "").trim().split(/\s+/);
