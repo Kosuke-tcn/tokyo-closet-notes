@@ -558,11 +558,7 @@
     font-family: var(--sans); }
   .leaflet-popup-content { margin: 0; width: 248px !important; }
   .pop { overflow: hidden; border-radius: 14px; }
-  .pop-ph { height: 116px; display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, var(--navy), #33426b); color: #fff; position: relative; }
-  .pop-ph img { width: 100%; height: 100%; object-fit: cover; }
-  .pop-ph .mono { font-family: var(--round); font-weight: 700; font-size: 30px; letter-spacing: .04em; }
-  .pop-body { padding: 13px 15px 15px; }
+  .pop-body { padding: 15px 15px 15px; }
   .pop-body h4 { font-family: var(--round); font-weight: 700; font-size: 16.5px; margin: 0 0 5px; color: var(--ink); }
   .pop-body .pop-desc { font-size: 13px; color: var(--ink-soft); margin: 0 0 9px; line-height: 1.45; }
   .pop-meta { font-size: 12px; color: var(--muted); margin: 0 0 9px; }
@@ -586,34 +582,38 @@
   .shop-grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
   @media (min-width: 600px) { .shop-grid { grid-template-columns: 1fr 1fr; } }
   @media (min-width: 980px) { .shop-grid { grid-template-columns: 1fr 1fr 1fr; } }
-  .shop-card { background: var(--surface); color: var(--ink); border-radius: 16px; overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.1); cursor: pointer; text-align: left;
-    display: flex; flex-direction: column; font: inherit; padding: 0;
-    transition: transform .18s var(--ease), box-shadow .18s var(--ease); }
-  .shop-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -22px rgba(0,0,0,0.7); }
-  .shop-card.active { outline: 2px solid var(--tcn-red); outline-offset: 0; }
-  .shop-ph { aspect-ratio: 16/10; position: relative; display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, var(--navy), #34436c); color: #fff; }
-  .shop-ph img { width: 100%; height: 100%; object-fit: cover; }
-  .shop-ph .mono { font-family: var(--round); font-weight: 700; font-size: 34px; letter-spacing: .05em; opacity: .96; }
-  .shop-ph .ph-area { position: absolute; left: 12px; bottom: 10px; font-size: 10.5px; letter-spacing: .14em;
-    text-transform: uppercase; color: rgba(255,255,255,0.8); }
-  .shop-ph::after { content: ""; position: absolute; right: 12px; top: 12px; width: 9px; height: 9px;
-    border-radius: 50%; background: var(--tcn-red); box-shadow: 0 0 0 3px rgba(181,48,42,0.3); }
-  .shop-body { padding: 16px 16px 18px; display: flex; flex-direction: column; flex: 1; }
-  .shop-body h4 { font-family: var(--round); font-weight: 700; font-size: 17px; margin: 0 0 5px; }
-  .shop-body .shop-desc { font-size: 13.5px; color: var(--ink-soft); margin: 0 0 9px; line-height: 1.5; }
-  .shop-why { font-size: 13px; color: var(--ink-soft); margin: 0 0 12px; line-height: 1.5;
-    border-left: 2px solid var(--tcn-red); padding-left: 10px; }
+  /* text-first cards (no image / initials block) */
+  .shop-card { background: var(--surface); color: var(--ink); border-radius: 14px;
+    border: 1px solid var(--border); display: flex; flex-direction: column;
+    transition: transform .18s var(--ease), box-shadow .18s var(--ease), border-color .18s var(--ease); }
+  .shop-card:hover { transform: translateY(-2px); box-shadow: 0 16px 36px -24px rgba(0,0,0,0.7); border-color: var(--border-2); }
+  .shop-card.active { border-color: var(--tcn-red); box-shadow: 0 0 0 1px var(--tcn-red); }
+  .shop-main { font: inherit; text-align: left; background: none; border: 0; cursor: pointer; color: inherit;
+    width: 100%; padding: 18px 18px 2px; display: block; -webkit-tap-highlight-color: transparent; }
+  .shop-cardhead { display: flex; flex-direction: column; gap: 4px; margin: 0 0 10px;
+    position: relative; padding-left: 13px; }
+  .shop-cardhead::before { content: ""; position: absolute; left: 0; top: 3px; bottom: 3px; width: 3px;
+    border-radius: 2px; background: var(--tcn-red); } /* red accent detail */
+  .shop-cardhead h4 { font-family: var(--round); font-weight: 700; font-size: 17px; margin: 0; letter-spacing: -0.01em; }
+  .shop-loc { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .shop-card .shop-desc { font-size: 13.5px; color: var(--ink-soft); margin: 0 0 11px; line-height: 1.5; }
+  .shop-why { font-size: 13px; color: var(--ink-soft); margin: 0 0 11px; line-height: 1.5; }
   .shop-why span { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--tcn-red); margin-right: 4px; }
+    text-transform: uppercase; color: var(--tcn-red); margin-right: 5px; }
   .pop-why { font-size: 12.5px; color: var(--ink-soft); margin: 0 0 9px; line-height: 1.45; }
   .pop-why b { color: var(--tcn-red); }
-  .shop-tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 12px; }
-  .shop-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px;
-    border-top: 1px solid var(--border); padding-top: 11px; }
+  .shop-tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 11px; }
+  .shop-addr { font-size: 12px; color: var(--muted); margin: 0; line-height: 1.45; }
+  .shop-foot { margin-top: auto; display: flex; flex-direction: column; gap: 11px;
+    border-top: 1px solid var(--border); padding: 13px 18px 16px; }
   .shop-price { font-size: 13px; font-weight: 700; color: var(--ink); }
-  .shop-foot .shop-area-tag { font-size: 11.5px; color: var(--muted); }
+  .shop-actions { display: flex; gap: 7px; }
+  .shop-actions a { flex: 1; text-align: center; text-decoration: none; font-size: 12.5px; font-weight: 700;
+    padding: 10px 8px; border-radius: 8px; }
+  .shop-actions .a-maps { background: var(--tcn-red); color: #fff; }
+  .shop-actions .a-maps:hover { background: var(--tcn-red-d); }
+  .shop-actions .a-site { background: var(--surface-2); color: var(--ink); border: 1px solid var(--border-2); }
+  .shop-actions .a-site:hover { border-color: var(--ink); }
   .shop-empty { color: #b9c0d2; font-size: 15px; padding: 22px 0; }
 
   /* paid CTA / locked teaser */
@@ -1593,25 +1593,29 @@
       }
       shops.forEach(function (shop) {
         var area = areaById(shop.areaId);
-        var card = document.createElement("button");
-        card.type = "button";
+        var c = CITIES[shop.cityId];
+        var loc = (area ? area.name : "") + (c ? " · " + c.name : "");
+        var actions = '<a class="a-maps" target="_blank" rel="noopener" href="' + mapsUrl(shop) + '">Open in Google Maps</a>';
+        if (shop.site) actions += '<a class="a-site" target="_blank" rel="noopener" href="' + esc(shop.site) + '">Official Site</a>';
+        var card = document.createElement("article");
         card.className = "shop-card";
         card.setAttribute("data-shop", shop.id);
         card.innerHTML =
-          '<div class="shop-ph">' + phMedia(shop) +
-            '<span class="ph-area">' + esc(area ? area.name : "") + '</span>' +
-          '</div>' +
-          '<div class="shop-body">' +
-            '<h4>' + esc(shop.name) + '</h4>' +
-            '<p class="shop-desc">' + esc(shop.description) + '</p>' +
-            (shop.whyGo ? '<p class="shop-why"><span>Why go</span> ' + esc(shop.whyGo) + '</p>' : '') +
-            '<div class="shop-tags">' + tagsHtml(shop.styles) + '</div>' +
-            '<div class="shop-foot">' +
-              '<span class="shop-price">' + esc(shop.price || "") + '</span>' +
-              '<span class="shop-area-tag">' + esc(addrShort(shop.address)) + '</span>' +
+          '<button type="button" class="shop-main">' +
+            '<div class="shop-cardhead">' +
+              '<h4>' + esc(shop.name) + '</h4>' +
+              '<span class="shop-loc">' + esc(loc) + '</span>' +
             '</div>' +
+            '<p class="shop-desc">' + esc(shop.description) + '</p>' +
+            '<div class="shop-tags">' + tagsHtml(shop.styles) + '</div>' +
+            (shop.whyGo ? '<p class="shop-why"><span>Why go</span>' + esc(shop.whyGo) + '</p>' : '') +
+            (shop.address ? '<p class="shop-addr">' + esc(shop.address) + '</p>' : '') +
+          '</button>' +
+          '<div class="shop-foot">' +
+            (shop.price ? '<span class="shop-price">' + esc(shop.price) + '</span>' : '') +
+            '<div class="shop-actions">' + actions + '</div>' +
           '</div>';
-        card.addEventListener("click", function () { focusShop(shop.id); });
+        card.querySelector(".shop-main").addEventListener("click", function () { focusShop(shop.id); });
         grid.appendChild(card);
       });
     }
@@ -1642,7 +1646,6 @@
       var actions = '<a class="a-maps" target="_blank" rel="noopener" href="' + mapsUrl(shop) + '">Open in Google Maps</a>';
       if (shop.site) actions += '<a class="a-site" target="_blank" rel="noopener" href="' + esc(shop.site) + '">Official Site</a>';
       return '<div class="pop">' +
-        '<div class="pop-ph">' + phMedia(shop) + '</div>' +
         '<div class="pop-body">' +
           '<h4>' + esc(shop.name) + '</h4>' +
           '<p class="pop-desc">' + esc(shop.description) + '</p>' +
@@ -1656,10 +1659,6 @@
       '</div>';
     }
 
-    function phMedia(shop) {
-      if (shop.image) return '<img src="' + esc(shop.image) + '" alt="' + esc(shop.name) + '" loading="lazy" />';
-      return '<span class="mono">' + esc(initials(shop.name)) + '</span>';
-    }
     function tagsHtml(styles) {
       return (styles || []).map(function (s) { return '<span>' + esc(s) + '</span>'; }).join("");
     }
@@ -1671,15 +1670,6 @@
       else { if (a) parts.push(a.name.split(" / ")[0]); if (c) parts.push(c.name); }
       parts.push("Japan");
       return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(parts.join(", "));
-    }
-    function initials(name) {
-      var parts = String(name).replace(/[^A-Za-z0-9 ]/g, "").trim().split(/\s+/);
-      var s = (parts[0] ? parts[0][0] : "") + (parts[1] ? parts[1][0] : "");
-      return (s || name.slice(0, 2)).toUpperCase();
-    }
-    function addrShort(addr) {
-      if (!addr) return "";
-      return addr.split(",")[0];
     }
     function esc(s) {
       return String(s == null ? "" : s)
