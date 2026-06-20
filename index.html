@@ -710,30 +710,50 @@
 <body>
 
   <!-- ============ HEADER ============ -->
+  <style>
+    .tcn-langsw{display:inline-flex;gap:2px;background:rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.12);border-radius:999px;padding:3px;vertical-align:middle}
+    .tcn-langsw button{font:inherit;font-size:12px;font-weight:700;cursor:pointer;color:#8a8378;background:none;border:0;border-radius:999px;padding:5px 11px;line-height:1;transition:background .15s,color .15s}
+    .tcn-langsw button:hover{color:#1a1a1a}
+    .tcn-langsw button.active{background:#d9544a;color:#fff}
+    .header-lang{margin-right:6px}
+    .mm-lang{margin:6px 0 2px}
+    @media(max-width:760px){.header-lang{display:none}}
+  </style>
+
   <header class="site-header">
     <div class="container header-inner">
       <a href="#top" class="brand">
         <img src="assets/tcn-logo.png" alt="Tokyo Closet Notes logo" class="brand-logo"
              onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex';" />
         <span class="brand-mark" style="display:none" aria-hidden="true">tcn</span>
-        <span class="brand-name">Tokyo Closet Notes<small>Japan fashion finder</small></span>
+        <span class="brand-name">Tokyo Closet Notes<small data-i18n="tagline">Japan fashion finder</small></span>
       </a>
       <nav class="header-social" aria-label="Social links">
         <a class="tlink" href="https://www.instagram.com/tokyo_closet_notes" target="_blank" rel="noopener">Instagram</a>
         <a class="tlink" href="https://www.tiktok.com/@tokyo_closet_notes" target="_blank" rel="noopener">TikTok</a>
       </nav>
+      <div class="tcn-langsw header-lang" id="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="zh">中文</button>
+        <button type="button" data-lang="ko">한국어</button>
+      </div>
       <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="mobile-menu">
         <span class="menu-bars" aria-hidden="true"><span></span><span></span></span>
-        <span class="menu-word">Menu</span>
+        <span class="menu-word" data-i18n="menu">Menu</span>
       </button>
     </div>
 
     <!-- mobile slide-down menu -->
     <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile menu">
       <div class="container">
-        <a class="mm-link" href="#finder" data-scroll data-menu-close>Finder</a>
-        <a class="mm-link" href="#map" data-scroll data-menu-close>Map</a>
-        <a class="mm-link" href="#proxy" data-scroll data-menu-close>Proxy Support</a>
+        <div class="tcn-langsw mm-lang" id="lang-switch-mobile" role="group" aria-label="Language">
+          <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="zh">中文</button>
+          <button type="button" data-lang="ko">한국어</button>
+        </div>
+        <a class="mm-link" href="#finder" data-scroll data-menu-close data-i18n="navFinder">Finder</a>
+        <a class="mm-link" href="#map" data-scroll data-menu-close data-i18n="navMap">Map</a>
+        <a class="mm-link" href="#proxy" data-scroll data-menu-close data-i18n="navProxy">Proxy Support</a>
         <a class="mm-link" href="https://www.instagram.com/tokyo_closet_notes" target="_blank" rel="noopener" data-menu-close>Instagram</a>
         <a class="mm-link" href="https://www.tiktok.com/@tokyo_closet_notes" target="_blank" rel="noopener" data-menu-close>TikTok</a>
       </div>
@@ -747,17 +767,17 @@
       <div class="container">
         <div class="hero-grid">
           <div class="hero-main reveal">
-            <p class="eyebrow">Japan Fashion Finder</p>
-            <h1 class="hero-title">Find your Japan style mood.</h1>
-            <p class="hero-sub">
+            <p class="eyebrow" data-i18n="heroEyebrow">Japan Fashion Finder</p>
+            <h1 class="hero-title" data-i18n="heroTitle">Find your Japan style mood.</h1>
+            <p class="hero-sub" data-i18n="heroSub">
               Answer a few quick questions and we’ll help you discover Japanese brands,
               shops, and outfit ideas that match your taste.
             </p>
             <div class="hero-cta-row">
-              <a href="#finder" class="btn btn-primary" data-scroll>Start the style finder</a>
-              <a href="#map" class="btn btn-outline" data-scroll>Explore the map</a>
+              <a href="#finder" class="btn btn-primary" data-scroll data-i18n="ctaStartFinder">Start the style finder</a>
+              <a href="#map" class="btn btn-outline" data-scroll data-i18n="ctaExploreMap">Explore the map</a>
             </div>
-            <p class="hero-note">
+            <p class="hero-note" data-i18n="heroNote">
               For people who love Japanese street style, quiet details, and real shopping routes.
             </p>
           </div>
@@ -774,33 +794,33 @@
     <!-- ============ VALUES STRIP ============ -->
     <div class="strip">
       <div class="strip-inner reveal">
-        <span><b>2 minutes</b> to complete</span>
-        <span><b>No login</b> required</span>
-        <span><b>No purchase</b> required</span>
-        <span>Reviewed <b>by hand</b></span>
+        <span data-i18n-html="strip1"><b>2 minutes</b> to complete</span>
+        <span data-i18n-html="strip2"><b>No login</b> required</span>
+        <span data-i18n-html="strip3"><b>No purchase</b> required</span>
+        <span data-i18n-html="strip4">Reviewed <b>by hand</b></span>
       </div>
     </div>
 
     <!-- ============ HOW IT WORKS ============ -->
     <section class="how" aria-labelledby="how-title">
       <div class="container">
-        <p class="eyebrow reveal">The process</p>
-        <h2 id="how-title" class="section-title reveal">How it works</h2>
+        <p class="eyebrow reveal" data-i18n="howEyebrow">The process</p>
+        <h2 id="how-title" class="section-title reveal" data-i18n="howTitle">How it works</h2>
         <ol class="steps">
           <li class="step reveal">
             <span class="step-num">01</span>
-            <h3 class="step-title">Tell us your style</h3>
-            <p>Choose the moods, items, colors, and textures you like.</p>
+            <h3 class="step-title" data-i18n="how1Title">Tell us your style</h3>
+            <p data-i18n="how1Body">Choose the moods, items, colors, and textures you like.</p>
           </li>
           <li class="step reveal d1">
             <span class="step-num">02</span>
-            <h3 class="step-title">Get a direction</h3>
-            <p>We suggest Japanese brand categories, shop types, and outfit references.</p>
+            <h3 class="step-title" data-i18n="how2Title">Get a direction</h3>
+            <p data-i18n="how2Body">We suggest Japanese brand categories, shop types, and outfit references.</p>
           </li>
           <li class="step reveal d2">
             <span class="step-num">03</span>
-            <h3 class="step-title">Go deeper</h3>
-            <p>Request a brand list, shopping map, or personal Japan fashion search.</p>
+            <h3 class="step-title" data-i18n="how3Title">Go deeper</h3>
+            <p data-i18n="how3Body">Request a brand list, shopping map, or personal Japan fashion search.</p>
           </li>
         </ol>
       </div>
@@ -811,23 +831,23 @@
       <div class="container">
         <div class="value-grid">
           <div class="reveal">
-            <p class="eyebrow">Why answer</p>
-            <h2 id="value-title" class="section-title">A first direction, made for your taste.</h2>
-            <p class="promise">
+            <p class="eyebrow" data-i18n="valEyebrow">Why answer</p>
+            <h2 id="value-title" class="section-title" data-i18n="valTitle">A first direction, made for your taste.</h2>
+            <p class="promise" data-i18n="valPromise">
               Answer a few style notes and we’ll send a first direction:
               brands to look at, cities to explore, and outfit moods that match your taste.
             </p>
-            <p class="promise-meta">2 minutes. No login. No purchase required.</p>
-            <p class="promise-meta">We read every request manually before suggesting brands or shopping routes.</p>
+            <p class="promise-meta" data-i18n="valMeta1">2 minutes. No login. No purchase required.</p>
+            <p class="promise-meta" data-i18n="valMeta2">We read every request manually before suggesting brands or shopping routes.</p>
           </div>
           <div class="reveal d1">
-            <p class="receive-title">What you may receive</p>
+            <p class="receive-title" data-i18n="valReceiveTitle">What you may receive</p>
             <ul class="receive-list">
-              <li>Japanese brand directions</li>
-              <li>Shop and city ideas</li>
-              <li>Outfit mood notes</li>
-              <li>Future Japan Fashion Map updates</li>
-              <li>Personal search options</li>
+              <li data-i18n="valR1">Japanese brand directions</li>
+              <li data-i18n="valR2">Shop and city ideas</li>
+              <li data-i18n="valR3">Outfit mood notes</li>
+              <li data-i18n="valR4">Future Japan Fashion Map updates</li>
+              <li data-i18n="valR5">Personal search options</li>
             </ul>
           </div>
         </div>
@@ -837,10 +857,10 @@
     <!-- ============ FORM ============ -->
     <section id="finder" class="finder" aria-labelledby="finder-title">
       <div class="container container-narrow">
-        <p class="eyebrow">The Style Finder</p>
-        <h2 id="finder-title" class="section-title">Japan Fashion Finder</h2>
-        <p class="finder-lead">A few quick taste questions — there are no wrong answers, just tap what you like. Under two minutes.</p>
-        <p class="gate-msg" id="gate-msg" role="status" hidden>Answer the Style Finder to unlock the free Tokyo Fashion Map preview.</p>
+        <p class="eyebrow" data-i18n="finderEyebrow">The Style Finder</p>
+        <h2 id="finder-title" class="section-title" data-i18n="finderTitle">Japan Fashion Finder</h2>
+        <p class="finder-lead" data-i18n="finderLead">A few quick taste questions — there are no wrong answers, just tap what you like. Under two minutes.</p>
+        <p class="gate-msg" id="gate-msg" role="status" hidden data-i18n="gateMsg">Answer the Style Finder to unlock the free Tokyo Fashion Map preview.</p>
 
         <div class="finder-mood reveal" aria-hidden="true">
           <figure><img src="assets/detail-knit.jpg" alt="" loading="lazy" /></figure>
@@ -865,26 +885,26 @@
           <!-- Stage 1 -->
           <fieldset class="fs" id="fs-1" data-stage="1">
             <div class="fs-head"><span class="fs-step">Step 01</span></div>
-            <legend class="fs-legend">About you</legend>
-            <p class="fs-hint">So we know who we’re writing back to.</p>
+            <legend class="fs-legend" data-i18n="fs1Legend">About you</legend>
+            <p class="fs-hint" data-i18n="fs1Hint">So we know who we’re writing back to.</p>
             <div class="grid-2">
               <div class="field">
-                <label for="name">Name or nickname</label>
+                <label for="name" data-i18n="lblName">Name or nickname</label>
                 <input type="text" id="name" name="name" autocomplete="name" placeholder="Alex" />
               </div>
               <div class="field">
-                <label for="email">Email <span class="req">*</span></label>
+                <label for="email"><span data-i18n="lblEmail">Email</span> <span class="req">*</span></label>
                 <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required />
               </div>
               <div class="field">
-                <label for="handle">Instagram or TikTok handle</label>
+                <label for="handle" data-i18n="lblHandle">Instagram or TikTok handle</label>
                 <input type="text" id="handle" name="handle" placeholder="@yourhandle" />
               </div>
               <div class="field">
-                <label for="country">Country <span class="req">*</span></label>
+                <label for="country"><span data-i18n="lblCountry">Country</span> <span class="req">*</span></label>
                 <div class="select-wrap">
                   <select id="country" name="country" autocomplete="country-name" required>
-                    <option value="" disabled selected>Select your country</option>
+                    <option value="" disabled selected data-i18n="phCountry">Select your country</option>
                     <optgroup label="North America">
                       <option>United States</option>
                       <option>Canada</option>
@@ -1021,13 +1041,13 @@
               </div>
             </div>
             <div class="field" style="margin-top:18px">
-              <label for="visitJapan">Your Japan plan — are you planning to visit?</label>
+              <label for="visitJapan" data-i18n="lblVisit">Your Japan plan — are you planning to visit?</label>
               <div class="select-wrap">
                 <select id="visitJapan" name="visitJapan">
-                  <option value="" disabled selected>Choose one</option>
-                  <option>Yes, soon</option>
-                  <option>Maybe someday</option>
-                  <option>Not currently</option>
+                  <option value="" disabled selected data-i18n="phChoose">Choose one</option>
+                  <option value="Yes, soon" data-i18n="visitYes">Yes, soon</option>
+                  <option value="Maybe someday" data-i18n="visitMaybe">Maybe someday</option>
+                  <option value="Not currently" data-i18n="visitNo">Not currently</option>
                 </select>
               </div>
             </div>
@@ -1036,8 +1056,8 @@
           <!-- Stage 2 -->
           <fieldset class="fs" id="fs-2" data-stage="2">
             <div class="fs-head"><span class="fs-step">Step 02</span></div>
-            <legend class="fs-legend">Your mood</legend>
-            <p class="fs-hint">Select all that feel like you.</p>
+            <legend class="fs-legend" data-i18n="fs2Legend">Your mood</legend>
+            <p class="fs-hint" data-i18n="fs2Hint">Select all that feel like you.</p>
             <div class="chips" data-group="styleMoods" role="group" aria-label="Style mood">
               <button type="button" class="chip" data-value="Minimal">Minimal</button>
               <button type="button" class="chip" data-value="Vintage">Vintage</button>
@@ -1056,8 +1076,8 @@
 
           <!-- Stage 2b -->
           <fieldset class="fs" data-stage="2">
-            <legend class="fs-legend">What you are looking for</legend>
-            <p class="fs-hint">Pieces, services, or both — select all that apply.</p>
+            <legend class="fs-legend" data-i18n="fs2bLegend">What you are looking for</legend>
+            <p class="fs-hint" data-i18n="fs2bHint">Pieces, services, or both — select all that apply.</p>
             <div class="chips" data-group="desiredItems" role="group" aria-label="Desired items">
               <button type="button" class="chip" data-value="Jackets">Jackets</button>
               <button type="button" class="chip" data-value="Pants">Pants</button>
@@ -1076,8 +1096,8 @@
           <!-- Stage 3 -->
           <fieldset class="fs" id="fs-3" data-stage="3">
             <div class="fs-head"><span class="fs-step">Step 03</span></div>
-            <legend class="fs-legend">Details that matter</legend>
-            <p class="fs-hint">The quiet things that make a piece feel right.</p>
+            <legend class="fs-legend" data-i18n="fs3Legend">Details that matter</legend>
+            <p class="fs-hint" data-i18n="fs3Hint">The quiet things that make a piece feel right.</p>
             <div class="chips" data-group="details" role="group" aria-label="Details you care about">
               <button type="button" class="chip" data-value="Wide silhouette">Wide silhouette</button>
               <button type="button" class="chip" data-value="Heavy shoes">Heavy shoes</button>
@@ -1096,31 +1116,31 @@
 
           <!-- Stage 3b: budget + new/used -->
           <fieldset class="fs" data-stage="3">
-            <legend class="fs-legend">Your fashion shopping budget</legend>
+            <legend class="fs-legend" data-i18n="fs3bLegend">Your fashion shopping budget</legend>
             <div class="radio-list" data-radio="budget">
               <label class="opt"><input type="radio" name="budget" value="Under $100" /><span>Under $100</span></label>
               <label class="opt"><input type="radio" name="budget" value="$100-$250" /><span>$100–$250</span></label>
               <label class="opt"><input type="radio" name="budget" value="$250-$500" /><span>$250–$500</span></label>
               <label class="opt"><input type="radio" name="budget" value="$500+" /><span>$500+</span></label>
-              <label class="opt"><input type="radio" name="budget" value="I'm just researching" /><span>I’m just researching</span></label>
+              <label class="opt"><input type="radio" name="budget" value="I'm just researching" /><span data-i18n="justResearching">I’m just researching</span></label>
             </div>
           </fieldset>
 
           <fieldset class="fs" data-stage="3">
-            <legend class="fs-legend">New or used</legend>
+            <legend class="fs-legend" data-i18n="fs3cLegend">New or used</legend>
             <div class="radio-list" data-radio="newUsed">
-              <label class="opt"><input type="radio" name="newUsed" value="New only" /><span>New only</span></label>
-              <label class="opt"><input type="radio" name="newUsed" value="Used / vintage is okay" /><span>Used / vintage is okay</span></label>
-              <label class="opt"><input type="radio" name="newUsed" value="Both" /><span>Both</span></label>
-              <label class="opt"><input type="radio" name="newUsed" value="Not sure" /><span>Not sure</span></label>
+              <label class="opt"><input type="radio" name="newUsed" value="New only" /><span data-i18n="newOnly">New only</span></label>
+              <label class="opt"><input type="radio" name="newUsed" value="Used / vintage is okay" /><span data-i18n="usedOk">Used / vintage is okay</span></label>
+              <label class="opt"><input type="radio" name="newUsed" value="Both" /><span data-i18n="bothOpt">Both</span></label>
+              <label class="opt"><input type="radio" name="newUsed" value="Not sure" /><span data-i18n="notSure">Not sure</span></label>
             </div>
           </fieldset>
 
           <!-- Stage 4 -->
           <fieldset class="fs" id="fs-4" data-stage="4">
             <div class="fs-head"><span class="fs-step">Step 04</span></div>
-            <legend class="fs-legend">What do you want from us? <span class="req">*</span></legend>
-            <p class="fs-hint">Pick everything you’re interested in — choose as many as you like.</p>
+            <legend class="fs-legend"><span data-i18n="fs4Legend">What do you want from us?</span> <span class="req">*</span></legend>
+            <p class="fs-hint" data-i18n="fs4Hint">Pick everything you’re interested in — choose as many as you like.</p>
             <div class="chips" data-group="requestType" role="group" aria-label="What you want from Tokyo Closet Notes">
               <button type="button" class="chip" data-value="Free brand direction">Free brand direction</button>
               <button type="button" class="chip" data-value="Paid brand research list">Paid brand research list</button>
@@ -1132,19 +1152,19 @@
           </fieldset>
 
           <fieldset class="fs" data-stage="4">
-            <legend class="fs-legend">In your words</legend>
-            <p class="fs-hint">Tell us about a brand, outfit, photo, city, or mood you like.</p>
+            <legend class="fs-legend" data-i18n="fs4bLegend">In your words</legend>
+            <p class="fs-hint" data-i18n="fs4bHint">Tell us about a brand, outfit, photo, city, or mood you like.</p>
             <div class="field">
-              <textarea id="freeText" name="freeText" rows="4" placeholder="Example: “I like wide black pants, soft layering, and brands that feel like Tokyo street style but not too loud.”"></textarea>
+              <textarea id="freeText" name="freeText" rows="4" data-i18n-ph="phFreeText" placeholder="Example: “I like wide black pants, soft layering, and brands that feel like Tokyo street style but not too loud.”"></textarea>
             </div>
           </fieldset>
 
           <fieldset class="fs" data-stage="4">
-            <legend class="fs-legend">Before you send <span class="req">*</span></legend>
+            <legend class="fs-legend"><span data-i18n="fs5Legend">Before you send</span> <span class="req">*</span></legend>
             <div class="consent">
-              <label class="opt opt-check"><input type="checkbox" name="consentStyleInquiry" /><span>I understand this is a style inquiry, not a confirmed purchase.</span></label>
-              <label class="opt opt-check"><input type="checkbox" name="consentExtraCosts" /><span>I understand proxy shopping, shipping, customs, and taxes may involve additional costs.</span></label>
-              <label class="opt opt-check"><input type="checkbox" name="consentContact" /><span>I agree that Tokyo Closet Notes may contact me by email or social DM.</span></label>
+              <label class="opt opt-check"><input type="checkbox" name="consentStyleInquiry" /><span data-i18n="consent1">I understand this is a style inquiry, not a confirmed purchase.</span></label>
+              <label class="opt opt-check"><input type="checkbox" name="consentExtraCosts" /><span data-i18n="consent2">I understand proxy shopping, shipping, customs, and taxes may involve additional costs.</span></label>
+              <label class="opt opt-check"><input type="checkbox" name="consentContact" /><span data-i18n="consent3">I agree that Tokyo Closet Notes may contact me by email or social DM.</span></label>
             </div>
           </fieldset>
 
@@ -1156,9 +1176,9 @@
 
           <div class="form-foot">
             <p class="form-error" id="form-error" role="alert" hidden></p>
-            <p class="submit-micro">Your answers help us build a more personal Japanese fashion guide.</p>
+            <p class="submit-micro" data-i18n="submitMicro">Your answers help us build a more personal Japanese fashion guide.</p>
             <button type="submit" class="btn btn-primary btn-block" id="submit-btn">
-              <span class="btn-label">Send my style notes</span>
+              <span class="btn-label" data-i18n="sendNotes">Send my style notes</span>
               <span class="btn-spinner" aria-hidden="true"></span>
             </button>
           </div>
@@ -1167,11 +1187,11 @@
         <!-- success replaces form -->
         <div class="form-success" id="form-success" role="status" hidden>
           <div class="fs-tick" aria-hidden="true"></div>
-          <h3>Thank you.</h3>
-          <p>We’ll review your style notes and send a first direction soon.</p>
-          <p class="success-next">You’re on the list for <b>Japan Fashion Map</b> updates — a city-by-city guide to shops, brands, and areas worth exploring. We’ll share it with you first.</p>
-          <a href="#map" class="btn btn-outline" data-scroll style="margin-top:18px">Open the Free Tokyo Fashion Map</a>
-          <p class="micro">We read every request manually before suggesting brands or shopping routes.</p>
+          <h3 data-i18n="successTitle">Thank you.</h3>
+          <p data-i18n="successBody">We’ll review your style notes and send a first direction soon.</p>
+          <p class="success-next" data-i18n-html="successNext">You’re on the list for <b>Japan Fashion Map</b> updates — a city-by-city guide to shops, brands, and areas worth exploring. We’ll share it with you first.</p>
+          <a href="#map" class="btn btn-outline" data-scroll style="margin-top:18px" data-i18n="successCta">Open the Free Tokyo Fashion Map</a>
+          <p class="micro" data-i18n="successMicro">We read every request manually before suggesting brands or shopping routes.</p>
         </div>
       </div>
     </section>
@@ -1182,35 +1202,35 @@
 
         <!-- LOCKED state — shown until the Style Finder is submitted -->
         <div id="map-locked">
-          <p class="eyebrow">Japan Fashion Map · free preview</p>
-          <h2 class="section-title">Unlock the free Tokyo Fashion Map.</h2>
-          <p class="map-lead">Answer the Style Finder and we’ll unlock your free preview — curated areas, real shops, and walking routes. It takes under two minutes.</p>
-          <a href="#finder" class="btn btn-red" id="map-unlock-cta" data-gate-finder>Answer the Style Finder</a>
+          <p class="eyebrow" data-i18n="gateEyebrow">Japan Fashion Map · free preview</p>
+          <h2 class="section-title" data-i18n="gateTitle">Unlock the free Tokyo Fashion Map.</h2>
+          <p class="map-lead" data-i18n="gateLead">Answer the Style Finder and we’ll unlock your free preview — curated areas, real shops, and walking routes. It takes under two minutes.</p>
+          <a href="#finder" class="btn btn-red" id="map-unlock-cta" data-gate-finder data-i18n="gateCta">Answer the Style Finder</a>
         </div>
 
         <!-- UNLOCKED map — revealed after a successful submission (or returning visitor) -->
         <div id="map-unlocked" hidden>
         <div class="map-head">
           <div class="reveal">
-            <p class="eyebrow">Japan Fashion Map · free preview <span class="unlock-badge">Unlocked</span></p>
+            <p class="eyebrow"><span data-i18n="mapUnlockedEyebrow">Japan Fashion Map · free preview</span> <span class="unlock-badge" data-i18n="mapUnlockedBadge">Unlocked</span></p>
             <h2 id="map-title" class="section-title">A curated Tokyo fashion map.</h2>
           </div>
           <!-- reusable city tabs -->
           <div class="city-tabs reveal" id="city-tabs" role="tablist" aria-label="Choose a city"></div>
         </div>
-        <p class="map-lead reveal" id="map-lead">Not a search tool — a small, edited guide. Choose an area and we’ll focus the map on that neighborhood and the shops worth the walk.</p>
+        <p class="map-lead reveal" id="map-lead" data-i18n="mapLead">Not a search tool — a small, edited guide. Choose an area and we’ll focus the map on that neighborhood and the shops worth the walk.</p>
 
         <!-- filters -->
         <div class="map-filters reveal">
           <div class="filter-group">
-            <p class="filter-label">Area</p>
+            <p class="filter-label" data-i18n="filterArea">Area</p>
             <!-- area buttons are rendered per active city by setupMap() -->
             <div class="filter-row" id="area-filters" role="group" aria-label="Filter by area"></div>
           </div>
           <div class="filter-group">
-            <p class="filter-label">Style</p>
+            <p class="filter-label" data-i18n="filterStyle">Style</p>
             <div class="filter-row" id="style-filters" role="group" aria-label="Filter by style">
-              <button type="button" class="filter-chip" data-style="all">All styles</button>
+              <button type="button" class="filter-chip" data-style="all" data-i18n="allStyles">All styles</button>
               <button type="button" class="filter-chip" data-style="Made in Japan">Made in Japan</button>
               <button type="button" class="filter-chip" data-style="Select Shop">Select Shop</button>
               <button type="button" class="filter-chip" data-style="Vintage">Vintage</button>
@@ -1228,9 +1248,9 @@
             <p class="area-tagline" id="ai-tagline"></p>
           </div>
           <div class="area-meta">
-            <div><span class="k">Best for</span><span class="v" id="ai-bestfor"></span></div>
-            <div><span class="k">Start at</span><span class="v" id="ai-station"></span></div>
-            <div><span class="k">Preview shops</span><span class="v"><b id="ai-count">0</b></span></div>
+            <div><span class="k" data-i18n="aiBestForLbl">Best for</span><span class="v" id="ai-bestfor"></span></div>
+            <div><span class="k" data-i18n="aiStartLbl">Start at</span><span class="v" id="ai-station"></span></div>
+            <div><span class="k" data-i18n="aiPreviewLbl">Preview shops</span><span class="v"><b id="ai-count">0</b></span></div>
           </div>
         </div>
 
@@ -1238,30 +1258,30 @@
         <div class="map-wrap reveal">
           <div id="tcn-map" role="application" aria-label="Tokyo fashion map"></div>
         </div>
-        <p class="map-foot-note">Pins are curated and approximate. Tap “Open in Google Maps” for exact, up-to-date directions — and please confirm opening hours before visiting.</p>
+        <p class="map-foot-note" data-i18n="mapFootNote">Pins are curated and approximate. Tap “Open in Google Maps” for exact, up-to-date directions — and please confirm opening hours before visiting.</p>
 
         <!-- shop card list -->
         <div class="shop-listhead">
-          <h3>Shops in view</h3>
+          <h3 data-i18n="shopsInView">Shops in view</h3>
           <span class="shop-count" id="shop-count"></span>
         </div>
         <div class="shop-grid" id="shop-grid"></div>
 
         <!-- paid CTA / locked full map -->
         <div class="paid-cta reveal">
-          <p class="lock-eyebrow">Full map locked</p>
-          <h3>Unlock the full Japan Fashion Shopping Map</h3>
-          <p>This is a free preview. The full map adds many more researched shops, hidden shops, walking routes, brand notes, and shopping strategy across Tokyo, Osaka, Kyoto, Nagoya, Fukuoka and beyond — built for travelers planning a real shopping day.</p>
+          <p class="lock-eyebrow" data-i18n="fullLockedEyebrow">Full map locked</p>
+          <h3 data-i18n="fullLockedTitle">Unlock the full Japan Fashion Shopping Map</h3>
+          <p data-i18n="fullLockedBody">This is a free preview. The full map adds many more researched shops, hidden shops, walking routes, brand notes, and shopping strategy across Tokyo, Osaka, Kyoto, Nagoya, Fukuoka and beyond — built for travelers planning a real shopping day.</p>
           <div class="paid-stats">
-            <div><b id="paid-shops">150+</b> researched shops</div>
-            <div><b id="paid-districts">12</b> districts</div>
-            <div><b>Routes</b> walk-by-walk</div>
+            <div><b id="paid-shops">150+</b> <span data-i18n="paidStatShops">researched shops</span></div>
+            <div><b id="paid-districts">12</b> <span data-i18n="paidStatDistricts">districts</span></div>
+            <div><b data-i18n="paidStatRoutes">Routes</b> <span data-i18n="paidStatRoutesSub">walk-by-walk</span></div>
           </div>
           <p style="font-size:13px;color:#8a93ad" id="paid-note"></p>
-          <a href="#finder" class="btn btn-red" data-scroll style="margin-top:8px">Tell us your style to get early access</a>
+          <a href="#finder" class="btn btn-red" data-scroll style="margin-top:8px" data-i18n="fullEarlyAccess">Tell us your style to get early access</a>
         </div>
 
-        <p class="map-unlock-note">Unlocked after Style Finder submission.</p>
+        <p class="map-unlock-note" data-i18n="unlockNote">Unlocked after Style Finder submission.</p>
         </div><!-- /#map-unlocked -->
       </div>
     </section>
@@ -1269,117 +1289,117 @@
     <!-- ============ FULL MAP SALES (paid product — public marketing only) ============ -->
     <section id="full-map" class="paidmap" aria-labelledby="full-map-title">
       <div class="container">
-        <p class="eyebrow reveal">Paid · in preparation</p>
+        <p class="eyebrow reveal" data-i18n="fullEyebrow">Paid · in preparation</p>
         <h2 id="full-map-title" class="section-title reveal">Full Japan Fashion Map</h2>
-        <p class="paidmap-lead reveal">A researched, route-based shopping map for a real Japan trip — the shops worth crossing a city for, with the routes to walk them.</p>
+        <p class="paidmap-lead reveal" data-i18n="fullLead">A researched, route-based shopping map for a real Japan trip — the shops worth crossing a city for, with the routes to walk them.</p>
 
         <div class="paid-hero reveal">
           <div class="paid-price">
             <b>$19</b>
-            <span>Full Japan Fashion Map · v1</span>
+            <span data-i18n="paidPriceSub">Full Japan Fashion Map · v1</span>
           </div>
           <div class="paid-value-wrap">
             <ul class="paid-value">
-              <li>100+ curated shops across Tokyo, Osaka, Kyoto, Nagoya & Fukuoka</li>
-              <li>City &amp; area routes you can actually walk</li>
-              <li>Hidden select shops, vintage, designer archive, Made in Japan, denim &amp; craft</li>
-              <li>Address + Google Maps link for every shop</li>
-              <li>“Why go” notes, not just names</li>
-              <li>Travel-friendly shopping routes</li>
+              <li data-i18n="pv1">100+ curated shops across Tokyo, Osaka, Kyoto, Nagoya & Fukuoka</li>
+              <li data-i18n="pv2">City &amp; area routes you can actually walk</li>
+              <li data-i18n="pv3">Hidden select shops, vintage, designer archive, Made in Japan, denim &amp; craft</li>
+              <li data-i18n="pv4">Address + Google Maps link for every shop</li>
+              <li data-i18n="pv5">“Why go” notes, not just names</li>
+              <li data-i18n="pv6">Travel-friendly shopping routes</li>
             </ul>
-            <a href="#finder" class="btn btn-red" data-scroll>Join the Full Map waitlist</a>
-            <p class="paid-note">No purchase yet — answer the Style Finder and we’ll notify you when the full map opens.</p>
+            <a href="#finder" class="btn btn-red" data-scroll data-i18n="ctaWaitlist">Join the Full Map waitlist</a>
+            <p class="paid-note" data-i18n="waitlistNote">No purchase yet — answer the Style Finder and we’ll notify you when the full map opens.</p>
           </div>
         </div>
 
         <!-- comparison -->
-        <h3 class="paid-subhead reveal">Free preview vs Full Map</h3>
+        <h3 class="paid-subhead reveal" data-i18n="compareSubhead">Free preview vs Full Map</h3>
         <div class="compare reveal">
           <div class="compare-col">
-            <p class="compare-tag">Free preview</p>
+            <p class="compare-tag" data-i18n="cmpFreeTag">Free preview</p>
             <ul>
-              <li>54 preview shops</li>
-              <li>Basic city &amp; area filters</li>
-              <li>Enough to start exploring</li>
+              <li data-i18n="cmpFree1">54 preview shops</li>
+              <li data-i18n="cmpFree2">Basic city &amp; area filters</li>
+              <li data-i18n="cmpFree3">Enough to start exploring</li>
             </ul>
           </div>
           <div class="compare-col compare-paid">
-            <p class="compare-tag">Full Map · $19</p>
+            <p class="compare-tag" data-i18n="cmpPaidTag">Full Map · $19</p>
             <ul>
-              <li>100+ researched shops in v1</li>
-              <li>Deeper city &amp; area routes</li>
-              <li>Hidden and niche shops</li>
-              <li>Brand &amp; shopping notes</li>
-              <li>Designed for an actual Japan trip</li>
+              <li data-i18n="cmpPaid1">100+ researched shops in v1</li>
+              <li data-i18n="cmpPaid2">Deeper city &amp; area routes</li>
+              <li data-i18n="cmpPaid3">Hidden and niche shops</li>
+              <li data-i18n="cmpPaid4">Brand &amp; shopping notes</li>
+              <li data-i18n="cmpPaid5">Designed for an actual Japan trip</li>
             </ul>
           </div>
         </div>
 
         <!-- sample routes (editorial only — full shop lists stay private until purchase) -->
-        <h3 class="paid-subhead reveal">Sample routes — one per city</h3>
+        <h3 class="paid-subhead reveal" data-i18n="sampleSubhead">Sample routes — one per city</h3>
         <div class="route-grid">
           <article class="route-card reveal">
             <p class="route-city">Tokyo</p>
-            <h4 class="route-name">Designer Archive + Quiet Select</h4>
-            <p class="route-desc">From Harajuku's designer-archive and used-designer rooms into the quiet, architectural select shops of Sendagaya and Nakameguro.</p>
+            <h4 class="route-name" data-i18n="rtTokyoName">Designer Archive + Quiet Select</h4>
+            <p class="route-desc" data-i18n="rtTokyoDesc">From Harajuku's designer-archive and used-designer rooms into the quiet, architectural select shops of Sendagaya and Nakameguro.</p>
             <div class="route-tags"><span>Designer</span><span>Archive</span><span>Quiet Select</span></div>
           </article>
           <article class="route-card reveal d1">
             <p class="route-city">Osaka</p>
-            <h4 class="route-name">Denim / Repro Craft + Amerikamura Vintage</h4>
-            <p class="route-desc">Osaka's selvedge-denim and repro-workwear makers, then a vintage loop through the Amerikamura backstreets.</p>
+            <h4 class="route-name" data-i18n="rtOsakaName">Denim / Repro Craft + Amerikamura Vintage</h4>
+            <p class="route-desc" data-i18n="rtOsakaDesc">Osaka's selvedge-denim and repro-workwear makers, then a vintage loop through the Amerikamura backstreets.</p>
             <div class="route-tags"><span>Denim</span><span>Made in Japan</span><span>Vintage</span></div>
           </article>
           <article class="route-card reveal d2">
             <p class="route-city">Kyoto</p>
-            <h4 class="route-name">Textile / Machiya Designer Walk</h4>
-            <p class="route-desc">Kyoto weaving and dye houses beside machiya-set Japanese minimalist designers around Sanjo and Teramachi.</p>
+            <h4 class="route-name" data-i18n="rtKyotoName">Textile / Machiya Designer Walk</h4>
+            <p class="route-desc" data-i18n="rtKyotoDesc">Kyoto weaving and dye houses beside machiya-set Japanese minimalist designers around Sanjo and Teramachi.</p>
             <div class="route-tags"><span>Made in Japan</span><span>Textile</span><span>Designer</span></div>
           </article>
           <article class="route-card reveal">
             <p class="route-city">Nagoya</p>
-            <h4 class="route-name">Sakae Designer Archive + Osu Vintage</h4>
-            <p class="route-desc">Sakae's designer and used-designer floors, then the Osu arcades for Americana and craft denim.</p>
+            <h4 class="route-name" data-i18n="rtNagoyaName">Sakae Designer Archive + Osu Vintage</h4>
+            <p class="route-desc" data-i18n="rtNagoyaDesc">Sakae's designer and used-designer floors, then the Osu arcades for Americana and craft denim.</p>
             <div class="route-tags"><span>Designer</span><span>Archive</span><span>Vintage</span></div>
           </article>
           <article class="route-card reveal d1">
             <p class="route-city">Fukuoka</p>
-            <h4 class="route-name">Daimyo / Imaizumi Select Core</h4>
-            <p class="route-desc">Fukuoka's strongest domestic-brand select shops through the walkable Daimyo and Imaizumi backstreets.</p>
+            <h4 class="route-name" data-i18n="rtFukuokaName">Daimyo / Imaizumi Select Core</h4>
+            <p class="route-desc" data-i18n="rtFukuokaDesc">Fukuoka's strongest domestic-brand select shops through the walkable Daimyo and Imaizumi backstreets.</p>
             <div class="route-tags"><span>Select Shop</span><span>Made in Japan</span><span>Local</span></div>
           </article>
         </div>
 
-        <p class="paid-fineprint">Routes shown are an editorial preview. Full shop lists, addresses, and notes are delivered after purchase — they are not stored in this public page.</p>
+        <p class="paid-fineprint" data-i18n="paidFineprint">Routes shown are an editorial preview. Full shop lists, addresses, and notes are delivered after purchase — they are not stored in this public page.</p>
       </div>
     </section>
 
     <!-- ============ PROXY TEASER ============ -->
     <section id="proxy" class="teaser teaser-proxy" aria-labelledby="proxy-title">
       <div class="container container-narrow">
-        <p class="eyebrow reveal">Personal search</p>
-        <h2 id="proxy-title" class="section-title reveal">Need help finding a specific Japanese piece?</h2>
-        <p class="section-lead reveal">
+        <p class="eyebrow reveal" data-i18n="proxyEyebrow">Personal search</p>
+        <h2 id="proxy-title" class="section-title reveal" data-i18n="proxyTitle">Need help finding a specific Japanese piece?</h2>
+        <p class="section-lead reveal" data-i18n="proxyLead">
           We can help research real Japanese brands, shop links, availability, and possible
           buying routes. Proxy shopping may be available for selected requests after confirmation.
         </p>
-        <p class="fine-note reveal">
+        <p class="fine-note reveal" data-i18n="proxyFine">
           We do not guarantee availability, sizing, customs fees, or delivery times. All item
           costs, shipping fees, duties, and taxes are the buyer’s responsibility.
         </p>
-        <a href="#finder" class="btn btn-outline reveal" data-scroll>Request a personal search</a>
+        <a href="#finder" class="btn btn-outline reveal" data-scroll data-i18n="proxyCta">Request a personal search</a>
       </div>
     </section>
 
     <!-- ============ BUILT FOR ============ -->
     <section class="builtfor" aria-labelledby="bf-title">
       <div class="container">
-        <p class="eyebrow reveal">Who it’s for</p>
-        <h2 id="bf-title" class="section-title reveal">Built for</h2>
+        <p class="eyebrow reveal" data-i18n="bfEyebrow">Who it’s for</p>
+        <h2 id="bf-title" class="section-title reveal" data-i18n="bfTitle">Built for</h2>
         <ul class="bf-list">
-          <li class="reveal"><b>People discovering Japanese brands</b><br />quietly, at their own pace.</li>
-          <li class="reveal d1"><b>Travelers planning Tokyo / Osaka / Kyoto</b><br />shopping with a real route in mind.</li>
-          <li class="reveal d2"><b>Fans of quiet details</b><br />wide silhouettes, good fabric, and real shopping routes.</li>
+          <li class="reveal" data-i18n-html="bf1"><b>People discovering Japanese brands</b><br />quietly, at their own pace.</li>
+          <li class="reveal d1" data-i18n-html="bf2"><b>Travelers planning Tokyo / Osaka / Kyoto</b><br />shopping with a real route in mind.</li>
+          <li class="reveal d2" data-i18n-html="bf3"><b>Fans of quiet details</b><br />wide silhouettes, good fabric, and real shopping routes.</li>
         </ul>
       </div>
     </section>
@@ -1387,15 +1407,15 @@
     <!-- ============ TRUST NOTES ============ -->
     <section class="trust" aria-labelledby="trust-title">
       <div class="container container-narrow">
-        <p class="eyebrow reveal">How we work</p>
-        <h2 id="trust-title" class="section-title reveal">Trust notes</h2>
+        <p class="eyebrow reveal" data-i18n="trustEyebrow">How we work</p>
+        <h2 id="trust-title" class="section-title reveal" data-i18n="trustTitle">Trust notes</h2>
         <ul class="trust-list">
-          <li class="reveal">We never pretend AI outfit studies are real street snaps.</li>
-          <li class="reveal">We do not fake brand names.</li>
-          <li class="reveal">We only suggest real brands when researched.</li>
-          <li class="reveal">Proxy shopping is handled case by case.</li>
-          <li class="reveal">Customs duties, import taxes, and shipping delays are the buyer’s responsibility.</li>
-          <li class="reveal">Some items may be unavailable, sold out, or not eligible for international shipping.</li>
+          <li class="reveal" data-i18n="trust1">We never pretend AI outfit studies are real street snaps.</li>
+          <li class="reveal" data-i18n="trust2">We do not fake brand names.</li>
+          <li class="reveal" data-i18n="trust3">We only suggest real brands when researched.</li>
+          <li class="reveal" data-i18n="trust4">Proxy shopping is handled case by case.</li>
+          <li class="reveal" data-i18n="trust5">Customs duties, import taxes, and shipping delays are the buyer’s responsibility.</li>
+          <li class="reveal" data-i18n="trust6">Some items may be unavailable, sold out, or not eligible for international shipping.</li>
         </ul>
       </div>
     </section>
@@ -1411,7 +1431,7 @@
           <span class="footer-mark" style="display:none" aria-hidden="true">tcn</span>
           <p class="footer-name">Tokyo Closet Notes</p>
         </div>
-        <p class="footer-tag">Japanese street style notes, brand research, and shopping direction.</p>
+        <p class="footer-tag" data-i18n="footerTag">Japanese street style notes, brand research, and shopping direction.</p>
       </div>
       <nav class="footer-links" aria-label="Footer links">
         <a href="https://www.instagram.com/tokyo_closet_notes" target="_blank" rel="noopener">Instagram</a>
@@ -1423,13 +1443,13 @@
   </footer>
 
   <!-- sticky mobile CTA (appears after scrolling past the hero) -->
-  <a href="#finder" class="mobile-cta" id="mobile-cta" data-scroll aria-label="Start the style finder">Start the style finder</a>
+  <a href="#finder" class="mobile-cta" id="mobile-cta" data-scroll aria-label="Start the style finder" data-i18n="ctaStartFinder">Start the style finder</a>
 
   <!-- Leaflet library + separated map data (loaded before the main script) -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <!-- bump ?v= when you edit map-data.js so browsers load the new data -->
-  <script src="map-data.js?v=4"></script>
+  <script src="map-data.js?v=5"></script>
 
   <!-- ============================================================
        Inlined script — behavior never depends on a separate file.
@@ -1443,6 +1463,9 @@
   /* Default "source" when opened without a ?source= param. */
   const DEFAULT_SOURCE = "website";
 
+  /* i18n helper — translate a UI key via the shared engine (falls back to the key/English). */
+  function T(k){ return (window.TCN_I18N && window.TCN_I18N.t) ? window.TCN_I18N.t(k) : k; }
+
   document.addEventListener("DOMContentLoaded", function () {
     var y = document.getElementById("year");
     if (y) y.textContent = String(new Date().getFullYear());
@@ -1455,6 +1478,13 @@
     setupMobileCta();
     setupMobileMenu();
     setupMapGate();
+    // re-localize JS-generated UI (progress + map) when the language changes — preserves form values + map state
+    if (window.TCN_I18N && window.TCN_I18N.onChange) {
+      window.TCN_I18N.onChange(function () {
+        try { updateProgress(); } catch (e) {}
+        if (typeof window.__tcnMapRelocalize === "function") { try { window.__tcnMapRelocalize(); } catch (e) {} }
+      });
+    }
   });
 
   /* ============================================================
@@ -1523,6 +1553,22 @@
 
     var DATA = window.TCN_MAP_DATA;
     var CITIES = DATA.cities || {};
+
+    /* merge the zh/ko display-translation table onto shops by id (display only).
+       Never overwrites an existing field; never changes ids, raw names, addresses or styles. */
+    (function(){
+      var PI = window.TCN_MAP_I18N;
+      if (!PI || !PI.shops || !DATA.shops) return;
+      DATA.shops.forEach(function (s) {
+        var x = PI.shops[s.id];
+        if (x) { for (var k in x) { if (s[k] == null) s[k] = x[k]; } }
+      });
+    })();
+
+    /* shop description / whyGo support optional per-language fields (descZh/descKo, whyGoZh/whyGoKo); fall back to EN */
+    function curLang(){ return (window.TCN_I18N && window.TCN_I18N.lang) || 'en'; }
+    function shopDesc(s){ var l = curLang(); return (l==='zh' && s.descZh) || (l==='ko' && s.descKo) || s.description || ''; }
+    function shopWhy(s){ var l = curLang(); return (l==='zh' && s.whyGoZh) || (l==='ko' && s.whyGoKo) || s.whyGo || ''; }
     var startCity = (DATA.defaultCityId && CITIES[DATA.defaultCityId]) ? DATA.defaultCityId : Object.keys(CITIES)[0];
     var state = { city: startCity, area: "all", style: "all" };
     var markers = {}; // shopId -> marker
@@ -1554,6 +1600,19 @@
     wireStyleFilters();
     applyPaidTeaser();
     selectCity(startCity, true);
+
+    // re-localize map UI in place on language change (keeps current city/area/style + zoom)
+    window.__tcnMapRelocalize = function () {
+      document.getElementById("map-title").textContent = T("mapTitle").replace("{city}", city().name);
+      var allBtn = document.querySelector('#area-filters .filter-chip[data-area="all"]');
+      if (allBtn) allBtn.textContent = T("allAreas");
+      // refresh cached marker popups (bound once) so their labels follow the language
+      Object.keys(markers).forEach(function (id) {
+        var sh = DATA.shops.filter(function (s) { return s.id === id; })[0];
+        if (sh && markers[id].setPopupContent) markers[id].setPopupContent(popupHtml(sh));
+      });
+      render();
+    };
 
     // Leaflet needs a size recalc once the section is actually laid out
     setTimeout(function () { map.invalidateSize(); applyView(); }, 250);
@@ -1612,8 +1671,8 @@
         b.addEventListener("click", function () { state.area = val; markActive("#area-filters", b); render(); });
         return b;
       }
-      wrap.appendChild(mk("all", "All areas"));
-      city().areas.forEach(function (a) { wrap.appendChild(mk(a.id, a.name)); });
+      wrap.appendChild(mk("all", T("allAreas")));
+      city().areas.forEach(function (a) { wrap.appendChild(mk(a.id, a.name)); }); // area names are place names — untranslated
     }
 
     function selectCity(id, initial) {
@@ -1622,7 +1681,7 @@
       var c = city();
       state.area = c.defaultAreaId || "all";
       state.style = "all";
-      document.getElementById("map-title").textContent = "A curated " + c.name + " fashion map.";
+      document.getElementById("map-title").textContent = T("mapTitle").replace("{city}", c.name);
       document.querySelectorAll("#city-tabs .city-tab").forEach(function (t) {
         t.classList.toggle("active", t.getAttribute("data-city") === id);
       });
@@ -1686,31 +1745,31 @@
       var nameEl = document.getElementById("ai-name");
       var tagEl = document.getElementById("ai-tagline");
       if (state.area === "all") {
-        nameEl.textContent = c.comingSoon ? (c.name + " — coming soon") : ("All " + c.name + " areas");
+        nameEl.textContent = c.comingSoon ? (c.name + " — " + T("comingSoon")) : T("allCityAreas").replace("{city}", c.name);
         tagEl.textContent = c.intro;
-        document.getElementById("ai-bestfor").textContent = c.comingSoon ? "New routes in research" : "Street, designer, vintage & neutral";
-        document.getElementById("ai-station").textContent = c.comingSoon ? "—" : (c.areas[0] ? "Begins in " + c.areas[0].name.split(" / ")[0] : "—");
+        document.getElementById("ai-bestfor").textContent = c.comingSoon ? T("routesInResearch") : T("bestForDefault");
+        document.getElementById("ai-station").textContent = c.comingSoon ? T("dash") : (c.areas[0] ? T("beginsIn").replace("{area}", c.areas[0].name.split(" / ")[0]) : T("dash"));
         document.getElementById("ai-count").textContent = String(visibleShops().length);
         return;
       }
       var a = areaById(state.area);
       if (!a) return;
-      nameEl.textContent = a.name;
-      tagEl.textContent = a.tagline || "Coming soon — we’re researching shops in this area.";
-      document.getElementById("ai-bestfor").textContent = a.bestFor || "Coming soon";
-      document.getElementById("ai-station").textContent = a.station || "—";
+      nameEl.textContent = a.name; // area name — untranslated
+      tagEl.textContent = a.tagline || "";
+      document.getElementById("ai-bestfor").textContent = a.bestFor || T("comingSoon");
+      document.getElementById("ai-station").textContent = a.station || T("dash");
       var count = DATA.shops.filter(function (s) { return s.cityId === state.city && s.areaId === a.id && s.preview !== false; }).length;
       document.getElementById("ai-count").textContent = String(count);
     }
 
     function renderComingSoon() {
       var grid = document.getElementById("shop-grid");
-      document.getElementById("shop-count").textContent = "Coming soon";
+      document.getElementById("shop-count").textContent = T("comingSoon");
       grid.innerHTML =
         '<div class="map-comingsoon">' +
-          '<h3>Coming soon</h3>' +
-          '<p>We’re building this city map next. Join the Style Finder list to get updates when new Japan fashion routes are added.</p>' +
-          '<a class="btn btn-red" href="#finder">Join the map waitlist</a>' +
+          '<h3>' + esc(T("comingSoon")) + '</h3>' +
+          '<p>' + esc(T("csBody")) + '</p>' +
+          '<a class="btn btn-red" href="#finder">' + esc(T("csWaitlist")) + '</a>' +
         '</div>';
       var link = grid.querySelector("a.btn");
       if (link) link.addEventListener("click", function (e) {
@@ -1724,11 +1783,11 @@
       var grid = document.getElementById("shop-grid");
       var countEl = document.getElementById("shop-count");
       grid.innerHTML = "";
-      countEl.textContent = shops.length + (shops.length === 1 ? " shop" : " shops");
+      countEl.textContent = (shops.length === 1) ? T("shop1") : T("shopsN").replace("{n}", shops.length);
       if (!shops.length) {
         var empty = document.createElement("p");
         empty.className = "shop-empty";
-        empty.textContent = "No preview shops match that style here yet — try “All styles”.";
+        empty.textContent = T("noStyleMatch");
         grid.appendChild(empty);
         return;
       }
@@ -1736,8 +1795,8 @@
         var area = areaById(shop.areaId);
         var c = CITIES[shop.cityId];
         var loc = (area ? area.name : "") + (c ? " · " + c.name : "");
-        var actions = '<a class="a-maps" target="_blank" rel="noopener" href="' + mapsUrl(shop) + '">Open in Google Maps</a>';
-        if (shop.site) actions += '<a class="a-site" target="_blank" rel="noopener" href="' + esc(shop.site) + '">Official Site</a>';
+        var actions = '<a class="a-maps" target="_blank" rel="noopener" href="' + mapsUrl(shop) + '">' + esc(T("openMaps")) + '</a>';
+        if (shop.site) actions += '<a class="a-site" target="_blank" rel="noopener" href="' + esc(shop.site) + '">' + esc(T("officialSite")) + '</a>';
         var card = document.createElement("article");
         card.className = "shop-card";
         card.setAttribute("data-shop", shop.id);
@@ -1747,9 +1806,9 @@
               '<h4>' + esc(shop.name) + '</h4>' +
               '<span class="shop-loc">' + esc(loc) + '</span>' +
             '</div>' +
-            '<p class="shop-desc">' + esc(shop.description) + '</p>' +
+            '<p class="shop-desc">' + esc(shopDesc(shop)) + '</p>' +
             '<div class="shop-tags">' + tagsHtml(shop.styles) + '</div>' +
-            (shop.whyGo ? '<p class="shop-why"><span>Why go</span>' + esc(shop.whyGo) + '</p>' : '') +
+            (shop.whyGo ? '<p class="shop-why"><span>' + esc(T("whyGo")) + '</span>' + esc(shopWhy(shop)) + '</p>' : '') +
             (shop.address ? '<p class="shop-addr">' + esc(shop.address) + '</p>' : '') +
           '</button>' +
           '<div class="shop-foot">' +
@@ -1784,16 +1843,16 @@
     /* ---- popup + card helpers ---- */
     function popupHtml(shop) {
       var area = areaById(shop.areaId);
-      var actions = '<a class="a-maps" target="_blank" rel="noopener" href="' + mapsUrl(shop) + '">Open in Google Maps</a>';
-      if (shop.site) actions += '<a class="a-site" target="_blank" rel="noopener" href="' + esc(shop.site) + '">Official Site</a>';
+      var actions = '<a class="a-maps" target="_blank" rel="noopener" href="' + mapsUrl(shop) + '">' + esc(T("openMaps")) + '</a>';
+      if (shop.site) actions += '<a class="a-site" target="_blank" rel="noopener" href="' + esc(shop.site) + '">' + esc(T("officialSite")) + '</a>';
       return '<div class="pop">' +
         '<div class="pop-body">' +
           '<h4>' + esc(shop.name) + '</h4>' +
-          '<p class="pop-desc">' + esc(shop.description) + '</p>' +
-          (shop.whyGo ? '<p class="pop-why"><b>Why go:</b> ' + esc(shop.whyGo) + '</p>' : '') +
-          '<p class="pop-meta"><b>Area:</b> ' + esc(area ? area.name : "") + '<br>' +
-            '<b>Address:</b> ' + esc(shop.address || "—") + '<br>' +
-            '<b>Price:</b> ' + esc(shop.price || "—") + '</p>' +
+          '<p class="pop-desc">' + esc(shopDesc(shop)) + '</p>' +
+          (shop.whyGo ? '<p class="pop-why"><b>' + esc(T("popWhy")) + '</b> ' + esc(shopWhy(shop)) + '</p>' : '') +
+          '<p class="pop-meta"><b>' + esc(T("popArea")) + '</b> ' + esc(area ? area.name : "") + '<br>' +
+            '<b>' + esc(T("popAddr")) + '</b> ' + esc(shop.address || "—") + '<br>' +
+            '<b>' + esc(T("popPrice")) + '</b> ' + esc(shop.price || "—") + '</p>' +
           '<div class="pop-tags">' + tagsHtml(shop.styles) + '</div>' +
           '<div class="pop-actions">' + actions + '</div>' +
         '</div>' +
@@ -1908,10 +1967,10 @@
 
   /* ---------- progress ---------- */
   var STAGES = [
-    { label: "About you",       done: function (d) { return !!d.email && !!d.country; } },
-    { label: "Your style",      done: function (d) { return d.styleMoods.length > 0 || d.desiredItems.length > 0; } },
-    { label: "Preferences",     done: function (d) { return !!d.budget || !!d.newUsed || d.details.length > 0; } },
-    { label: "Your request",    done: function (d) { return d.requestType.length > 0 && d.consentStyleInquiry && d.consentExtraCosts && d.consentContact; } }
+    { key: "stage1", done: function (d) { return !!d.email && !!d.country; } },
+    { key: "stage2", done: function (d) { return d.styleMoods.length > 0 || d.desiredItems.length > 0; } },
+    { key: "stage3", done: function (d) { return !!d.budget || !!d.newUsed || d.details.length > 0; } },
+    { key: "stage4", done: function (d) { return d.requestType.length > 0 && d.consentStyleInquiry && d.consentExtraCosts && d.consentContact; } }
   ];
   function setupProgress() {
     var form = document.getElementById("style-form");
@@ -1937,9 +1996,9 @@
     pctEl.textContent = pct + "%";
     if (wrap) wrap.setAttribute("aria-valuenow", String(pct));
     if (done >= STAGES.length) {
-      label.textContent = "Ready to send";
+      label.textContent = T("readyToSend");
     } else {
-      label.textContent = "Step " + (current + 1) + " of 4 · " + STAGES[current].label;
+      label.textContent = T("progStep").replace("{n}", current + 1) + " · " + T(STAGES[current].key);
     }
   }
 
@@ -1989,10 +2048,10 @@
           show(successEl);
           successEl.scrollIntoView({ behavior: "smooth", block: "center" });
         } else {
-          showError(errorEl, (json && json.message) || "Something went wrong. Please try again.");
+          showError(errorEl, (json && json.message) || T("sendFail"));
         }
       } catch (err) {
-        showError(errorEl, "We couldn’t send your notes. Check your connection and try again.");
+        showError(errorEl, T("netFail"));
       } finally {
         setLoading(btn, false);
       }
@@ -2023,12 +2082,12 @@
   function stripInternal(data) { var c = {}; for (var k in data) { if (k !== "_hp") c[k] = data[k]; } return c; }
 
   function validate(d) {
-    if (!d.email) return { message: "Please add your email so we can reply.", focusId: "email" };
-    if (!isEmail(d.email)) return { message: "That email doesn’t look right. Please check it.", focusId: "email" };
-    if (!d.country) return { message: "Please tell us your country.", focusId: "country" };
-    if (!d.requestType || !d.requestType.length) return { message: "Please choose at least one thing you’d like from Tokyo Closet Notes (Step 04)." };
+    if (!d.email) return { message: T("vEmail"), focusId: "email" };
+    if (!isEmail(d.email)) return { message: T("vEmailBad"), focusId: "email" };
+    if (!d.country) return { message: T("vCountry"), focusId: "country" };
+    if (!d.requestType || !d.requestType.length) return { message: T("vRequest") };
     if (!d.consentStyleInquiry || !d.consentExtraCosts || !d.consentContact)
-      return { message: "Please check all three boxes before sending." };
+      return { message: T("vConsent") };
     return null;
   }
   function isEmail(s) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s); }
@@ -2036,11 +2095,359 @@
   function setLoading(btn, on) {
     btn.disabled = on;
     btn.classList.toggle("is-loading", on);
-    btn.querySelector(".btn-label").textContent = on ? "Sending…" : "Send my style notes";
+    btn.querySelector(".btn-label").textContent = on ? T("sending") : T("sendNotes");
   }
   function showError(el, msg) { el.textContent = msg; show(el); }
   function show(el) { el.hidden = false; }
   function hide(el) { el.hidden = true; }
+  </script>
+
+  <!-- Lightweight EN / 中文 / 한국어 UI switch. Translates [data-i18n] UI labels only.
+       Shop names, brand names, addresses, URLs, and Style Finder submit logic are untouched.
+       No external translation widgets. Persists with localStorage.tcnLang. -->
+  <script>
+  /* ============================================================
+     Public-site i18n — EN / 简体中文 / 한국어. UI copy only.
+     Never translated: shop/brand names, addresses, URLs, form field
+     names/values, JS IDs, data keys, Apps Script URL, literals ($19/54/100+).
+     Exposes window.TCN_I18N { t, lang, setLang, onChange } so the
+     Style Finder + map renderers can localize their generated strings
+     without resetting form values, step, or map state.
+     ============================================================ */
+  window.TCN_I18N = (function(){
+    var I18N = {
+      en:{
+        tagline:"Japan fashion finder", menu:"Menu", navFinder:"Finder", navMap:"Map", navProxy:"Proxy Support",
+        heroEyebrow:"Japan Fashion Finder", heroTitle:"Find your Japan style mood.",
+        heroSub:"Answer a few quick questions and we’ll help you discover Japanese brands, shops, and outfit ideas that match your taste.",
+        ctaStartFinder:"Start the style finder", ctaExploreMap:"Explore the map",
+        heroNote:"For people who love Japanese street style, quiet details, and real shopping routes.",
+        strip1:"<b>2 minutes</b> to complete", strip2:"<b>No login</b> required", strip3:"<b>No purchase</b> required", strip4:"Reviewed <b>by hand</b>",
+        howEyebrow:"The process", howTitle:"How it works",
+        how1Title:"Tell us your style", how1Body:"Choose the moods, items, colors, and textures you like.",
+        how2Title:"Get a direction", how2Body:"We suggest Japanese brand categories, shop types, and outfit references.",
+        how3Title:"Go deeper", how3Body:"Request a brand list, shopping map, or personal Japan fashion search.",
+        valEyebrow:"Why answer", valTitle:"A first direction, made for your taste.",
+        valPromise:"Answer a few style notes and we’ll send a first direction: brands to look at, cities to explore, and outfit moods that match your taste.",
+        valMeta1:"2 minutes. No login. No purchase required.", valMeta2:"We read every request manually before suggesting brands or shopping routes.",
+        valReceiveTitle:"What you may receive", valR1:"Japanese brand directions", valR2:"Shop and city ideas", valR3:"Outfit mood notes", valR4:"Future Japan Fashion Map updates", valR5:"Personal search options",
+        finderEyebrow:"The Style Finder", finderTitle:"Japan Fashion Finder",
+        finderLead:"A few quick taste questions — there are no wrong answers, just tap what you like. Under two minutes.",
+        gateMsg:"Answer the Style Finder to unlock the free Tokyo Fashion Map preview.",
+        fs1Legend:"About you", fs1Hint:"So we know who we’re writing back to.",
+        lblName:"Name or nickname", lblEmail:"Email", lblHandle:"Instagram or TikTok handle", lblCountry:"Country",
+        phCountry:"Select your country", lblVisit:"Your Japan plan — are you planning to visit?", phChoose:"Choose one",
+        visitYes:"Yes, soon", visitMaybe:"Maybe someday", visitNo:"Not currently",
+        fs2Legend:"Your mood", fs2Hint:"Select all that feel like you.",
+        fs2bLegend:"What you are looking for", fs2bHint:"Pieces, services, or both — select all that apply.",
+        fs3Legend:"Details that matter", fs3Hint:"The quiet things that make a piece feel right.",
+        fs3bLegend:"Your fashion shopping budget", fs3cLegend:"New or used",
+        newOnly:"New only", usedOk:"Used / vintage is okay", bothOpt:"Both", notSure:"Not sure", justResearching:"I’m just researching",
+        fs4Legend:"What do you want from us?", fs4Hint:"Pick everything you’re interested in — choose as many as you like.",
+        fs4bLegend:"In your words", fs4bHint:"Tell us about a brand, outfit, photo, city, or mood you like.",
+        phFreeText:"Example: “I like wide black pants, soft layering, and brands that feel like Tokyo street style but not too loud.”",
+        fs5Legend:"Before you send",
+        consent1:"I understand this is a style inquiry, not a confirmed purchase.",
+        consent2:"I understand proxy shopping, shipping, customs, and taxes may involve additional costs.",
+        consent3:"I agree that Tokyo Closet Notes may contact me by email or social DM.",
+        submitMicro:"Your answers help us build a more personal Japanese fashion guide.", sendNotes:"Send my style notes", sending:"Sending…",
+        successTitle:"Thank you.", successBody:"We’ll review your style notes and send a first direction soon.",
+        successNext:"You’re on the list for <b>Japan Fashion Map</b> updates — a city-by-city guide to shops, brands, and areas worth exploring. We’ll share it with you first.",
+        successCta:"Open the Free Tokyo Fashion Map", successMicro:"We read every request manually before suggesting brands or shopping routes.",
+        gateEyebrow:"Japan Fashion Map · free preview", gateTitle:"Unlock the free Tokyo Fashion Map.",
+        gateLead:"Answer the Style Finder and we’ll unlock your free preview — curated areas, real shops, and walking routes. It takes under two minutes.",
+        gateCta:"Answer the Style Finder",
+        mapUnlockedEyebrow:"Japan Fashion Map · free preview", mapUnlockedBadge:"Unlocked",
+        mapLead:"Not a search tool — a small, edited guide. Choose an area and we’ll focus the map on that neighborhood and the shops worth the walk.",
+        filterArea:"Area", filterStyle:"Style", allStyles:"All styles",
+        aiBestForLbl:"Best for", aiStartLbl:"Start at", aiPreviewLbl:"Preview shops",
+        mapFootNote:"Pins are curated and approximate. Tap “Open in Google Maps” for exact, up-to-date directions — and please confirm opening hours before visiting.",
+        shopsInView:"Shops in view",
+        fullLockedEyebrow:"Full map locked", fullLockedTitle:"Unlock the full Japan Fashion Shopping Map",
+        fullLockedBody:"This is a free preview. The full map adds many more researched shops, hidden shops, walking routes, brand notes, and shopping strategy across Tokyo, Osaka, Kyoto, Nagoya, Fukuoka and beyond — built for travelers planning a real shopping day.",
+        paidStatShops:"researched shops", paidStatDistricts:"districts", paidStatRoutes:"Routes", paidStatRoutesSub:"walk-by-walk",
+        fullEarlyAccess:"Tell us your style to get early access", unlockNote:"Unlocked after Style Finder submission.",
+        fullEyebrow:"Paid · in preparation", fullLead:"A researched, route-based shopping map for a real Japan trip — the shops worth crossing a city for, with the routes to walk them.",
+        paidPriceSub:"Full Japan Fashion Map · v1",
+        pv1:"100+ curated shops across Tokyo, Osaka, Kyoto, Nagoya & Fukuoka", pv2:"City & area routes you can actually walk",
+        pv3:"Hidden select shops, vintage, designer archive, Made in Japan, denim & craft", pv4:"Address + Google Maps link for every shop",
+        pv5:"“Why go” notes, not just names", pv6:"Travel-friendly shopping routes",
+        ctaWaitlist:"Join the Full Map waitlist", waitlistNote:"No purchase yet — answer the Style Finder and we’ll notify you when the full map opens.",
+        compareSubhead:"Free preview vs Full Map", cmpFreeTag:"Free preview",
+        cmpFree1:"54 preview shops", cmpFree2:"Basic city & area filters", cmpFree3:"Enough to start exploring",
+        cmpPaidTag:"Full Map · $19", cmpPaid1:"100+ researched shops in v1", cmpPaid2:"Deeper city & area routes",
+        cmpPaid3:"Hidden and niche shops", cmpPaid4:"Brand & shopping notes", cmpPaid5:"Designed for an actual Japan trip",
+        sampleSubhead:"Sample routes — one per city",
+        rtTokyoName:"Designer Archive + Quiet Select", rtTokyoDesc:"From Harajuku's designer-archive and used-designer rooms into the quiet, architectural select shops of Sendagaya and Nakameguro.",
+        rtOsakaName:"Denim / Repro Craft + Amerikamura Vintage", rtOsakaDesc:"Osaka's selvedge-denim and repro-workwear makers, then a vintage loop through the Amerikamura backstreets.",
+        rtKyotoName:"Textile / Machiya Designer Walk", rtKyotoDesc:"Kyoto weaving and dye houses beside machiya-set Japanese minimalist designers around Sanjo and Teramachi.",
+        rtNagoyaName:"Sakae Designer Archive + Osu Vintage", rtNagoyaDesc:"Sakae's designer and used-designer floors, then the Osu arcades for Americana and craft denim.",
+        rtFukuokaName:"Daimyo / Imaizumi Select Core", rtFukuokaDesc:"Fukuoka's strongest domestic-brand select shops through the walkable Daimyo and Imaizumi backstreets.",
+        paidFineprint:"Routes shown are an editorial preview. Full shop lists, addresses, and notes are delivered after purchase — they are not stored in this public page.",
+        proxyEyebrow:"Personal search", proxyTitle:"Need help finding a specific Japanese piece?",
+        proxyLead:"We can help research real Japanese brands, shop links, availability, and possible buying routes. Proxy shopping may be available for selected requests after confirmation.",
+        proxyFine:"We do not guarantee availability, sizing, customs fees, or delivery times. All item costs, shipping fees, duties, and taxes are the buyer’s responsibility.",
+        proxyCta:"Request a personal search",
+        bfEyebrow:"Who it’s for", bfTitle:"Built for",
+        bf1:"<b>People discovering Japanese brands</b><br />quietly, at their own pace.",
+        bf2:"<b>Travelers planning Tokyo / Osaka / Kyoto</b><br />shopping with a real route in mind.",
+        bf3:"<b>Fans of quiet details</b><br />wide silhouettes, good fabric, and real shopping routes.",
+        trustEyebrow:"How we work", trustTitle:"Trust notes",
+        trust1:"We never pretend AI outfit studies are real street snaps.", trust2:"We do not fake brand names.",
+        trust3:"We only suggest real brands when researched.", trust4:"Proxy shopping is handled case by case.",
+        trust5:"Customs duties, import taxes, and shipping delays are the buyer’s responsibility.",
+        trust6:"Some items may be unavailable, sold out, or not eligible for international shipping.",
+        footerTag:"Japanese street style notes, brand research, and shopping direction.",
+        /* dynamic (JS) */
+        stage1:"About you", stage2:"Your style", stage3:"Preferences", stage4:"Your request",
+        readyToSend:"Ready to send", progStep:"Step {n} of 4",
+        vEmail:"Please add your email so we can reply.", vEmailBad:"That email doesn’t look right. Please check it.",
+        vCountry:"Please tell us your country.", vRequest:"Please choose at least one thing you’d like from Tokyo Closet Notes (Step 04).",
+        vConsent:"Please check all three boxes before sending.",
+        sendFail:"Something went wrong. Please try again.", netFail:"We couldn’t send your notes. Check your connection and try again.",
+        mapTitle:"A curated {city} fashion map.", allAreas:"All areas", allCityAreas:"All {city} areas",
+        bestForDefault:"Street, designer, vintage & neutral", routesInResearch:"New routes in research", comingSoon:"Coming soon",
+        beginsIn:"Begins in {area}", dash:"—",
+        csBody:"We’re building this city map next. Join the Style Finder list to get updates when new Japan fashion routes are added.",
+        csWaitlist:"Join the map waitlist", shopsN:"{n} shops", shop1:"1 shop",
+        noStyleMatch:"No preview shops match that style here yet — try “All styles”.",
+        whyGo:"Why go", openMaps:"Open in Google Maps", officialSite:"Official Site",
+        popWhy:"Why go:", popArea:"Area:", popAddr:"Address:", popPrice:"Price:",
+        chips:{}
+      },
+      zh:{
+        tagline:"日本时尚指南", menu:"菜单", navFinder:"风格测试", navMap:"地图", navProxy:"代购支持",
+        heroEyebrow:"日本时尚指南", heroTitle:"找到你的日本穿搭风格。",
+        heroSub:"回答几个简单问题，我们会帮你发现符合你品味的日本品牌、店铺和穿搭灵感。",
+        ctaStartFinder:"开始风格测试", ctaExploreMap:"探索地图",
+        heroNote:"献给喜爱日本街头风格、低调细节与真实购物路线的人。",
+        strip1:"<b>2 分钟</b>即可完成", strip2:"<b>无需登录</b>", strip3:"<b>无需购买</b>", strip4:"<b>人工</b>逐一审阅",
+        howEyebrow:"流程", howTitle:"如何运作",
+        how1Title:"告诉我们你的风格", how1Body:"选择你喜欢的氛围、单品、颜色和质感。",
+        how2Title:"获得方向", how2Body:"我们会推荐日本品牌类别、店铺类型和穿搭参考。",
+        how3Title:"更进一步", how3Body:"索取品牌清单、购物地图或个人日本时尚搜寻。",
+        valEyebrow:"为什么回答", valTitle:"为你的品味量身的第一个方向。",
+        valPromise:"留下几条风格笔记，我们会给你第一个方向：值得关注的品牌、值得探索的城市，以及契合你品味的穿搭氛围。",
+        valMeta1:"2 分钟。无需登录。无需购买。", valMeta2:"在推荐品牌或购物路线前，我们会人工阅读每一份请求。",
+        valReceiveTitle:"你可能会收到", valR1:"日本品牌方向", valR2:"店铺与城市建议", valR3:"穿搭氛围笔记", valR4:"未来的日本时尚地图更新", valR5:"个人搜寻选项",
+        finderEyebrow:"风格测试", finderTitle:"日本时尚指南",
+        finderLead:"几个轻松的品味问题——没有标准答案，喜欢就点。不到两分钟。",
+        gateMsg:"完成风格测试，即可解锁免费东京时尚地图预览。",
+        fs1Legend:"关于你", fs1Hint:"这样我们才知道回复给谁。",
+        lblName:"名字或昵称", lblEmail:"邮箱", lblHandle:"Instagram 或 TikTok 账号", lblCountry:"国家 / 地区",
+        phCountry:"选择你的国家 / 地区", lblVisit:"你的日本计划——你打算去吗？", phChoose:"请选择一项",
+        visitYes:"是的，很快", visitMaybe:"也许某天", visitNo:"暂时没有",
+        fs2Legend:"你的氛围", fs2Hint:"选择所有符合你的。",
+        fs2bLegend:"你在寻找什么", fs2bHint:"单品、服务，或两者皆可——可多选。",
+        fs3Legend:"在意的细节", fs3Hint:"那些让一件单品恰到好处的小事。",
+        fs3bLegend:"你的时尚购物预算", fs3cLegend:"全新或二手",
+        newOnly:"仅全新", usedOk:"二手 / 古着也可以", bothOpt:"都可以", notSure:"不确定", justResearching:"我只是在研究",
+        fs4Legend:"你希望我们提供什么？", fs4Hint:"选择所有你感兴趣的——想选几个都行。",
+        fs4bLegend:"用你的话说", fs4bHint:"说说你喜欢的品牌、穿搭、照片、城市或氛围。",
+        phFreeText:"例如：“我喜欢宽松的黑色裤子、柔和的叠穿，以及有东京街头感但不张扬的品牌。”",
+        fs5Legend:"发送之前",
+        consent1:"我明白这是风格咨询，而非确认购买。",
+        consent2:"我明白代购、运输、关税和税费可能产生额外费用。",
+        consent3:"我同意 Tokyo Closet Notes 通过邮件或社交私信与我联系。",
+        submitMicro:"你的回答能帮助我们打造更个性化的日本时尚指南。", sendNotes:"发送我的风格笔记", sending:"发送中…",
+        successTitle:"谢谢你。", successBody:"我们会查看你的风格笔记，很快给你第一个方向。",
+        successNext:"你已加入 <b>日本时尚地图</b> 更新名单——一份逐城介绍值得探索的店铺、品牌和区域的指南。我们会优先与你分享。",
+        successCta:"打开免费东京时尚地图", successMicro:"在推荐品牌或购物路线前，我们会人工阅读每一份请求。",
+        gateEyebrow:"日本时尚地图 · 免费预览", gateTitle:"解锁免费东京时尚地图。",
+        gateLead:"完成风格测试，即可解锁免费预览——精选区域、真实店铺与步行路线。只需不到两分钟。",
+        gateCta:"完成风格测试",
+        mapUnlockedEyebrow:"日本时尚地图 · 免费预览", mapUnlockedBadge:"已解锁",
+        mapLead:"这不是搜索工具，而是一份小而精的指南。选择一个区域，我们会把地图聚焦到那个街区，以及值得一走的店铺。",
+        filterArea:"区域", filterStyle:"风格", allStyles:"全部风格",
+        aiBestForLbl:"适合", aiStartLbl:"起点", aiPreviewLbl:"预览店铺",
+        mapFootNote:"图钉为精选且大致位置。点击“在 Google 地图打开”获取精确、最新的路线——出发前请确认营业时间。",
+        shopsInView:"视野内店铺",
+        fullLockedEyebrow:"完整地图已锁定", fullLockedTitle:"解锁完整日本时尚购物地图",
+        fullLockedBody:"这是免费预览。完整地图涵盖更多经研究的店铺、隐藏店铺、步行路线、品牌笔记与购物策略，遍及东京、大阪、京都、名古屋、福冈等地——为真正规划购物之日的旅行者打造。",
+        paidStatShops:"经研究的店铺", paidStatDistricts:"个街区", paidStatRoutes:"路线", paidStatRoutesSub:"一段段步行",
+        fullEarlyAccess:"告诉我们你的风格，抢先体验", unlockNote:"完成风格测试后解锁。",
+        fullEyebrow:"付费 · 筹备中", fullLead:"为真正的日本之旅精心研究的路线式购物地图——值得跨城前往的店铺，以及步行路线。",
+        paidPriceSub:"完整日本时尚地图 · v1",
+        pv1:"东京、大阪、京都、名古屋和福冈 100+ 精选店铺", pv2:"真正可步行的城市与区域路线",
+        pv3:"隐藏选品店、古着、设计师档案、日本制、丹宁与工艺", pv4:"每家店都附地址 + Google 地图链接",
+        pv5:"“推荐理由”笔记，而不只是店名", pv6:"适合旅行的购物路线",
+        ctaWaitlist:"加入完整地图等候名单", waitlistNote:"暂未开售——完成风格测试，地图上线时我们会通知你。",
+        compareSubhead:"免费预览 vs 完整地图", cmpFreeTag:"免费预览",
+        cmpFree1:"54 家预览店铺", cmpFree2:"基础城市与区域筛选", cmpFree3:"足够开始探索",
+        cmpPaidTag:"完整地图 · $19", cmpPaid1:"v1 收录 100+ 经研究店铺", cmpPaid2:"更深入的城市与区域路线",
+        cmpPaid3:"隐藏与小众店铺", cmpPaid4:"品牌与购物笔记", cmpPaid5:"为真正的日本之旅设计",
+        sampleSubhead:"示例路线——每座城市一条",
+        rtTokyoName:"设计师档案 + 安静选品", rtTokyoDesc:"从原宿的设计师档案与二手设计师店，走进千驮谷与中目黑安静、富有建筑感的选品店。",
+        rtOsakaName:"丹宁 / 复刻工艺 + 美利坚村古着", rtOsakaDesc:"大阪的赤耳丹宁与复刻工装制造者，再到美利坚村小巷的古着环线。",
+        rtKyotoName:"织物 / 町家设计师漫步", rtKyotoDesc:"京都的织造与染坊，毗邻三条与寺町一带町家中的日本极简设计师。",
+        rtNagoyaName:"荣 设计师档案 + 大须古着", rtNagoyaDesc:"荣的设计师与二手设计师楼层，再到大须商店街的美式与工艺丹宁。",
+        rtFukuokaName:"大名 / 今泉 选品核心", rtFukuokaDesc:"穿过可步行的大名与今泉小巷，逛福冈最强的本土品牌选品店。",
+        paidFineprint:"所示路线为编辑预览。完整店铺清单、地址与笔记将在购买后提供——不会存储在此公开页面中。",
+        proxyEyebrow:"个人搜寻", proxyTitle:"需要帮你找某件特定的日本单品吗？",
+        proxyLead:"我们可以帮你研究真实的日本品牌、店铺链接、库存以及可能的购买路线。部分请求在确认后可提供代购。",
+        proxyFine:"我们不保证库存、尺码、关税或送达时间。所有商品费用、运费、关税和税费由买家承担。",
+        proxyCta:"申请个人搜寻",
+        bfEyebrow:"为谁打造", bfTitle:"为这些人打造",
+        bf1:"<b>正在发现日本品牌的人</b><br />安静地，按自己的节奏。",
+        bf2:"<b>计划东京 / 大阪 / 京都之行的旅行者</b><br />带着真实路线去购物。",
+        bf3:"<b>喜爱安静细节的人</b><br />宽松廓形、好面料与真实购物路线。",
+        trustEyebrow:"我们的方式", trustTitle:"信任须知",
+        trust1:"我们绝不会把 AI 穿搭研究图当作真实街拍。", trust2:"我们不会捏造品牌名。",
+        trust3:"我们只推荐经过研究的真实品牌。", trust4:"代购按个案处理。",
+        trust5:"关税、进口税和运输延误由买家承担。",
+        trust6:"部分商品可能缺货、售罄或不支持国际配送。",
+        footerTag:"日本街头风格笔记、品牌研究与购物方向。",
+        stage1:"关于你", stage2:"你的风格", stage3:"偏好", stage4:"你的请求",
+        readyToSend:"可以发送了", progStep:"第 {n} 步 / 共 4 步",
+        vEmail:"请填写你的邮箱，方便我们回复。", vEmailBad:"这个邮箱似乎不太对，请检查一下。",
+        vCountry:"请告诉我们你的国家 / 地区。", vRequest:"请至少选择一项你希望从 Tokyo Closet Notes 获得的内容（第 04 步）。",
+        vConsent:"发送前请勾选全部三项。",
+        sendFail:"出了点问题，请再试一次。", netFail:"我们无法发送你的笔记。请检查网络后再试。",
+        mapTitle:"一份精选的{city}时尚地图。", allAreas:"全部区域", allCityAreas:"{city}全部区域",
+        bestForDefault:"街头、设计师、古着与中性", routesInResearch:"新路线研究中", comingSoon:"即将推出",
+        beginsIn:"从 {area} 开始", dash:"—",
+        csBody:"我们正在制作这座城市的地图。加入风格测试名单，新路线上线时我们会通知你。",
+        csWaitlist:"加入地图等候名单", shopsN:"{n} 家店铺", shop1:"1 家店铺",
+        noStyleMatch:"这里暂无符合该风格的预览店铺——试试“全部风格”。",
+        whyGo:"推荐理由", openMaps:"在 Google 地图打开", officialSite:"官方网站",
+        popWhy:"推荐理由：", popArea:"区域：", popAddr:"地址：", popPrice:"价格：",
+        chips:{}
+      },
+      ko:{
+        tagline:"일본 패션 파인더", menu:"메뉴", navFinder:"스타일 파인더", navMap:"지도", navProxy:"대행 지원",
+        heroEyebrow:"일본 패션 파인더", heroTitle:"당신의 일본 스타일 무드를 찾아보세요.",
+        heroSub:"몇 가지 간단한 질문에 답하면 취향에 맞는 일본 브랜드, 매장, 코디 아이디어를 찾아드립니다.",
+        ctaStartFinder:"스타일 파인더 시작", ctaExploreMap:"지도 둘러보기",
+        heroNote:"일본 스트리트 스타일, 조용한 디테일, 진짜 쇼핑 루트를 좋아하는 사람들을 위해.",
+        strip1:"<b>2분</b> 만에 완료", strip2:"<b>로그인 불필요</b>", strip3:"<b>구매 불필요</b>", strip4:"<b>수작업</b>으로 검토",
+        howEyebrow:"진행 방식", howTitle:"이렇게 진행돼요",
+        how1Title:"스타일을 알려주세요", how1Body:"좋아하는 무드, 아이템, 색상, 소재를 골라주세요.",
+        how2Title:"방향을 받아요", how2Body:"일본 브랜드 카테고리, 매장 유형, 코디 레퍼런스를 제안해 드립니다.",
+        how3Title:"더 깊이 들어가요", how3Body:"브랜드 리스트, 쇼핑 지도, 개인 일본 패션 서치를 요청하세요.",
+        valEyebrow:"답해야 하는 이유", valTitle:"당신의 취향에 맞춘 첫 방향.",
+        valPromise:"몇 가지 스타일 노트를 남기면 첫 방향을 보내드립니다: 살펴볼 브랜드, 둘러볼 도시, 취향에 맞는 코디 무드.",
+        valMeta1:"2분. 로그인 불필요. 구매 불필요.", valMeta2:"브랜드나 쇼핑 루트를 제안하기 전에 모든 요청을 직접 읽습니다.",
+        valReceiveTitle:"받을 수 있는 것", valR1:"일본 브랜드 방향", valR2:"매장과 도시 아이디어", valR3:"코디 무드 노트", valR4:"향후 일본 패션 지도 업데이트", valR5:"개인 서치 옵션",
+        finderEyebrow:"스타일 파인더", finderTitle:"일본 패션 파인더",
+        finderLead:"가벼운 취향 질문 몇 개 — 정답은 없으니 마음에 드는 걸 누르기만 하세요. 2분이면 됩니다.",
+        gateMsg:"스타일 파인더에 답하면 무료 도쿄 패션 지도 미리보기가 열립니다.",
+        fs1Legend:"당신에 대해", fs1Hint:"누구에게 답장할지 알기 위해서예요.",
+        lblName:"이름 또는 닉네임", lblEmail:"이메일", lblHandle:"Instagram 또는 TikTok 계정", lblCountry:"국가",
+        phCountry:"국가를 선택하세요", lblVisit:"일본 방문 계획 — 가실 예정인가요?", phChoose:"하나를 선택하세요",
+        visitYes:"네, 곧", visitMaybe:"언젠가", visitNo:"지금은 아니에요",
+        fs2Legend:"당신의 무드", fs2Hint:"당신 같다고 느끼는 걸 모두 선택하세요.",
+        fs2bLegend:"무엇을 찾고 있나요", fs2bHint:"아이템, 서비스, 또는 둘 다 — 해당하는 걸 모두 선택하세요.",
+        fs3Legend:"중요한 디테일", fs3Hint:"한 벌을 ‘딱 맞게’ 만들어 주는 조용한 요소들.",
+        fs3bLegend:"패션 쇼핑 예산", fs3cLegend:"새 제품 또는 중고",
+        newOnly:"새 제품만", usedOk:"중고 / 빈티지 괜찮아요", bothOpt:"둘 다", notSure:"잘 모르겠어요", justResearching:"그냥 알아보는 중",
+        fs4Legend:"무엇을 원하시나요?", fs4Hint:"관심 있는 것을 모두 고르세요 — 원하는 만큼 선택할 수 있어요.",
+        fs4bLegend:"당신의 말로", fs4bHint:"좋아하는 브랜드, 코디, 사진, 도시, 무드를 들려주세요.",
+        phFreeText:"예: “와이드한 블랙 팬츠, 부드러운 레이어링, 그리고 너무 튀지 않는 도쿄 스트리트 무드의 브랜드를 좋아해요.”",
+        fs5Legend:"보내기 전에",
+        consent1:"이것은 구매 확정이 아니라 스타일 문의임을 이해합니다.",
+        consent2:"대행 구매·배송·관세·세금에 추가 비용이 들 수 있음을 이해합니다.",
+        consent3:"Tokyo Closet Notes가 이메일 또는 소셜 DM으로 연락하는 데 동의합니다.",
+        submitMicro:"당신의 답변은 더 개인화된 일본 패션 가이드를 만드는 데 도움이 됩니다.", sendNotes:"내 스타일 노트 보내기", sending:"전송 중…",
+        successTitle:"감사합니다.", successBody:"스타일 노트를 검토하고 곧 첫 방향을 보내드릴게요.",
+        successNext:"<b>일본 패션 지도</b> 업데이트 명단에 등록되었습니다 — 도시별로 둘러볼 만한 매장, 브랜드, 지역을 담은 가이드. 가장 먼저 공유해 드릴게요.",
+        successCta:"무료 도쿄 패션 지도 열기", successMicro:"브랜드나 쇼핑 루트를 제안하기 전에 모든 요청을 직접 읽습니다.",
+        gateEyebrow:"일본 패션 지도 · 무료 미리보기", gateTitle:"무료 도쿄 패션 지도를 잠금 해제하세요.",
+        gateLead:"스타일 파인더에 답하면 무료 미리보기를 열어 드립니다 — 엄선한 지역, 실제 매장, 도보 루트. 2분이면 충분합니다.",
+        gateCta:"스타일 파인더 답하기",
+        mapUnlockedEyebrow:"일본 패션 지도 · 무료 미리보기", mapUnlockedBadge:"잠금 해제됨",
+        mapLead:"검색 도구가 아니라 작고 엄선된 가이드입니다. 지역을 고르면 그 동네와 걸어볼 만한 매장에 지도를 맞춰 드립니다.",
+        filterArea:"지역", filterStyle:"스타일", allStyles:"전체 스타일",
+        aiBestForLbl:"추천 대상", aiStartLbl:"시작 지점", aiPreviewLbl:"미리보기 매장",
+        mapFootNote:"핀은 엄선된 대략적 위치입니다. 정확한 최신 길찾기는 “Google 지도에서 열기”를 누르세요 — 방문 전 영업시간을 확인해 주세요.",
+        shopsInView:"보이는 매장",
+        fullLockedEyebrow:"전체 지도 잠김", fullLockedTitle:"전체 일본 패션 쇼핑 지도 잠금 해제",
+        fullLockedBody:"이것은 무료 미리보기입니다. 전체 지도에는 더 많은 리서치 매장, 숨은 매장, 도보 루트, 브랜드 노트, 쇼핑 전략이 도쿄·오사카·교토·나고야·후쿠오카 등에 걸쳐 담겨 있습니다 — 진짜 쇼핑 하루를 계획하는 여행자를 위해.",
+        paidStatShops:"리서치 매장", paidStatDistricts:"개 지역", paidStatRoutes:"루트", paidStatRoutesSub:"한 구간씩 도보",
+        fullEarlyAccess:"스타일을 알려주고 얼리 액세스 받기", unlockNote:"스타일 파인더 제출 후 잠금 해제됩니다.",
+        fullEyebrow:"유료 · 준비 중", fullLead:"진짜 일본 여행을 위한 리서치 기반 루트형 쇼핑 지도 — 도시를 가로질러 갈 가치가 있는 매장과 걷는 루트.",
+        paidPriceSub:"전체 일본 패션 지도 · v1",
+        pv1:"도쿄·오사카·교토·나고야·후쿠오카 100+ 엄선 매장", pv2:"실제로 걸을 수 있는 도시·지역 루트",
+        pv3:"숨은 셀렉트숍, 빈티지, 디자이너 아카이브, 메이드 인 재팬, 데님·크래프트", pv4:"매장마다 주소 + Google 지도 링크",
+        pv5:"이름만이 아닌 “가는 이유” 노트", pv6:"여행 친화적 쇼핑 루트",
+        ctaWaitlist:"전체 지도 대기 명단 등록", waitlistNote:"아직 판매 전입니다 — 스타일 파인더에 답하면 전체 지도가 열릴 때 알려드립니다.",
+        compareSubhead:"무료 미리보기 vs 전체 지도", cmpFreeTag:"무료 미리보기",
+        cmpFree1:"54개 미리보기 매장", cmpFree2:"기본 도시·지역 필터", cmpFree3:"탐색을 시작하기에 충분",
+        cmpPaidTag:"전체 지도 · $19", cmpPaid1:"v1에 100+ 리서치 매장", cmpPaid2:"더 깊은 도시·지역 루트",
+        cmpPaid3:"숨은·니치 매장", cmpPaid4:"브랜드·쇼핑 노트", cmpPaid5:"실제 일본 여행을 위해 설계",
+        sampleSubhead:"샘플 루트 — 도시별 한 개",
+        rtTokyoName:"디자이너 아카이브 + 콰이엇 셀렉트", rtTokyoDesc:"하라주쿠의 디자이너 아카이브·중고 디자이너 매장에서 센다가야와 나카메구로의 조용하고 건축적인 셀렉트숍으로.",
+        rtOsakaName:"데님 / 리프로 크래프트 + 아메리카무라 빈티지", rtOsakaDesc:"오사카의 셀비지 데님·리프로 워크웨어 제작자들, 이어서 아메리카무라 뒷골목 빈티지 루프.",
+        rtKyotoName:"텍스타일 / 마치야 디자이너 워크", rtKyotoDesc:"교토의 직조·염색 공방과 산조·데라마치 일대 마치야에 자리한 일본 미니멀 디자이너들.",
+        rtNagoyaName:"사카에 디자이너 아카이브 + 오스 빈티지", rtNagoyaDesc:"사카에의 디자이너·중고 디자이너 층, 이어서 오스 상점가의 아메리카나와 크래프트 데님.",
+        rtFukuokaName:"다이묘 / 이마이즈미 셀렉트 코어", rtFukuokaDesc:"걷기 좋은 다이묘·이마이즈미 뒷골목을 따라 후쿠오카 최고의 국내 브랜드 셀렉트숍을.",
+        paidFineprint:"표시된 루트는 에디토리얼 미리보기입니다. 전체 매장 목록·주소·노트는 구매 후 제공되며, 이 공개 페이지에는 저장되지 않습니다.",
+        proxyEyebrow:"개인 서치", proxyTitle:"특정 일본 아이템을 찾는 데 도움이 필요하세요?",
+        proxyLead:"실제 일본 브랜드, 매장 링크, 재고, 가능한 구매 경로를 리서치해 드립니다. 일부 요청은 확인 후 대행 구매가 가능할 수 있습니다.",
+        proxyFine:"재고·사이즈·관세·배송 시간을 보장하지 않습니다. 모든 상품 비용, 배송비, 관세, 세금은 구매자 부담입니다.",
+        proxyCta:"개인 서치 요청하기",
+        bfEyebrow:"누구를 위한 것인가", bfTitle:"이런 분들을 위해",
+        bf1:"<b>일본 브랜드를 발견하는 사람</b><br />조용히, 자기 페이스로.",
+        bf2:"<b>도쿄 / 오사카 / 교토를 계획하는 여행자</b><br />진짜 루트를 염두에 둔 쇼핑.",
+        bf3:"<b>조용한 디테일을 좋아하는 사람</b><br />와이드 실루엣, 좋은 원단, 진짜 쇼핑 루트.",
+        trustEyebrow:"우리의 방식", trustTitle:"신뢰 노트",
+        trust1:"AI 코디 연구 이미지를 실제 스트리트 스냅인 척하지 않습니다.", trust2:"브랜드 이름을 꾸며내지 않습니다.",
+        trust3:"리서치한 실제 브랜드만 제안합니다.", trust4:"대행 구매는 사안별로 처리합니다.",
+        trust5:"관세·수입세·배송 지연은 구매자 부담입니다.",
+        trust6:"일부 아이템은 품절이거나 국제 배송이 불가할 수 있습니다.",
+        footerTag:"일본 스트리트 스타일 노트, 브랜드 리서치, 쇼핑 방향.",
+        stage1:"당신에 대해", stage2:"당신의 스타일", stage3:"선호", stage4:"당신의 요청",
+        readyToSend:"보낼 준비 완료", progStep:"4단계 중 {n}단계",
+        vEmail:"답장할 수 있도록 이메일을 입력해 주세요.", vEmailBad:"이메일이 올바르지 않은 것 같아요. 확인해 주세요.",
+        vCountry:"국가를 알려주세요.", vRequest:"Tokyo Closet Notes에서 원하는 것을 하나 이상 선택해 주세요 (4단계).",
+        vConsent:"보내기 전에 세 항목을 모두 체크해 주세요.",
+        sendFail:"문제가 발생했습니다. 다시 시도해 주세요.", netFail:"노트를 보내지 못했습니다. 연결을 확인하고 다시 시도해 주세요.",
+        mapTitle:"엄선한 {city} 패션 지도.", allAreas:"전체 지역", allCityAreas:"{city} 전체 지역",
+        bestForDefault:"스트리트·디자이너·빈티지·뉴트럴", routesInResearch:"새 루트 리서치 중", comingSoon:"준비 중",
+        beginsIn:"{area}에서 시작", dash:"—",
+        csBody:"이 도시 지도를 다음으로 만들고 있어요. 스타일 파인더 명단에 등록하면 새 일본 패션 루트가 추가될 때 알려드립니다.",
+        csWaitlist:"지도 대기 명단 등록", shopsN:"{n}개 매장", shop1:"1개 매장",
+        noStyleMatch:"아직 이 스타일에 맞는 미리보기 매장이 없어요 — “전체 스타일”을 눌러보세요.",
+        whyGo:"가는 이유", openMaps:"Google 지도에서 열기", officialSite:"공식 사이트",
+        popWhy:"가는 이유:", popArea:"지역:", popAddr:"주소:", popPrice:"가격:",
+        chips:{}
+      }
+    };
+    /* chip option labels — keyed by data-value (which is sent to Sheets untranslated) */
+    var CHIPS = {
+      en:{}, // English uses the existing markup text
+      zh:{ "Minimal":"极简","Vintage":"古着","Streetwear":"街头","Techwear":"机能","Designer":"设计师","Quiet luxury":"低调奢华","Workwear":"工装","Japanese casual":"日系休闲","Harajuku / playful":"原宿 / 俏皮","Dark / monochrome":"暗色 / 单色","Soft neutral":"柔和中性","Used clothing / thrift":"二手 / 古着",
+        "Jackets":"夹克","Pants":"裤装","Shirts":"衬衫","Knitwear":"针织","Shoes":"鞋履","Bags":"包袋","Accessories":"配饰","Full outfits":"整套穿搭","Japanese brands":"日本品牌","Shopping map":"购物地图","Proxy shopping help":"代购协助",
+        "Wide silhouette":"宽松廓形","Heavy shoes":"厚重鞋款","Soft fabrics":"柔软面料","Linen / cotton":"亚麻 / 棉","Denim":"丹宁","Nylon / technical fabrics":"尼龙 / 机能面料","Layering":"叠穿","Neutral colors":"中性色","Black outfits":"黑色穿搭","Unique cuts":"独特剪裁","Made in Japan":"日本制","Hard-to-find brands":"难寻品牌",
+        "Free brand direction":"免费品牌方向","Paid brand research list":"付费品牌研究清单","Japan fashion shopping map":"日本时尚购物地图","Personal shopping support":"个人购物支持","Proxy buying / shipping support":"代购 / 转运支持","I'm not sure yet":"我还不确定" },
+      ko:{ "Minimal":"미니멀","Vintage":"빈티지","Streetwear":"스트리트","Techwear":"테크웨어","Designer":"디자이너","Quiet luxury":"콰이엇 럭셔리","Workwear":"워크웨어","Japanese casual":"재패니즈 캐주얼","Harajuku / playful":"하라주쿠 / 플레이풀","Dark / monochrome":"다크 / 모노크롬","Soft neutral":"소프트 뉴트럴","Used clothing / thrift":"중고 / 빈티지",
+        "Jackets":"재킷","Pants":"팬츠","Shirts":"셔츠","Knitwear":"니트","Shoes":"슈즈","Bags":"가방","Accessories":"액세서리","Full outfits":"풀 코디","Japanese brands":"일본 브랜드","Shopping map":"쇼핑 지도","Proxy shopping help":"대행 구매 도움",
+        "Wide silhouette":"와이드 실루엣","Heavy shoes":"헤비 슈즈","Soft fabrics":"부드러운 원단","Linen / cotton":"린넨 / 코튼","Denim":"데님","Nylon / technical fabrics":"나일론 / 테크니컬 원단","Layering":"레이어링","Neutral colors":"뉴트럴 컬러","Black outfits":"블랙 코디","Unique cuts":"독특한 컷","Made in Japan":"메이드 인 재팬","Hard-to-find brands":"구하기 힘든 브랜드",
+        "Free brand direction":"무료 브랜드 방향","Paid brand research list":"유료 브랜드 리서치 리스트","Japan fashion shopping map":"일본 패션 쇼핑 지도","Personal shopping support":"개인 쇼핑 지원","Proxy buying / shipping support":"대행 구매 / 배송 지원","I'm not sure yet":"아직 잘 모르겠어요" }
+    };
+
+    var LANG; try{ LANG = localStorage.getItem('tcnLang') || 'en'; }catch(e){ LANG='en'; }
+    if(!I18N[LANG]) LANG='en';
+    var subs = [];
+    function t(k){ var d=I18N[LANG]||I18N.en; return d[k]!=null ? d[k] : (I18N.en[k]!=null ? I18N.en[k] : k); }
+    function chip(val){ var m=CHIPS[LANG]||{}; return m[val]!=null ? m[val] : null; }
+    function apply(){
+      document.querySelectorAll('[data-i18n]').forEach(function(el){ var v=t(el.getAttribute('data-i18n')); if(v!=null) el.textContent=v; });
+      document.querySelectorAll('[data-i18n-html]').forEach(function(el){ var v=t(el.getAttribute('data-i18n-html')); if(v!=null) el.innerHTML=v; });
+      document.querySelectorAll('[data-i18n-ph]').forEach(function(el){ el.setAttribute('placeholder', t(el.getAttribute('data-i18n-ph'))); });
+      // Style Finder option chips — translate visible label only; data-value stays original
+      document.querySelectorAll('.chip[data-value]').forEach(function(el){ var v=chip(el.getAttribute('data-value')); el.textContent = (v!=null ? v : el.getAttribute('data-value')); });
+      document.documentElement.lang = (LANG==='zh'?'zh-Hans':(LANG==='ko'?'ko':'en'));
+      document.querySelectorAll('#lang-switch button, #lang-switch-mobile button').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-lang')===LANG); });
+      // let dynamic renderers (form progress, map) re-localize in place without losing state
+      subs.forEach(function(fn){ try{ fn(); }catch(e){} });
+    }
+    function setLang(l){ if(!I18N[l]) l='en'; LANG=l; try{ localStorage.setItem('tcnLang', l); }catch(e){} apply(); }
+    document.querySelectorAll('#lang-switch button, #lang-switch-mobile button').forEach(function(b){
+      b.addEventListener('click', function(){ setLang(b.getAttribute('data-lang')); });
+    });
+    apply();
+    return { t:t, setLang:setLang, onChange:function(fn){ subs.push(fn); }, apply:apply, get lang(){ return LANG; } };
+  })();
   </script>
 </body>
 </html>
