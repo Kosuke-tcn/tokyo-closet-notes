@@ -214,13 +214,10 @@
   .hero-art { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .hero-art figure { position: relative; margin: 0; overflow: hidden; border-radius: 8px;
     background: var(--border); box-shadow: 0 8px 22px -20px rgba(17,17,17,0.45); }
+  .hero-art-link { display: block; width: 100%; height: 100%; cursor: pointer; }
   .hero-art img { width: 100%; height: 100%; object-fit: cover; display: block;
     transition: transform 1.1s var(--ease); }
   .hero-art figure:hover img { transform: scale(1.04); }
-  .hero-art-cap { position: absolute; left: 8px; bottom: 8px; margin: 0;
-    font-size: 10px; letter-spacing: .06em; text-transform: uppercase;
-    color: #fff; background: rgba(17,17,17,0.42); backdrop-filter: blur(2px);
-    padding: 3px 8px; border-radius: 999px; }
   /* mobile: tall dominant image full-width on top, two smaller details side by side below */
   .hero-art .a1 { grid-column: 1 / -1; aspect-ratio: 4 / 3.4; }
   .hero-art .a2, .hero-art .a3 { aspect-ratio: 3 / 3.8; }
@@ -790,12 +787,9 @@
           </div>
 
           <div class="hero-art reveal d1" aria-hidden="false">
-            <figure class="a1">
-              <img src="assets/editorial-linen.jpg" alt="Editorial styling visual — linen layering, Tokyo mood" loading="eager" />
-              <figcaption class="hero-art-cap" data-i18n="heroArtCap">Editorial styling visual</figcaption>
-            </figure>
-            <figure class="a2"><img src="assets/editorial-grey.jpg" alt="Editorial styling visual — grey knit and long skirt" loading="lazy" /></figure>
-            <figure class="a3"><img src="assets/editorial-utility.jpg" alt="Editorial styling visual — utility jacket and wide denim" loading="lazy" /></figure>
+            <figure class="a1"><a class="hero-art-link" href="#finder" data-scroll aria-label="Start the Style Finder"><img src="assets/editorial-linen.jpg" alt="Linen layering, Tokyo editorial styling" loading="eager" /></a></figure>
+            <figure class="a2"><a class="hero-art-link" href="#finder" data-scroll aria-label="Start the Style Finder"><img src="assets/editorial-grey.jpg" alt="Grey knit and long skirt, editorial styling" loading="lazy" /></a></figure>
+            <figure class="a3"><a class="hero-art-link" href="#finder" data-scroll aria-label="Start the Style Finder"><img src="assets/editorial-utility.jpg" alt="Utility jacket and wide denim, editorial styling" loading="lazy" /></a></figure>
           </div>
         </div>
       </div>
@@ -2149,7 +2143,6 @@
         heroSub:"Match your taste to Japanese brands, vintage shops, select stores, and walkable shopping areas before you land.",
         ctaStartFinder:"Start the Style Finder", ctaExploreMap:"Explore the Free Map",
         heroNote:"Free to start. Built for overseas shoppers planning a real Japan fashion day.",
-        heroArtCap:"Editorial styling visual",
         strip1:"<b>2 minutes</b> to complete", strip2:"<b>No login</b> required", strip3:"<b>No purchase</b> required", strip4:"Reviewed <b>by hand</b>",
         howEyebrow:"The process", howTitle:"How it works",
         how1Title:"Tell us your style", how1Body:"Choose the moods, items, colors, and textures you like.",
@@ -2255,7 +2248,6 @@
         heroSub:"在出发前，把你的品味匹配到日本品牌、古着店、select店与可步行的购物区。",
         ctaStartFinder:"开始风格测试", ctaExploreMap:"浏览免费地图",
         heroNote:"免费开始。为计划真正日本时尚购物日的海外用户打造。",
-        heroArtCap:"造型示意图",
         strip1:"<b>2 分钟</b>即可完成", strip2:"<b>无需登录</b>", strip3:"<b>无需购买</b>", strip4:"<b>人工</b>逐一审阅",
         howEyebrow:"流程", howTitle:"如何运作",
         how1Title:"告诉我们你的风格", how1Body:"选择你喜欢的氛围、单品、颜色和质感。",
@@ -2360,7 +2352,6 @@
         heroSub:"도착 전에, 당신의 취향을 일본 브랜드·빈티지 숍·셀렉트 스토어·걸어서 도는 쇼핑 지역과 매칭하세요.",
         ctaStartFinder:"스타일 파인더 시작", ctaExploreMap:"무료 지도 둘러보기",
         heroNote:"무료로 시작. 진짜 일본 패션 쇼핑 데이를 계획하는 해외 쇼퍼를 위해.",
-        heroArtCap:"에디토리얼 스타일링 비주얼",
         strip1:"<b>2분</b> 만에 완료", strip2:"<b>로그인 불필요</b>", strip3:"<b>구매 불필요</b>", strip4:"<b>수작업</b>으로 검토",
         howEyebrow:"진행 방식", howTitle:"이렇게 진행돼요",
         how1Title:"스타일을 알려주세요", how1Body:"좋아하는 무드, 아이템, 색상, 소재를 골라주세요.",
