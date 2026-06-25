@@ -1428,60 +1428,54 @@
 
             <div class="grid-2">
               <div class="field">
-                <label for="bs-name" data-i18n="bsLblName">Name or nickname</label>
-                <input type="text" id="bs-name" name="bs_name" autocomplete="name" placeholder="Alex" />
+                <label for="bs-name"><span data-i18n="bsLblName">Name or nickname</span> <span class="req">*</span></label>
+                <input type="text" id="bs-name" name="bs_name" autocomplete="name" placeholder="Alex" required />
               </div>
               <div class="field">
                 <label for="bs-email"><span data-i18n="bsLblEmail">Email</span> <span class="req">*</span></label>
                 <input type="email" id="bs-email" name="bs_email" autocomplete="email" placeholder="you@example.com" required />
               </div>
               <div class="field">
+                <label for="bs-country"><span data-i18n="bsLblCountry">Country / region</span> <span class="req">*</span></label>
+                <div class="select-wrap">
+                  <select id="bs-country" name="bs_country" autocomplete="country-name" required>
+                    <option value="" disabled selected data-i18n="phCountry">Select your country</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
                 <label for="bs-handle" data-i18n="bsLblHandle">Instagram or TikTok handle</label>
                 <input type="text" id="bs-handle" name="bs_handle" placeholder="@yourhandle" />
               </div>
+            </div>
+
+            <div class="field" style="margin-top:18px">
+              <label for="bs-details"><span data-i18n="bsLblDetails">What are you looking for?</span> <span class="req">*</span></label>
+              <textarea id="bs-details" name="bs_details" data-i18n-ph="bsPhDetails" placeholder="Tell us what you want. You can describe a specific item, a brand, a mood, a screenshot, or just the kind of Japanese fashion piece you want us to help find." required></textarea>
+            </div>
+
+            <div class="grid-2" style="margin-top:18px">
               <div class="field">
-                <label for="bs-country"><span data-i18n="bsLblCountry">Country / region</span> <span class="req">*</span></label>
-                <input type="text" id="bs-country" name="bs_country" autocomplete="country-name" placeholder="United States" required />
+                <label for="bs-budget" data-i18n="bsLblBudget">Budget / expected item value</label>
+                <input type="text" id="bs-budget" name="bs_budget" data-i18n-ph="bsPhBudget" placeholder="e.g. ¥150,000 / approx US$1000" />
               </div>
               <div class="field">
-                <label for="bs-item"><span data-i18n="bsLblItem">Item or brand name</span> <span class="req">*</span></label>
-                <input type="text" id="bs-item" name="bs_item" data-i18n-ph="bsPhItem" placeholder="e.g. KAPITAL boro jacket" required />
+                <label for="bs-reference" data-i18n="bsLblReference">Link or reference</label>
+                <input type="text" id="bs-reference" name="bs_reference" data-i18n-ph="bsPhReference" placeholder="Paste an image, post, or product link" />
               </div>
               <div class="field">
-                <label for="bs-budget"><span data-i18n="bsLblBudget">Budget or expected item value</span> <span class="req">*</span></label>
-                <input type="text" id="bs-budget" name="bs_budget" data-i18n-ph="bsPhBudget" placeholder="e.g. ¥150,000 / approx US$1000" required />
-              </div>
-              <div class="field">
-                <label for="bs-url" data-i18n="bsLblUrl">Product URL</label>
-                <input type="url" id="bs-url" name="bs_url" placeholder="https://…" />
-              </div>
-              <div class="field">
-                <label for="bs-reference" data-i18n="bsLblReference">Item screenshot / reference link</label>
-                <input type="text" id="bs-reference" name="bs_reference" data-i18n-ph="bsPhReference" placeholder="Paste an image or post link" />
-              </div>
-              <div class="field">
-                <label for="bs-pref" data-i18n="bsLblPref">Size / color / condition preference</label>
-                <input type="text" id="bs-pref" name="bs_pref" data-i18n-ph="bsPhPref" placeholder="e.g. M, black, used OK" />
-              </div>
-              <div class="field">
-                <label for="bs-deadline" data-i18n="bsLblDeadline">Travel date / deadline</label>
+                <label for="bs-deadline" data-i18n="bsLblDeadline">Timeline / deadline</label>
                 <input type="text" id="bs-deadline" name="bs_deadline" data-i18n-ph="bsPhDeadline" placeholder="e.g. arriving 2026-09" />
               </div>
-            </div>
-
-            <div class="field" style="margin-top:18px">
-              <label data-i18n="bsLblSupportType">Desired support type</label>
-              <div class="consent">
-                <label class="opt opt-check"><input type="checkbox" name="bs_supportType" value="Item research" /><span data-i18n="bsOptResearch">Item research</span></label>
-                <label class="opt opt-check"><input type="checkbox" name="bs_supportType" value="Availability check" /><span data-i18n="bsOptAvailability">Availability check</span></label>
-                <label class="opt opt-check"><input type="checkbox" name="bs_supportType" value="Purchase coordination" /><span data-i18n="bsOptCoordination">Purchase coordination</span></label>
-                <label class="opt opt-check"><input type="checkbox" name="bs_supportType" value="Shipping guidance" /><span data-i18n="bsOptShipping">Shipping guidance</span></label>
+              <div class="field">
+                <label data-i18n="bsLblSupportType">Desired support type</label>
+                <div class="consent">
+                  <label class="opt opt-check"><input type="checkbox" name="bs_supportType" value="Find options" /><span data-i18n="bsOptResearch">Find options</span></label>
+                  <label class="opt opt-check"><input type="checkbox" name="bs_supportType" value="Check availability" /><span data-i18n="bsOptAvailability">Check availability</span></label>
+                  <label class="opt opt-check"><input type="checkbox" name="bs_supportType" value="Purchase support" /><span data-i18n="bsOptCoordination">Purchase support</span></label>
+                  <label class="opt opt-check"><input type="checkbox" name="bs_supportType" value="Shipping guidance" /><span data-i18n="bsOptShipping">Shipping guidance</span></label>
+                </div>
               </div>
-            </div>
-
-            <div class="field" style="margin-top:18px">
-              <label for="bs-details"><span data-i18n="bsLblDetails">Details / message</span> <span class="req">*</span></label>
-              <textarea id="bs-details" name="bs_details" data-i18n-ph="bsPhDetails" placeholder="Tell us about the item, your timeline, and anything important." required></textarea>
             </div>
 
             <fieldset class="fs" style="border:0;padding:0;margin:18px 0 0">
@@ -2257,27 +2251,28 @@
         ctaStartFinder:"Start the Style Finder", ctaExploreMap:"Explore the Free Map",
         heroNote:"Free to start. Built for overseas shoppers planning a real Japan fashion day.",
         heroBuyingSupport:"Need a specific item? Request Buying Support →",
-        bsEyebrow:"Personal Buying Support", bsTitle:"Looking for a specific Japanese item?",
-        bsLead:"Tell us what you are looking for. For selected requests, we may help with item research, availability checks, purchase coordination, and shipping guidance.",
+        bsEyebrow:"Personal Buying Support", bsTitle:"Need help finding a Japanese fashion item?",
+        bsLead:"Tell us what you are looking for. You can send a specific item, a brand, a screenshot, or just a style direction. For selected requests, we may help with research, availability checks, purchase coordination, and shipping guidance.",
         bsThreshold:"Available for selected requests from ¥100,000 JPY / approximately US$700+.",
         bsFine:"Item cost, service fee, domestic shipping, international shipping, customs/import taxes, delays, size risk, availability risk, used-item condition risk, and cancellation rules are confirmed case by case.",
         bsLblName:"Name or nickname", bsLblEmail:"Email", bsLblHandle:"Instagram or TikTok handle", bsLblCountry:"Country / region",
-        bsLblItem:"Item or brand name", bsLblBudget:"Budget or expected item value", bsLblUrl:"Product URL", bsLblReference:"Item screenshot / reference link",
-        bsLblPref:"Size / color / condition preference", bsLblDeadline:"Travel date / deadline", bsLblSupportType:"Desired support type", bsLblDetails:"Details / message",
-        bsPhItem:"e.g. KAPITAL boro jacket", bsPhBudget:"e.g. ¥150,000 / approx US$1000", bsPhReference:"Paste an image or post link",
-        bsPhPref:"e.g. M, black, used OK", bsPhDeadline:"e.g. arriving 2026-09", bsPhDetails:"Tell us about the item, your timeline, and anything important.",
-        bsOptResearch:"Item research", bsOptAvailability:"Availability check", bsOptCoordination:"Purchase coordination", bsOptShipping:"Shipping guidance",
+        bsLblItem:"Item or brand name", bsLblBudget:"Budget / expected item value", bsLblUrl:"Product URL", bsLblReference:"Link or reference",
+        bsLblPref:"Size / color / condition preference", bsLblDeadline:"Timeline / deadline", bsLblSupportType:"Desired support type", bsLblDetails:"What are you looking for?",
+        bsPhItem:"e.g. KAPITAL boro jacket", bsPhBudget:"e.g. ¥150,000 / approx US$1000", bsPhReference:"Paste an image, post, or product link",
+        bsPhPref:"e.g. M, black, used OK", bsPhDeadline:"e.g. arriving 2026-09", bsPhDetails:"Tell us what you want. You can describe a specific item, a brand, a mood, a screenshot, or just the kind of Japanese fashion piece you want us to help find.",
+        bsOptResearch:"Find options", bsOptAvailability:"Check availability", bsOptCoordination:"Purchase support", bsOptShipping:"Shipping guidance",
         bsConsentLegend:"Before you send",
         bsConsent1:"I understand this is a request, not a guaranteed purchase.",
         bsConsent2:"I understand Personal Buying Support is available only for selected requests from ¥100,000 JPY / approximately US$700+.",
         bsConsent3:"I understand item cost, service fee, domestic shipping, international shipping, customs/import taxes, delays, size risk, availability risk, used-item condition risk, cancellation rules, and buyer responsibility are confirmed case by case.",
         bsConsent4:"I agree that Tokyo Closet Notes may contact me by email or social DM about this request.",
-        bsSend:"Send Buying Support request", bsSending:"Sending…",
+        bsSend:"Send request", bsSending:"Sending…",
+        bsVName:"Please add your name or nickname.",
         bsVEmail:"Please add your email so we can reply.", bsVEmailBad:"That email doesn’t look right. Please check it.",
         bsVCountry:"Please tell us your country or region.", bsVItem:"Please tell us the item or brand you’re looking for.",
-        bsVBudget:"Please add a budget or expected item value.", bsVDetails:"Please add a few details about your request.",
-        bsVConsent:"Please check all four boxes before sending.",
-        bsSuccessTitle:"Request received.", bsSuccessBody:"Thank you. We review every Buying Support request by hand and reply by email or DM if we can help.",
+        bsVBudget:"Please add a budget or expected item value.", bsVDetails:"Please tell us what you are looking for.",
+        bsVConsent:"Please check all the boxes before sending.",
+        bsSuccessTitle:"Request received.", bsSuccessBody:"Thank you. We received your request. If it looks like a good fit, we will reply with next steps, estimate, and payment guidance.",
         bsSuccessMicro:"Fees, shipping, customs, availability, sizing, and used-item condition are confirmed case by case.",
         strip1:"<b>2 minutes</b> to complete", strip2:"<b>No login</b> required", strip3:"<b>No purchase</b> required", strip4:"Reviewed <b>by hand</b>",
         howEyebrow:"The process", howTitle:"How it works",
@@ -2377,27 +2372,28 @@
       zh:{
         tagline:"日本时尚指南", menu:"菜单", navFinder:"风格测试", navMap:"地图", navProxy:"代购支持",
         heroBuyingSupport:"在找某件特定单品？申请代购支持 →",
-        bsEyebrow:"个人代购支持", bsTitle:"在找某件特定的日本单品？",
-        bsLead:"告诉我们你在找什么。针对部分请求，我们可协助单品调查、库存确认、购买协调与配送指引。",
+        bsEyebrow:"个人代购支持", bsTitle:"想找日本时尚单品，需要帮忙吗？",
+        bsLead:"告诉我们你在找什么。可以是具体单品、品牌、截图，或只是一个风格方向。针对部分请求，我们可协助调查、库存确认、购买协调与配送指引。",
         bsThreshold:"仅面向部分请求，起价 ¥100,000 日元 / 约 US$700 起。",
         bsFine:"商品费用、服务费、日本国内运费、国际运费、关税/进口税、延误、尺码风险、库存风险、二手状态风险与取消规则均按个案确认。",
         bsLblName:"姓名或昵称", bsLblEmail:"邮箱", bsLblHandle:"Instagram 或 TikTok 账号", bsLblCountry:"国家 / 地区",
-        bsLblItem:"单品或品牌名", bsLblBudget:"预算或预期商品价值", bsLblUrl:"商品链接", bsLblReference:"单品截图 / 参考链接",
-        bsLblPref:"尺码 / 颜色 / 状态偏好", bsLblDeadline:"行程日期 / 截止时间", bsLblSupportType:"希望的支持类型", bsLblDetails:"详情 / 留言",
-        bsPhItem:"例如：KAPITAL 拼布外套", bsPhBudget:"例如：¥150,000 / 约 US$1000", bsPhReference:"粘贴图片或帖子链接",
-        bsPhPref:"例如：M、黑色、可接受二手", bsPhDeadline:"例如：2026-09 抵达", bsPhDetails:"告诉我们单品、你的时间安排以及任何重要信息。",
-        bsOptResearch:"单品调查", bsOptAvailability:"库存确认", bsOptCoordination:"购买协调", bsOptShipping:"配送指引",
+        bsLblItem:"单品或品牌名", bsLblBudget:"预算 / 预期商品价值", bsLblUrl:"商品链接", bsLblReference:"链接或参考",
+        bsLblPref:"尺码 / 颜色 / 状态偏好", bsLblDeadline:"时间 / 截止", bsLblSupportType:"希望的支持类型", bsLblDetails:"你在找什么？",
+        bsPhItem:"例如：KAPITAL 拼布外套", bsPhBudget:"例如：¥150,000 / 约 US$1000", bsPhReference:"粘贴图片、帖子或商品链接",
+        bsPhPref:"例如：M、黑色、可接受二手", bsPhDeadline:"例如：2026-09 抵达", bsPhDetails:"告诉我们你想要什么。可以描述具体单品、品牌、氛围、截图，或只是你希望我们帮你找的那类日本时尚单品。",
+        bsOptResearch:"寻找选项", bsOptAvailability:"确认库存", bsOptCoordination:"购买支持", bsOptShipping:"配送指引",
         bsConsentLegend:"发送之前",
         bsConsent1:"我理解这是请求，而非保证成交的购买。",
         bsConsent2:"我理解个人代购支持仅面向 ¥100,000 日元 / 约 US$700 起的部分请求。",
         bsConsent3:"我理解商品费用、服务费、国内运费、国际运费、关税/进口税、延误、尺码风险、库存风险、二手状态风险、取消规则与买家责任均按个案确认。",
         bsConsent4:"我同意 Tokyo Closet Notes 可就此请求通过邮件或社交私信联系我。",
-        bsSend:"发送代购支持请求", bsSending:"发送中…",
+        bsSend:"发送请求", bsSending:"发送中…",
+        bsVName:"请填写你的姓名或昵称。",
         bsVEmail:"请填写邮箱以便我们回复。", bsVEmailBad:"邮箱格式似乎不正确，请检查。",
         bsVCountry:"请告诉我们你的国家或地区。", bsVItem:"请告诉我们你在找的单品或品牌。",
-        bsVBudget:"请填写预算或预期商品价值。", bsVDetails:"请简单描述你的请求。",
-        bsVConsent:"发送前请勾选全部四项。",
-        bsSuccessTitle:"已收到请求。", bsSuccessBody:"谢谢你。我们会逐一人工查看每个代购支持请求，若能协助会通过邮件或私信回复。",
+        bsVBudget:"请填写预算或预期商品价值。", bsVDetails:"请告诉我们你在找什么。",
+        bsVConsent:"发送前请勾选所有选项。",
+        bsSuccessTitle:"已收到请求。", bsSuccessBody:"谢谢你，我们已收到你的请求。如果合适，我们会回复后续步骤、报价与付款指引。",
         bsSuccessMicro:"费用、运费、关税、库存、尺码与二手状态均按个案确认。",
         heroEyebrow:"日本时尚指南", heroTitle:"找到你的日本购物路线。",
         heroSub:"在出发前，把你的品味匹配到日本品牌、古着店、select店与可步行的购物区。",
@@ -2500,27 +2496,28 @@
       ko:{
         tagline:"일본 패션 파인더", menu:"메뉴", navFinder:"스타일 파인더", navMap:"지도", navProxy:"바잉 서포트",
         heroBuyingSupport:"특정 아이템을 찾으세요? 바잉 서포트 신청 →",
-        bsEyebrow:"퍼스널 바잉 서포트", bsTitle:"특정 일본 아이템을 찾고 계신가요?",
-        bsLead:"무엇을 찾는지 알려주세요. 선별된 요청에 한해 아이템 리서치, 재고 확인, 구매 조율, 배송 안내를 도와드릴 수 있습니다.",
+        bsEyebrow:"퍼스널 바잉 서포트", bsTitle:"일본 패션 아이템 찾는 데 도움이 필요하세요?",
+        bsLead:"무엇을 찾는지 알려주세요. 구체적인 아이템, 브랜드, 스크린샷, 또는 그냥 스타일 방향만 보내셔도 됩니다. 선별된 요청에 한해 리서치, 재고 확인, 구매 조율, 배송 안내를 도와드릴 수 있습니다.",
         bsThreshold:"선별된 요청에 한해 ¥100,000 JPY / 약 US$700 이상부터 가능합니다.",
         bsFine:"상품 비용, 서비스 수수료, 일본 국내 배송비, 국제 배송비, 관세/수입세, 지연, 사이즈 리스크, 재고 리스크, 중고 상태 리스크, 취소 규정은 케이스별로 확인됩니다.",
         bsLblName:"이름 또는 닉네임", bsLblEmail:"이메일", bsLblHandle:"Instagram 또는 TikTok 핸들", bsLblCountry:"국가 / 지역",
-        bsLblItem:"아이템 또는 브랜드명", bsLblBudget:"예산 또는 예상 상품 가치", bsLblUrl:"상품 URL", bsLblReference:"아이템 스크린샷 / 참고 링크",
-        bsLblPref:"사이즈 / 색상 / 상태 선호", bsLblDeadline:"여행 일정 / 마감", bsLblSupportType:"원하는 지원 유형", bsLblDetails:"상세 / 메시지",
-        bsPhItem:"예: KAPITAL 보로 재킷", bsPhBudget:"예: ¥150,000 / 약 US$1000", bsPhReference:"이미지나 게시물 링크 붙여넣기",
-        bsPhPref:"예: M, 블랙, 중고 가능", bsPhDeadline:"예: 2026-09 도착", bsPhDetails:"아이템, 일정, 중요한 사항을 알려주세요.",
-        bsOptResearch:"아이템 리서치", bsOptAvailability:"재고 확인", bsOptCoordination:"구매 조율", bsOptShipping:"배송 안내",
+        bsLblItem:"아이템 또는 브랜드명", bsLblBudget:"예산 / 예상 상품 가치", bsLblUrl:"상품 URL", bsLblReference:"링크 또는 참고",
+        bsLblPref:"사이즈 / 색상 / 상태 선호", bsLblDeadline:"타임라인 / 마감", bsLblSupportType:"원하는 지원 유형", bsLblDetails:"무엇을 찾으세요?",
+        bsPhItem:"예: KAPITAL 보로 재킷", bsPhBudget:"예: ¥150,000 / 약 US$1000", bsPhReference:"이미지, 게시물, 또는 상품 링크 붙여넣기",
+        bsPhPref:"예: M, 블랙, 중고 가능", bsPhDeadline:"예: 2026-09 도착", bsPhDetails:"원하는 것을 알려주세요. 구체적인 아이템, 브랜드, 무드, 스크린샷, 또는 그냥 찾고 싶은 일본 패션 스타일을 설명해 주셔도 됩니다.",
+        bsOptResearch:"옵션 찾기", bsOptAvailability:"재고 확인", bsOptCoordination:"구매 지원", bsOptShipping:"배송 안내",
         bsConsentLegend:"보내기 전에",
         bsConsent1:"이것이 구매 확정이 아닌 요청임을 이해합니다.",
         bsConsent2:"퍼스널 바잉 서포트는 ¥100,000 JPY / 약 US$700 이상의 선별된 요청에만 가능함을 이해합니다.",
         bsConsent3:"상품 비용, 서비스 수수료, 국내 배송비, 국제 배송비, 관세/수입세, 지연, 사이즈 리스크, 재고 리스크, 중고 상태 리스크, 취소 규정, 구매자 책임이 케이스별로 확인됨을 이해합니다.",
         bsConsent4:"Tokyo Closet Notes가 이 요청에 관해 이메일 또는 소셜 DM으로 연락할 수 있음에 동의합니다.",
-        bsSend:"바잉 서포트 요청 보내기", bsSending:"전송 중…",
+        bsSend:"요청 보내기", bsSending:"전송 중…",
+        bsVName:"이름 또는 닉네임을 입력해 주세요.",
         bsVEmail:"답장을 드릴 수 있도록 이메일을 입력해 주세요.", bsVEmailBad:"이메일 형식이 올바르지 않은 것 같습니다. 확인해 주세요.",
         bsVCountry:"국가 또는 지역을 알려주세요.", bsVItem:"찾으시는 아이템 또는 브랜드를 알려주세요.",
-        bsVBudget:"예산 또는 예상 상품 가치를 입력해 주세요.", bsVDetails:"요청에 대한 간단한 내용을 입력해 주세요.",
-        bsVConsent:"보내기 전에 네 항목을 모두 체크해 주세요.",
-        bsSuccessTitle:"요청을 받았습니다.", bsSuccessBody:"감사합니다. 모든 바잉 서포트 요청을 직접 검토하고, 도울 수 있으면 이메일이나 DM으로 답장드립니다.",
+        bsVBudget:"예산 또는 예상 상품 가치를 입력해 주세요.", bsVDetails:"무엇을 찾으시는지 알려주세요.",
+        bsVConsent:"보내기 전에 모든 항목을 체크해 주세요.",
+        bsSuccessTitle:"요청을 받았습니다.", bsSuccessBody:"감사합니다. 요청을 받았습니다. 잘 맞는다고 판단되면 다음 단계, 견적, 결제 안내와 함께 회신드리겠습니다.",
         bsSuccessMicro:"수수료, 배송, 관세, 재고, 사이즈, 중고 상태는 케이스별로 확인됩니다.",
         heroEyebrow:"일본 패션 파인더", heroTitle:"당신의 일본 패션 루트를 찾으세요.",
         heroSub:"도착 전에, 당신의 취향을 일본 브랜드·빈티지 숍·셀렉트 스토어·걸어서 도는 쇼핑 지역과 매칭하세요.",
@@ -2737,6 +2734,12 @@
     function init(){
       var form = $("buying-support-form");
       if(!form) return;
+      // Reuse the Style Finder country list for the Buying Support country select (no duplicate list to maintain)
+      var bc=$("bs-country"), sf=document.getElementById("country");
+      if(bc && sf && bc.tagName==="SELECT" && bc.options.length<=1){
+        bc.innerHTML = sf.innerHTML; bc.value="";
+        if(window.TCN_I18N && window.TCN_I18N.apply){ try{ window.TCN_I18N.apply(); }catch(e){} }
+      }
       var src=$("bs-source"); if(src) src.value = qp("source") || "tcn-site";
       var us=$("bs-utm-source"); if(us) us.value = qp("utm_source");
       var um=$("bs-utm-medium"); if(um) um.value = qp("utm_medium");
@@ -2762,11 +2765,11 @@
         };
       }
       function validate(d){
+        // Required: name, email, country, request message, consents. Item/brand and budget are optional.
+        if(!d.bs_name) return {m:T("bsVName"),f:"bs-name"};
         if(!d.bs_email) return {m:T("bsVEmail"),f:"bs-email"};
         if(!isEmail(d.bs_email)) return {m:T("bsVEmailBad"),f:"bs-email"};
         if(!d.bs_country) return {m:T("bsVCountry"),f:"bs-country"};
-        if(!d.bs_item) return {m:T("bsVItem"),f:"bs-item"};
-        if(!d.bs_budget) return {m:T("bsVBudget"),f:"bs-budget"};
         if(!d.bs_details) return {m:T("bsVDetails"),f:"bs-details"};
         if(!(d.consentRequest&&d.consentThreshold&&d.consentCosts&&d.consentContact)) return {m:T("bsVConsent")};
         return null;
