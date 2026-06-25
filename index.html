@@ -209,6 +209,15 @@
   .hero-sub { font-size: clamp(16px, 2vw, 19px); color: var(--ink-soft); max-width: 46ch; margin: 0 0 26px; }
   .hero-cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
   .hero-note { margin: 24px 0 0; font-size: 14px; color: var(--muted); max-width: 46ch; }
+  .hero-bs-line { margin: 12px 0 0; }
+  .hero-bs-link { font-size: 14px; font-weight: 600; color: var(--ink-soft); text-decoration: none;
+    border-bottom: 1px solid var(--border-2); padding-bottom: 2px; transition: color .2s var(--ease), border-color .2s var(--ease); }
+  .hero-bs-link:hover { color: var(--tcn-red); border-color: var(--tcn-red); }
+  /* Personal Buying Support */
+  .bs-threshold { font-size: 15px; font-weight: 700; color: var(--ink); margin: 0 0 22px; }
+  .bs-form-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+    padding: clamp(20px, 4.5vw, 34px); margin-top: 8px; }
+  .bs-form-wrap .form-foot { margin-top: 22px; }
 
   /* hero image — editorial magazine collage: one tall dominant image + two stacked details */
   .hero-art { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -643,6 +652,7 @@
 
   .paid-hero { display: grid; grid-template-columns: 1fr; gap: 24px;
     background: var(--navy); color: #e9ecf2; border-radius: 18px; padding: clamp(24px,5vw,38px); }
+  .paid-hero + .paid-hero { margin-top: clamp(16px, 2.4vw, 26px); }
   .paid-price { display: flex; flex-direction: column; gap: 4px; }
   .paid-price b { font-family: var(--round); font-weight: 700; font-size: clamp(40px,9vw,58px); color: #fff; line-height: 1; }
   .paid-price span { font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; color: #97a0ab; }
@@ -758,7 +768,7 @@
         </div>
         <a class="mm-link" href="#finder" data-scroll data-menu-close data-i18n="navFinder">Finder</a>
         <a class="mm-link" href="#map" data-scroll data-menu-close data-i18n="navMap">Map</a>
-        <a class="mm-link" href="#proxy" data-scroll data-menu-close data-i18n="navProxy">Proxy Support</a>
+        <a class="mm-link" href="#buying-support" data-scroll data-menu-close data-i18n="navProxy">Buying Support</a>
         <a class="mm-link" href="https://www.instagram.com/tokyo_closet_notes" target="_blank" rel="noopener" data-menu-close>Instagram</a>
         <a class="mm-link" href="https://www.tiktok.com/@tokyo_closet_notes" target="_blank" rel="noopener" data-menu-close>TikTok</a>
       </div>
@@ -784,6 +794,7 @@
             <p class="hero-note" data-i18n="heroNote">
               Free to start. Built for overseas shoppers planning a real Japan fashion day.
             </p>
+            <p class="hero-bs-line"><a href="#buying-support" class="hero-bs-link" data-scroll data-i18n="heroBuyingSupport">Need a specific item? Request Buying Support →</a></p>
           </div>
 
           <div class="hero-art reveal d1" aria-hidden="false">
@@ -1093,7 +1104,7 @@
               <button type="button" class="chip" data-value="Full outfits">Full outfits</button>
               <button type="button" class="chip" data-value="Japanese brands">Japanese brands</button>
               <button type="button" class="chip" data-value="Shopping map">Shopping map</button>
-              <button type="button" class="chip" data-value="Proxy shopping help">Proxy shopping help</button>
+              <button type="button" class="chip" data-value="Proxy shopping help">Personal buying support</button>
             </div>
           </fieldset>
 
@@ -1150,7 +1161,7 @@
               <button type="button" class="chip" data-value="Paid brand research list">Paid brand research list</button>
               <button type="button" class="chip" data-value="Japan fashion shopping map">Japan fashion shopping map</button>
               <button type="button" class="chip" data-value="Personal shopping support">Personal shopping support</button>
-              <button type="button" class="chip" data-value="Proxy buying / shipping support">Proxy buying / shipping support</button>
+              <button type="button" class="chip" data-value="Proxy buying / shipping support">Purchase / shipping guidance</button>
               <button type="button" class="chip" data-value="I'm not sure yet">I’m not sure yet</button>
             </div>
           </fieldset>
@@ -1167,7 +1178,7 @@
             <legend class="fs-legend"><span data-i18n="fs5Legend">Before you send</span> <span class="req">*</span></legend>
             <div class="consent">
               <label class="opt opt-check"><input type="checkbox" name="consentStyleInquiry" /><span data-i18n="consent1">I understand this is a style inquiry, not a confirmed purchase.</span></label>
-              <label class="opt opt-check"><input type="checkbox" name="consentExtraCosts" /><span data-i18n="consent2">I understand proxy shopping, shipping, customs, and taxes may involve additional costs.</span></label>
+              <label class="opt opt-check"><input type="checkbox" name="consentExtraCosts" /><span data-i18n="consent2">I understand Personal Buying Support, shipping, customs, and taxes may involve additional costs.</span></label>
               <label class="opt opt-check"><input type="checkbox" name="consentContact" /><span data-i18n="consent3">I agree that Tokyo Closet Notes may contact me by email or social DM.</span></label>
             </div>
           </fieldset>
@@ -1277,12 +1288,12 @@
           <h3 data-i18n="fullLockedTitle">Unlock the full Japan Fashion Shopping Map</h3>
           <p data-i18n="fullLockedBody">This is a free preview. The full map adds many more researched shops, hidden shops, walking routes, brand notes, and shopping strategy across Tokyo, Osaka, Kyoto, Nagoya, Fukuoka and beyond — built for travelers planning a real shopping day.</p>
           <div class="paid-stats">
-            <div><b id="paid-shops">150+</b> <span data-i18n="paidStatShops">researched shops</span></div>
-            <div><b id="paid-districts">12</b> <span data-i18n="paidStatDistricts">districts</span></div>
+            <div><b id="paid-shops">200+</b> <span data-i18n="paidStatShops">researched shops</span></div>
+            <div><b id="paid-districts">5</b> <span data-i18n="paidStatDistricts">cities</span></div>
             <div><b data-i18n="paidStatRoutes">Routes</b> <span data-i18n="paidStatRoutesSub">walk-by-walk</span></div>
           </div>
           <p style="font-size:13px;color:#8a93ad" id="paid-note"></p>
-          <a href="#finder" class="btn btn-red" data-scroll style="margin-top:8px" data-i18n="fullEarlyAccess">Tell us your style to get early access</a>
+          <a href="#full-map" class="btn btn-red" data-scroll data-payhip="fullmap" data-soon-key="ctaFullSoon" data-buy-key="ctaFullBuy" style="margin-top:8px" data-i18n="ctaFullBuy">Get the Full Map — $19</a>
         </div>
 
         <p class="map-unlock-note" data-i18n="unlockNote">Unlocked after Style Finder submission.</p>
@@ -1331,7 +1342,7 @@
           </div>
         </div>
 
-        <p class="paid-note" data-i18n="payhipNote" style="text-align:center;margin-top:14px">Payhip checkout links will be added here once the products are ready. Proxy Shopping Support is quoted case by case.</p>
+        <p class="paid-note" data-i18n="payhipNote" style="text-align:center;margin-top:14px">The $19 Full Japan Fashion Map is available on Payhip. The $39 research bundle is coming soon. Personal Buying Support is handled by request.</p>
 
         <!-- comparison -->
         <h3 class="paid-subhead reveal" data-i18n="compareSubhead">Free preview vs Full Map</h3>
@@ -1395,20 +1406,119 @@
       </div>
     </section>
 
-    <!-- ============ PROXY TEASER ============ -->
-    <section id="proxy" class="teaser teaser-proxy" aria-labelledby="proxy-title">
+    <!-- ============ PERSONAL BUYING SUPPORT ============ -->
+    <!-- #proxy kept as a backward-compatible alias anchor (no visible "Proxy" copy) -->
+    <span id="proxy" aria-hidden="true"></span>
+    <section id="buying-support" class="teaser teaser-proxy" aria-labelledby="bs-title">
       <div class="container container-narrow">
-        <p class="eyebrow reveal" data-i18n="proxyEyebrow">Personal search</p>
-        <h2 id="proxy-title" class="section-title reveal" data-i18n="proxyTitle">Need help finding a specific Japanese piece?</h2>
-        <p class="section-lead reveal" data-i18n="proxyLead">
-          We can help research real Japanese brands, shop links, availability, and possible
-          buying routes. Proxy shopping may be available for selected requests after confirmation.
+        <p class="eyebrow reveal" data-i18n="bsEyebrow">Personal Buying Support</p>
+        <h2 id="bs-title" class="section-title reveal" data-i18n="bsTitle">Looking for a specific Japanese item?</h2>
+        <p class="section-lead reveal" data-i18n="bsLead">
+          Tell us what you are looking for. For selected requests, we may help with item research,
+          availability checks, purchase coordination, and shipping guidance.
         </p>
-        <p class="fine-note reveal" data-i18n="proxyFine">
-          We do not guarantee availability, sizing, customs fees, or delivery times. All item
-          costs, shipping fees, duties, and taxes are the buyer’s responsibility.
-        </p>
-        <a href="#finder" class="btn btn-outline reveal" data-scroll data-payhip="proxy" data-soon-key="proxyCta" data-buy-key="proxyCta" data-i18n="proxyCta">Request a custom quote</a>
+        <p class="bs-threshold reveal" data-i18n="bsThreshold">Available for selected requests from ¥100,000 JPY / approximately US$700+.</p>
+
+        <div id="bs-form-wrap" class="bs-form-wrap reveal">
+          <form id="buying-support-form" novalidate>
+            <!-- honeypot (separate from Style Finder) -->
+            <div class="hp-field" aria-hidden="true">
+              <label>Company<input type="text" name="bs_company" id="bs-hp-company" tabindex="-1" autocomplete="off" /></label>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label for="bs-name" data-i18n="bsLblName">Name or nickname</label>
+                <input type="text" id="bs-name" name="bs_name" autocomplete="name" placeholder="Alex" />
+              </div>
+              <div class="field">
+                <label for="bs-email"><span data-i18n="bsLblEmail">Email</span> <span class="req">*</span></label>
+                <input type="email" id="bs-email" name="bs_email" autocomplete="email" placeholder="you@example.com" required />
+              </div>
+              <div class="field">
+                <label for="bs-handle" data-i18n="bsLblHandle">Instagram or TikTok handle</label>
+                <input type="text" id="bs-handle" name="bs_handle" placeholder="@yourhandle" />
+              </div>
+              <div class="field">
+                <label for="bs-country"><span data-i18n="bsLblCountry">Country / region</span> <span class="req">*</span></label>
+                <input type="text" id="bs-country" name="bs_country" autocomplete="country-name" placeholder="United States" required />
+              </div>
+              <div class="field">
+                <label for="bs-item"><span data-i18n="bsLblItem">Item or brand name</span> <span class="req">*</span></label>
+                <input type="text" id="bs-item" name="bs_item" data-i18n-ph="bsPhItem" placeholder="e.g. KAPITAL boro jacket" required />
+              </div>
+              <div class="field">
+                <label for="bs-budget"><span data-i18n="bsLblBudget">Budget or expected item value</span> <span class="req">*</span></label>
+                <input type="text" id="bs-budget" name="bs_budget" data-i18n-ph="bsPhBudget" placeholder="e.g. ¥150,000 / approx US$1000" required />
+              </div>
+              <div class="field">
+                <label for="bs-url" data-i18n="bsLblUrl">Product URL</label>
+                <input type="url" id="bs-url" name="bs_url" placeholder="https://…" />
+              </div>
+              <div class="field">
+                <label for="bs-reference" data-i18n="bsLblReference">Item screenshot / reference link</label>
+                <input type="text" id="bs-reference" name="bs_reference" data-i18n-ph="bsPhReference" placeholder="Paste an image or post link" />
+              </div>
+              <div class="field">
+                <label for="bs-pref" data-i18n="bsLblPref">Size / color / condition preference</label>
+                <input type="text" id="bs-pref" name="bs_pref" data-i18n-ph="bsPhPref" placeholder="e.g. M, black, used OK" />
+              </div>
+              <div class="field">
+                <label for="bs-deadline" data-i18n="bsLblDeadline">Travel date / deadline</label>
+                <input type="text" id="bs-deadline" name="bs_deadline" data-i18n-ph="bsPhDeadline" placeholder="e.g. arriving 2026-09" />
+              </div>
+            </div>
+
+            <div class="field" style="margin-top:18px">
+              <label data-i18n="bsLblSupportType">Desired support type</label>
+              <div class="consent">
+                <label class="opt opt-check"><input type="checkbox" name="bs_supportType" value="Item research" /><span data-i18n="bsOptResearch">Item research</span></label>
+                <label class="opt opt-check"><input type="checkbox" name="bs_supportType" value="Availability check" /><span data-i18n="bsOptAvailability">Availability check</span></label>
+                <label class="opt opt-check"><input type="checkbox" name="bs_supportType" value="Purchase coordination" /><span data-i18n="bsOptCoordination">Purchase coordination</span></label>
+                <label class="opt opt-check"><input type="checkbox" name="bs_supportType" value="Shipping guidance" /><span data-i18n="bsOptShipping">Shipping guidance</span></label>
+              </div>
+            </div>
+
+            <div class="field" style="margin-top:18px">
+              <label for="bs-details"><span data-i18n="bsLblDetails">Details / message</span> <span class="req">*</span></label>
+              <textarea id="bs-details" name="bs_details" data-i18n-ph="bsPhDetails" placeholder="Tell us about the item, your timeline, and anything important." required></textarea>
+            </div>
+
+            <fieldset class="fs" style="border:0;padding:0;margin:18px 0 0">
+              <legend class="fs-legend" style="font-size:18px"><span data-i18n="bsConsentLegend">Before you send</span> <span class="req">*</span></legend>
+              <div class="consent">
+                <label class="opt opt-check"><input type="checkbox" name="bsConsentRequest" /><span data-i18n="bsConsent1">I understand this is a request, not a guaranteed purchase.</span></label>
+                <label class="opt opt-check"><input type="checkbox" name="bsConsentThreshold" /><span data-i18n="bsConsent2">I understand Personal Buying Support is available only for selected requests from ¥100,000 JPY / approximately US$700+.</span></label>
+                <label class="opt opt-check"><input type="checkbox" name="bsConsentCosts" /><span data-i18n="bsConsent3">I understand item cost, service fee, domestic shipping, international shipping, customs/import taxes, delays, size risk, availability risk, used-item condition risk, cancellation rules, and buyer responsibility are confirmed case by case.</span></label>
+                <label class="opt opt-check"><input type="checkbox" name="bsConsentContact" /><span data-i18n="bsConsent4">I agree that Tokyo Closet Notes may contact me by email or social DM about this request.</span></label>
+              </div>
+            </fieldset>
+
+            <p class="fine-note reveal" data-i18n="bsFine" style="margin-top:18px">Item cost, service fee, domestic shipping, international shipping, customs/import taxes, delays, size risk, availability risk, used-item condition risk, and cancellation rules are confirmed case by case.</p>
+
+            <!-- tracking (reused safely; separate inputs from Style Finder) -->
+            <input type="hidden" name="source" id="bs-source" value="" />
+            <input type="hidden" name="utmSource" id="bs-utm-source" value="" />
+            <input type="hidden" name="utmMedium" id="bs-utm-medium" value="" />
+            <input type="hidden" name="utmCampaign" id="bs-utm-campaign" value="" />
+
+            <div class="form-foot">
+              <p class="form-error" id="bs-form-error" role="alert" hidden></p>
+              <button type="submit" class="btn btn-primary btn-block" id="bs-submit-btn">
+                <span class="btn-label" data-i18n="bsSend">Send Buying Support request</span>
+                <span class="btn-spinner" aria-hidden="true"></span>
+              </button>
+            </div>
+          </form>
+
+          <!-- success replaces the buying-support form only -->
+          <div class="form-success" id="bs-form-success" role="status" hidden>
+            <div class="fs-tick" aria-hidden="true"></div>
+            <h3 data-i18n="bsSuccessTitle">Request received.</h3>
+            <p data-i18n="bsSuccessBody">Thank you. We review every Buying Support request by hand and reply by email or DM if we can help.</p>
+            <p class="micro" data-i18n="bsSuccessMicro">Fees, shipping, customs, availability, sizing, and used-item condition are confirmed case by case.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1434,7 +1544,7 @@
           <li class="reveal" data-i18n="trust1">We never pretend AI outfit studies are real street snaps.</li>
           <li class="reveal" data-i18n="trust2">We do not fake brand names.</li>
           <li class="reveal" data-i18n="trust3">We only suggest real brands when researched.</li>
-          <li class="reveal" data-i18n="trust4">Proxy shopping is handled case by case.</li>
+          <li class="reveal" data-i18n="trust4">Personal Buying Support is handled case by case.</li>
           <li class="reveal" data-i18n="trust5">Customs duties, import taxes, and shipping delays are the buyer’s responsibility.</li>
           <li class="reveal" data-i18n="trust6">Some items may be unavailable, sold out, or not eligible for international shipping.</li>
         </ul>
@@ -1726,10 +1836,13 @@
     }
 
     function applyPaidTeaser() {
-      if (!DATA.fullMap) return;
-      if (DATA.fullMap.shopCount) document.getElementById("paid-shops").textContent = DATA.fullMap.shopCount;
-      if (DATA.fullMap.districtCount) document.getElementById("paid-districts").textContent = String(DATA.fullMap.districtCount);
-      if (DATA.fullMap.note) document.getElementById("paid-note").textContent = DATA.fullMap.note;
+      // Canonical launch values (kept here so map-data.js stays untouched):
+      // 200+ researched shops across 5 cities. Routes label is i18n.
+      var s = document.getElementById("paid-shops"); if (s) s.textContent = "200+";
+      var d = document.getElementById("paid-districts"); if (d) d.textContent = "5";
+      if (DATA.fullMap && DATA.fullMap.note) {
+        var n = document.getElementById("paid-note"); if (n) n.textContent = DATA.fullMap.note;
+      }
     }
 
     function render() {
@@ -2138,11 +2251,34 @@
   window.TCN_I18N = (function(){
     var I18N = {
       en:{
-        tagline:"Japan fashion finder", menu:"Menu", navFinder:"Finder", navMap:"Map", navProxy:"Proxy Support",
+        tagline:"Japan fashion finder", menu:"Menu", navFinder:"Finder", navMap:"Map", navProxy:"Buying Support",
         heroEyebrow:"Japan Fashion Finder", heroTitle:"Find Your Japan Fashion Route.",
         heroSub:"Match your taste to Japanese brands, vintage shops, select stores, and walkable shopping areas before you land.",
         ctaStartFinder:"Start the Style Finder", ctaExploreMap:"Explore the Free Map",
         heroNote:"Free to start. Built for overseas shoppers planning a real Japan fashion day.",
+        heroBuyingSupport:"Need a specific item? Request Buying Support →",
+        bsEyebrow:"Personal Buying Support", bsTitle:"Looking for a specific Japanese item?",
+        bsLead:"Tell us what you are looking for. For selected requests, we may help with item research, availability checks, purchase coordination, and shipping guidance.",
+        bsThreshold:"Available for selected requests from ¥100,000 JPY / approximately US$700+.",
+        bsFine:"Item cost, service fee, domestic shipping, international shipping, customs/import taxes, delays, size risk, availability risk, used-item condition risk, and cancellation rules are confirmed case by case.",
+        bsLblName:"Name or nickname", bsLblEmail:"Email", bsLblHandle:"Instagram or TikTok handle", bsLblCountry:"Country / region",
+        bsLblItem:"Item or brand name", bsLblBudget:"Budget or expected item value", bsLblUrl:"Product URL", bsLblReference:"Item screenshot / reference link",
+        bsLblPref:"Size / color / condition preference", bsLblDeadline:"Travel date / deadline", bsLblSupportType:"Desired support type", bsLblDetails:"Details / message",
+        bsPhItem:"e.g. KAPITAL boro jacket", bsPhBudget:"e.g. ¥150,000 / approx US$1000", bsPhReference:"Paste an image or post link",
+        bsPhPref:"e.g. M, black, used OK", bsPhDeadline:"e.g. arriving 2026-09", bsPhDetails:"Tell us about the item, your timeline, and anything important.",
+        bsOptResearch:"Item research", bsOptAvailability:"Availability check", bsOptCoordination:"Purchase coordination", bsOptShipping:"Shipping guidance",
+        bsConsentLegend:"Before you send",
+        bsConsent1:"I understand this is a request, not a guaranteed purchase.",
+        bsConsent2:"I understand Personal Buying Support is available only for selected requests from ¥100,000 JPY / approximately US$700+.",
+        bsConsent3:"I understand item cost, service fee, domestic shipping, international shipping, customs/import taxes, delays, size risk, availability risk, used-item condition risk, cancellation rules, and buyer responsibility are confirmed case by case.",
+        bsConsent4:"I agree that Tokyo Closet Notes may contact me by email or social DM about this request.",
+        bsSend:"Send Buying Support request", bsSending:"Sending…",
+        bsVEmail:"Please add your email so we can reply.", bsVEmailBad:"That email doesn’t look right. Please check it.",
+        bsVCountry:"Please tell us your country or region.", bsVItem:"Please tell us the item or brand you’re looking for.",
+        bsVBudget:"Please add a budget or expected item value.", bsVDetails:"Please add a few details about your request.",
+        bsVConsent:"Please check all four boxes before sending.",
+        bsSuccessTitle:"Request received.", bsSuccessBody:"Thank you. We review every Buying Support request by hand and reply by email or DM if we can help.",
+        bsSuccessMicro:"Fees, shipping, customs, availability, sizing, and used-item condition are confirmed case by case.",
         strip1:"<b>2 minutes</b> to complete", strip2:"<b>No login</b> required", strip3:"<b>No purchase</b> required", strip4:"Reviewed <b>by hand</b>",
         howEyebrow:"The process", howTitle:"How it works",
         how1Title:"Tell us your style", how1Body:"Choose the moods, items, colors, and textures you like.",
@@ -2169,7 +2305,7 @@
         phFreeText:"Example: “I like wide black pants, soft layering, and brands that feel like Tokyo street style but not too loud.”",
         fs5Legend:"Before you send",
         consent1:"I understand this is a style inquiry, not a confirmed purchase.",
-        consent2:"I understand proxy shopping, shipping, customs, and taxes may involve additional costs.",
+        consent2:"I understand Personal Buying Support, shipping, customs, and taxes may involve additional costs.",
         consent3:"I agree that Tokyo Closet Notes may contact me by email or social DM.",
         submitMicro:"Your answers help us build a more personal Japanese fashion guide.", sendNotes:"Send my style notes", sending:"Sending…",
         successTitle:"Thank you.", successBody:"We’ll review your style notes and send a first direction soon.",
@@ -2186,7 +2322,7 @@
         shopsInView:"Shops in view",
         fullLockedEyebrow:"Full map locked", fullLockedTitle:"Unlock the full Japan Fashion Shopping Map",
         fullLockedBody:"This is a free preview. The full map adds many more researched shops, hidden shops, walking routes, brand notes, and shopping strategy across Tokyo, Osaka, Kyoto, Nagoya, Fukuoka and beyond — built for travelers planning a real shopping day.",
-        paidStatShops:"researched shops", paidStatDistricts:"districts", paidStatRoutes:"Routes", paidStatRoutesSub:"walk-by-walk",
+        paidStatShops:"researched shops", paidStatDistricts:"cities", paidStatRoutes:"Routes", paidStatRoutesSub:"walk-by-walk",
         fullEarlyAccess:"Tell us your style to get early access", unlockNote:"Unlocked after Style Finder submission.",
         fullEyebrow:"Paid · in preparation", fullLead:"A researched, route-based shopping map for a real Japan trip — the shops worth crossing a city for, with the routes to walk them.",
         paidPriceSub:"Full Japan Fashion Map · v1",
@@ -2199,7 +2335,7 @@
         bv1:"Everything in the $19 Full Japan Fashion Map", bv2:"A personal research pass based on your Style Finder answers",
         bv3:"A Japanese brand list tailored to your taste", bv4:"Notes on where and how to buy each pick",
         ctaBundleSoon:"Opening soon — answer the Style Finder", ctaBundleBuy:"Get the Full Map + Research — $39",
-        payhipNote:"Payhip checkout links will be added here once the products are ready. Proxy Shopping Support is quoted case by case.",
+        payhipNote:"The $19 Full Japan Fashion Map is available on Payhip. The $39 research bundle is coming soon. Personal Buying Support is handled by request.",
         compareSubhead:"Free preview vs Full Map", cmpFreeTag:"Free preview",
         cmpFree1:"54 preview shops", cmpFree2:"Basic city & area filters", cmpFree3:"Enough to start exploring",
         cmpPaidTag:"Full Map · $19", cmpPaid1:"100+ researched shops in v1", cmpPaid2:"Deeper city & area routes",
@@ -2211,17 +2347,13 @@
         rtNagoyaName:"Sakae Designer Archive + Osu Vintage", rtNagoyaDesc:"Sakae's designer and used-designer floors, then the Osu arcades for Americana and craft denim.",
         rtFukuokaName:"Daimyo / Imaizumi Select Core", rtFukuokaDesc:"Fukuoka's strongest domestic-brand select shops through the walkable Daimyo and Imaizumi backstreets.",
         paidFineprint:"Routes shown are an editorial preview. Full shop lists, addresses, and notes are delivered after purchase — they are not stored in this public page.",
-        proxyEyebrow:"Personal search", proxyTitle:"Need help finding a specific Japanese piece?",
-        proxyLead:"We can help research real Japanese brands, shop links, availability, and possible buying routes. Proxy shopping may be available for selected requests after confirmation.",
-        proxyFine:"We do not guarantee availability, sizing, customs fees, or delivery times. All item costs, shipping fees, duties, and taxes are the buyer’s responsibility.",
-        proxyCta:"Request a custom quote",
         bfEyebrow:"Who it’s for", bfTitle:"Built for",
         bf1:"<b>People discovering Japanese brands</b><br />quietly, at their own pace.",
         bf2:"<b>Travelers planning Tokyo / Osaka / Kyoto</b><br />shopping with a real route in mind.",
         bf3:"<b>Fans of quiet details</b><br />wide silhouettes, good fabric, and real shopping routes.",
         trustEyebrow:"How we work", trustTitle:"Trust notes",
         trust1:"We never pretend AI outfit studies are real street snaps.", trust2:"We do not fake brand names.",
-        trust3:"We only suggest real brands when researched.", trust4:"Proxy shopping is handled case by case.",
+        trust3:"We only suggest real brands when researched.", trust4:"Personal Buying Support is handled case by case.",
         trust5:"Customs duties, import taxes, and shipping delays are the buyer’s responsibility.",
         trust6:"Some items may be unavailable, sold out, or not eligible for international shipping.",
         footerTag:"Japanese street style notes, brand research, and shopping direction.",
@@ -2244,6 +2376,29 @@
       },
       zh:{
         tagline:"日本时尚指南", menu:"菜单", navFinder:"风格测试", navMap:"地图", navProxy:"代购支持",
+        heroBuyingSupport:"在找某件特定单品？申请代购支持 →",
+        bsEyebrow:"个人代购支持", bsTitle:"在找某件特定的日本单品？",
+        bsLead:"告诉我们你在找什么。针对部分请求，我们可协助单品调查、库存确认、购买协调与配送指引。",
+        bsThreshold:"仅面向部分请求，起价 ¥100,000 日元 / 约 US$700 起。",
+        bsFine:"商品费用、服务费、日本国内运费、国际运费、关税/进口税、延误、尺码风险、库存风险、二手状态风险与取消规则均按个案确认。",
+        bsLblName:"姓名或昵称", bsLblEmail:"邮箱", bsLblHandle:"Instagram 或 TikTok 账号", bsLblCountry:"国家 / 地区",
+        bsLblItem:"单品或品牌名", bsLblBudget:"预算或预期商品价值", bsLblUrl:"商品链接", bsLblReference:"单品截图 / 参考链接",
+        bsLblPref:"尺码 / 颜色 / 状态偏好", bsLblDeadline:"行程日期 / 截止时间", bsLblSupportType:"希望的支持类型", bsLblDetails:"详情 / 留言",
+        bsPhItem:"例如：KAPITAL 拼布外套", bsPhBudget:"例如：¥150,000 / 约 US$1000", bsPhReference:"粘贴图片或帖子链接",
+        bsPhPref:"例如：M、黑色、可接受二手", bsPhDeadline:"例如：2026-09 抵达", bsPhDetails:"告诉我们单品、你的时间安排以及任何重要信息。",
+        bsOptResearch:"单品调查", bsOptAvailability:"库存确认", bsOptCoordination:"购买协调", bsOptShipping:"配送指引",
+        bsConsentLegend:"发送之前",
+        bsConsent1:"我理解这是请求，而非保证成交的购买。",
+        bsConsent2:"我理解个人代购支持仅面向 ¥100,000 日元 / 约 US$700 起的部分请求。",
+        bsConsent3:"我理解商品费用、服务费、国内运费、国际运费、关税/进口税、延误、尺码风险、库存风险、二手状态风险、取消规则与买家责任均按个案确认。",
+        bsConsent4:"我同意 Tokyo Closet Notes 可就此请求通过邮件或社交私信联系我。",
+        bsSend:"发送代购支持请求", bsSending:"发送中…",
+        bsVEmail:"请填写邮箱以便我们回复。", bsVEmailBad:"邮箱格式似乎不正确，请检查。",
+        bsVCountry:"请告诉我们你的国家或地区。", bsVItem:"请告诉我们你在找的单品或品牌。",
+        bsVBudget:"请填写预算或预期商品价值。", bsVDetails:"请简单描述你的请求。",
+        bsVConsent:"发送前请勾选全部四项。",
+        bsSuccessTitle:"已收到请求。", bsSuccessBody:"谢谢你。我们会逐一人工查看每个代购支持请求，若能协助会通过邮件或私信回复。",
+        bsSuccessMicro:"费用、运费、关税、库存、尺码与二手状态均按个案确认。",
         heroEyebrow:"日本时尚指南", heroTitle:"找到你的日本购物路线。",
         heroSub:"在出发前，把你的品味匹配到日本品牌、古着店、select店与可步行的购物区。",
         ctaStartFinder:"开始风格测试", ctaExploreMap:"浏览免费地图",
@@ -2274,7 +2429,7 @@
         phFreeText:"例如：“我喜欢宽松的黑色裤子、柔和的叠穿，以及有东京街头感但不张扬的品牌。”",
         fs5Legend:"发送之前",
         consent1:"我明白这是风格咨询，而非确认购买。",
-        consent2:"我明白代购、运输、关税和税费可能产生额外费用。",
+        consent2:"我明白个人代购支持、运输、关税和税费可能产生额外费用。",
         consent3:"我同意 Tokyo Closet Notes 通过邮件或社交私信与我联系。",
         submitMicro:"你的回答能帮助我们打造更个性化的日本时尚指南。", sendNotes:"发送我的风格笔记", sending:"发送中…",
         successTitle:"谢谢你。", successBody:"我们会查看你的风格笔记，很快给你第一个方向。",
@@ -2291,7 +2446,7 @@
         shopsInView:"视野内店铺",
         fullLockedEyebrow:"完整地图已锁定", fullLockedTitle:"解锁完整日本时尚购物地图",
         fullLockedBody:"这是免费预览。完整地图涵盖更多经研究的店铺、隐藏店铺、步行路线、品牌笔记与购物策略，遍及东京、大阪、京都、名古屋、福冈等地——为真正规划购物之日的旅行者打造。",
-        paidStatShops:"经研究的店铺", paidStatDistricts:"个街区", paidStatRoutes:"路线", paidStatRoutesSub:"一段段步行",
+        paidStatShops:"经研究的店铺", paidStatDistricts:"座城市", paidStatRoutes:"路线", paidStatRoutesSub:"一段段步行",
         fullEarlyAccess:"告诉我们你的风格，抢先体验", unlockNote:"完成风格测试后解锁。",
         fullEyebrow:"付费 · 筹备中", fullLead:"为真正的日本之旅精心研究的路线式购物地图——值得跨城前往的店铺，以及步行路线。",
         paidPriceSub:"完整日本时尚地图 · v1",
@@ -2304,7 +2459,7 @@
         bv1:"包含 $19 完整日本时尚地图的全部内容", bv2:"根据你的风格测试答案进行一次个人研究",
         bv3:"为你的品味量身定制的日本品牌清单", bv4:"每个推荐在哪买、怎么买的说明",
         ctaBundleSoon:"即将开售 — 先完成风格测试", ctaBundleBuy:"获取完整地图 + 研究 — $39",
-        payhipNote:"Payhip 购买链接将在商品就绪后添加于此。代购支持按个案报价。",
+        payhipNote:"$19 完整日本时尚地图已在 Payhip 上线。$39 研究套装即将推出。个人代购支持按需提供。",
         compareSubhead:"免费预览 vs 完整地图", cmpFreeTag:"免费预览",
         cmpFree1:"54 家预览店铺", cmpFree2:"基础城市与区域筛选", cmpFree3:"足够开始探索",
         cmpPaidTag:"完整地图 · $19", cmpPaid1:"v1 收录 100+ 经研究店铺", cmpPaid2:"更深入的城市与区域路线",
@@ -2316,17 +2471,13 @@
         rtNagoyaName:"荣 设计师档案 + 大须古着", rtNagoyaDesc:"荣的设计师与二手设计师楼层，再到大须商店街的美式与工艺丹宁。",
         rtFukuokaName:"大名 / 今泉 选品核心", rtFukuokaDesc:"穿过可步行的大名与今泉小巷，逛福冈最强的本土品牌选品店。",
         paidFineprint:"所示路线为编辑预览。完整店铺清单、地址与笔记将在购买后提供——不会存储在此公开页面中。",
-        proxyEyebrow:"个人搜寻", proxyTitle:"需要帮你找某件特定的日本单品吗？",
-        proxyLead:"我们可以帮你研究真实的日本品牌、店铺链接、库存以及可能的购买路线。部分请求在确认后可提供代购。",
-        proxyFine:"我们不保证库存、尺码、关税或送达时间。所有商品费用、运费、关税和税费由买家承担。",
-        proxyCta:"申请定制报价",
         bfEyebrow:"为谁打造", bfTitle:"为这些人打造",
         bf1:"<b>正在发现日本品牌的人</b><br />安静地，按自己的节奏。",
         bf2:"<b>计划东京 / 大阪 / 京都之行的旅行者</b><br />带着真实路线去购物。",
         bf3:"<b>喜爱安静细节的人</b><br />宽松廓形、好面料与真实购物路线。",
         trustEyebrow:"我们的方式", trustTitle:"信任须知",
         trust1:"我们绝不会把 AI 穿搭研究图当作真实街拍。", trust2:"我们不会捏造品牌名。",
-        trust3:"我们只推荐经过研究的真实品牌。", trust4:"代购按个案处理。",
+        trust3:"我们只推荐经过研究的真实品牌。", trust4:"个人代购支持按个案处理。",
         trust5:"关税、进口税和运输延误由买家承担。",
         trust6:"部分商品可能缺货、售罄或不支持国际配送。",
         footerTag:"日本街头风格笔记、品牌研究与购物方向。",
@@ -2347,7 +2498,30 @@
         chips:{}
       },
       ko:{
-        tagline:"일본 패션 파인더", menu:"메뉴", navFinder:"스타일 파인더", navMap:"지도", navProxy:"대행 지원",
+        tagline:"일본 패션 파인더", menu:"메뉴", navFinder:"스타일 파인더", navMap:"지도", navProxy:"바잉 서포트",
+        heroBuyingSupport:"특정 아이템을 찾으세요? 바잉 서포트 신청 →",
+        bsEyebrow:"퍼스널 바잉 서포트", bsTitle:"특정 일본 아이템을 찾고 계신가요?",
+        bsLead:"무엇을 찾는지 알려주세요. 선별된 요청에 한해 아이템 리서치, 재고 확인, 구매 조율, 배송 안내를 도와드릴 수 있습니다.",
+        bsThreshold:"선별된 요청에 한해 ¥100,000 JPY / 약 US$700 이상부터 가능합니다.",
+        bsFine:"상품 비용, 서비스 수수료, 일본 국내 배송비, 국제 배송비, 관세/수입세, 지연, 사이즈 리스크, 재고 리스크, 중고 상태 리스크, 취소 규정은 케이스별로 확인됩니다.",
+        bsLblName:"이름 또는 닉네임", bsLblEmail:"이메일", bsLblHandle:"Instagram 또는 TikTok 핸들", bsLblCountry:"국가 / 지역",
+        bsLblItem:"아이템 또는 브랜드명", bsLblBudget:"예산 또는 예상 상품 가치", bsLblUrl:"상품 URL", bsLblReference:"아이템 스크린샷 / 참고 링크",
+        bsLblPref:"사이즈 / 색상 / 상태 선호", bsLblDeadline:"여행 일정 / 마감", bsLblSupportType:"원하는 지원 유형", bsLblDetails:"상세 / 메시지",
+        bsPhItem:"예: KAPITAL 보로 재킷", bsPhBudget:"예: ¥150,000 / 약 US$1000", bsPhReference:"이미지나 게시물 링크 붙여넣기",
+        bsPhPref:"예: M, 블랙, 중고 가능", bsPhDeadline:"예: 2026-09 도착", bsPhDetails:"아이템, 일정, 중요한 사항을 알려주세요.",
+        bsOptResearch:"아이템 리서치", bsOptAvailability:"재고 확인", bsOptCoordination:"구매 조율", bsOptShipping:"배송 안내",
+        bsConsentLegend:"보내기 전에",
+        bsConsent1:"이것이 구매 확정이 아닌 요청임을 이해합니다.",
+        bsConsent2:"퍼스널 바잉 서포트는 ¥100,000 JPY / 약 US$700 이상의 선별된 요청에만 가능함을 이해합니다.",
+        bsConsent3:"상품 비용, 서비스 수수료, 국내 배송비, 국제 배송비, 관세/수입세, 지연, 사이즈 리스크, 재고 리스크, 중고 상태 리스크, 취소 규정, 구매자 책임이 케이스별로 확인됨을 이해합니다.",
+        bsConsent4:"Tokyo Closet Notes가 이 요청에 관해 이메일 또는 소셜 DM으로 연락할 수 있음에 동의합니다.",
+        bsSend:"바잉 서포트 요청 보내기", bsSending:"전송 중…",
+        bsVEmail:"답장을 드릴 수 있도록 이메일을 입력해 주세요.", bsVEmailBad:"이메일 형식이 올바르지 않은 것 같습니다. 확인해 주세요.",
+        bsVCountry:"국가 또는 지역을 알려주세요.", bsVItem:"찾으시는 아이템 또는 브랜드를 알려주세요.",
+        bsVBudget:"예산 또는 예상 상품 가치를 입력해 주세요.", bsVDetails:"요청에 대한 간단한 내용을 입력해 주세요.",
+        bsVConsent:"보내기 전에 네 항목을 모두 체크해 주세요.",
+        bsSuccessTitle:"요청을 받았습니다.", bsSuccessBody:"감사합니다. 모든 바잉 서포트 요청을 직접 검토하고, 도울 수 있으면 이메일이나 DM으로 답장드립니다.",
+        bsSuccessMicro:"수수료, 배송, 관세, 재고, 사이즈, 중고 상태는 케이스별로 확인됩니다.",
         heroEyebrow:"일본 패션 파인더", heroTitle:"당신의 일본 패션 루트를 찾으세요.",
         heroSub:"도착 전에, 당신의 취향을 일본 브랜드·빈티지 숍·셀렉트 스토어·걸어서 도는 쇼핑 지역과 매칭하세요.",
         ctaStartFinder:"스타일 파인더 시작", ctaExploreMap:"무료 지도 둘러보기",
@@ -2378,7 +2552,7 @@
         phFreeText:"예: “와이드한 블랙 팬츠, 부드러운 레이어링, 그리고 너무 튀지 않는 도쿄 스트리트 무드의 브랜드를 좋아해요.”",
         fs5Legend:"보내기 전에",
         consent1:"이것은 구매 확정이 아니라 스타일 문의임을 이해합니다.",
-        consent2:"대행 구매·배송·관세·세금에 추가 비용이 들 수 있음을 이해합니다.",
+        consent2:"퍼스널 바잉 서포트·배송·관세·세금에 추가 비용이 들 수 있음을 이해합니다.",
         consent3:"Tokyo Closet Notes가 이메일 또는 소셜 DM으로 연락하는 데 동의합니다.",
         submitMicro:"당신의 답변은 더 개인화된 일본 패션 가이드를 만드는 데 도움이 됩니다.", sendNotes:"내 스타일 노트 보내기", sending:"전송 중…",
         successTitle:"감사합니다.", successBody:"스타일 노트를 검토하고 곧 첫 방향을 보내드릴게요.",
@@ -2395,7 +2569,7 @@
         shopsInView:"보이는 매장",
         fullLockedEyebrow:"전체 지도 잠김", fullLockedTitle:"전체 일본 패션 쇼핑 지도 잠금 해제",
         fullLockedBody:"이것은 무료 미리보기입니다. 전체 지도에는 더 많은 리서치 매장, 숨은 매장, 도보 루트, 브랜드 노트, 쇼핑 전략이 도쿄·오사카·교토·나고야·후쿠오카 등에 걸쳐 담겨 있습니다 — 진짜 쇼핑 하루를 계획하는 여행자를 위해.",
-        paidStatShops:"리서치 매장", paidStatDistricts:"개 지역", paidStatRoutes:"루트", paidStatRoutesSub:"한 구간씩 도보",
+        paidStatShops:"리서치 매장", paidStatDistricts:"개 도시", paidStatRoutes:"루트", paidStatRoutesSub:"한 구간씩 도보",
         fullEarlyAccess:"스타일을 알려주고 얼리 액세스 받기", unlockNote:"스타일 파인더 제출 후 잠금 해제됩니다.",
         fullEyebrow:"유료 · 준비 중", fullLead:"진짜 일본 여행을 위한 리서치 기반 루트형 쇼핑 지도 — 도시를 가로질러 갈 가치가 있는 매장과 걷는 루트.",
         paidPriceSub:"전체 일본 패션 지도 · v1",
@@ -2408,7 +2582,7 @@
         bv1:"$19 풀 재팬 패션 맵의 모든 내용 포함", bv2:"스타일 파인더 답변 기반의 개인 리서치 1회",
         bv3:"취향에 맞춘 일본 브랜드 리스트", bv4:"각 추천을 어디서 어떻게 사는지에 대한 노트",
         ctaBundleSoon:"곧 오픈 — 먼저 스타일 파인더에 답해 주세요", ctaBundleBuy:"풀 맵 + 리서치 구매 — $39",
-        payhipNote:"Payhip 결제 링크는 상품이 준비되면 여기에 추가됩니다. 대행 구매 지원은 케이스별 견적입니다.",
+        payhipNote:"$19 풀 재팬 패션 맵은 Payhip에서 구매할 수 있습니다. $39 리서치 번들은 곧 출시됩니다. 퍼스널 바잉 서포트는 요청제로 진행됩니다.",
         compareSubhead:"무료 미리보기 vs 전체 지도", cmpFreeTag:"무료 미리보기",
         cmpFree1:"54개 미리보기 매장", cmpFree2:"기본 도시·지역 필터", cmpFree3:"탐색을 시작하기에 충분",
         cmpPaidTag:"전체 지도 · $19", cmpPaid1:"v1에 100+ 리서치 매장", cmpPaid2:"더 깊은 도시·지역 루트",
@@ -2420,17 +2594,13 @@
         rtNagoyaName:"사카에 디자이너 아카이브 + 오스 빈티지", rtNagoyaDesc:"사카에의 디자이너·중고 디자이너 층, 이어서 오스 상점가의 아메리카나와 크래프트 데님.",
         rtFukuokaName:"다이묘 / 이마이즈미 셀렉트 코어", rtFukuokaDesc:"걷기 좋은 다이묘·이마이즈미 뒷골목을 따라 후쿠오카 최고의 국내 브랜드 셀렉트숍을.",
         paidFineprint:"표시된 루트는 에디토리얼 미리보기입니다. 전체 매장 목록·주소·노트는 구매 후 제공되며, 이 공개 페이지에는 저장되지 않습니다.",
-        proxyEyebrow:"개인 서치", proxyTitle:"특정 일본 아이템을 찾는 데 도움이 필요하세요?",
-        proxyLead:"실제 일본 브랜드, 매장 링크, 재고, 가능한 구매 경로를 리서치해 드립니다. 일부 요청은 확인 후 대행 구매가 가능할 수 있습니다.",
-        proxyFine:"재고·사이즈·관세·배송 시간을 보장하지 않습니다. 모든 상품 비용, 배송비, 관세, 세금은 구매자 부담입니다.",
-        proxyCta:"맞춤 견적 요청하기",
         bfEyebrow:"누구를 위한 것인가", bfTitle:"이런 분들을 위해",
         bf1:"<b>일본 브랜드를 발견하는 사람</b><br />조용히, 자기 페이스로.",
         bf2:"<b>도쿄 / 오사카 / 교토를 계획하는 여행자</b><br />진짜 루트를 염두에 둔 쇼핑.",
         bf3:"<b>조용한 디테일을 좋아하는 사람</b><br />와이드 실루엣, 좋은 원단, 진짜 쇼핑 루트.",
         trustEyebrow:"우리의 방식", trustTitle:"신뢰 노트",
         trust1:"AI 코디 연구 이미지를 실제 스트리트 스냅인 척하지 않습니다.", trust2:"브랜드 이름을 꾸며내지 않습니다.",
-        trust3:"리서치한 실제 브랜드만 제안합니다.", trust4:"대행 구매는 사안별로 처리합니다.",
+        trust3:"리서치한 실제 브랜드만 제안합니다.", trust4:"퍼스널 바잉 서포트는 사안별로 처리합니다.",
         trust5:"관세·수입세·배송 지연은 구매자 부담입니다.",
         trust6:"일부 아이템은 품절이거나 국제 배송이 불가할 수 있습니다.",
         footerTag:"일본 스트리트 스타일 노트, 브랜드 리서치, 쇼핑 방향.",
@@ -2453,15 +2623,15 @@
     };
     /* chip option labels — keyed by data-value (which is sent to Sheets untranslated) */
     var CHIPS = {
-      en:{}, // English uses the existing markup text
+      en:{ "Proxy shopping help":"Personal buying support", "Proxy buying / shipping support":"Purchase / shipping guidance" }, // visible-label overrides only; data-value stays raw for Sheets
       zh:{ "Minimal":"极简","Vintage":"古着","Streetwear":"街头","Techwear":"机能","Designer":"设计师","Quiet luxury":"低调奢华","Workwear":"工装","Japanese casual":"日系休闲","Harajuku / playful":"原宿 / 俏皮","Dark / monochrome":"暗色 / 单色","Soft neutral":"柔和中性","Used clothing / thrift":"二手 / 古着",
-        "Jackets":"夹克","Pants":"裤装","Shirts":"衬衫","Knitwear":"针织","Shoes":"鞋履","Bags":"包袋","Accessories":"配饰","Full outfits":"整套穿搭","Japanese brands":"日本品牌","Shopping map":"购物地图","Proxy shopping help":"代购协助",
+        "Jackets":"夹克","Pants":"裤装","Shirts":"衬衫","Knitwear":"针织","Shoes":"鞋履","Bags":"包袋","Accessories":"配饰","Full outfits":"整套穿搭","Japanese brands":"日本品牌","Shopping map":"购物地图","Proxy shopping help":"个人代购支持",
         "Wide silhouette":"宽松廓形","Heavy shoes":"厚重鞋款","Soft fabrics":"柔软面料","Linen / cotton":"亚麻 / 棉","Denim":"丹宁","Nylon / technical fabrics":"尼龙 / 机能面料","Layering":"叠穿","Neutral colors":"中性色","Black outfits":"黑色穿搭","Unique cuts":"独特剪裁","Made in Japan":"日本制","Hard-to-find brands":"难寻品牌",
-        "Free brand direction":"免费品牌方向","Paid brand research list":"付费品牌研究清单","Japan fashion shopping map":"日本时尚购物地图","Personal shopping support":"个人购物支持","Proxy buying / shipping support":"代购 / 转运支持","I'm not sure yet":"我还不确定" },
+        "Free brand direction":"免费品牌方向","Paid brand research list":"付费品牌研究清单","Japan fashion shopping map":"日本时尚购物地图","Personal shopping support":"个人购物支持","Proxy buying / shipping support":"购买 / 配送指引","I'm not sure yet":"我还不确定" },
       ko:{ "Minimal":"미니멀","Vintage":"빈티지","Streetwear":"스트리트","Techwear":"테크웨어","Designer":"디자이너","Quiet luxury":"콰이엇 럭셔리","Workwear":"워크웨어","Japanese casual":"재패니즈 캐주얼","Harajuku / playful":"하라주쿠 / 플레이풀","Dark / monochrome":"다크 / 모노크롬","Soft neutral":"소프트 뉴트럴","Used clothing / thrift":"중고 / 빈티지",
-        "Jackets":"재킷","Pants":"팬츠","Shirts":"셔츠","Knitwear":"니트","Shoes":"슈즈","Bags":"가방","Accessories":"액세서리","Full outfits":"풀 코디","Japanese brands":"일본 브랜드","Shopping map":"쇼핑 지도","Proxy shopping help":"대행 구매 도움",
+        "Jackets":"재킷","Pants":"팬츠","Shirts":"셔츠","Knitwear":"니트","Shoes":"슈즈","Bags":"가방","Accessories":"액세서리","Full outfits":"풀 코디","Japanese brands":"일본 브랜드","Shopping map":"쇼핑 지도","Proxy shopping help":"퍼스널 바잉 서포트",
         "Wide silhouette":"와이드 실루엣","Heavy shoes":"헤비 슈즈","Soft fabrics":"부드러운 원단","Linen / cotton":"린넨 / 코튼","Denim":"데님","Nylon / technical fabrics":"나일론 / 테크니컬 원단","Layering":"레이어링","Neutral colors":"뉴트럴 컬러","Black outfits":"블랙 코디","Unique cuts":"독특한 컷","Made in Japan":"메이드 인 재팬","Hard-to-find brands":"구하기 힘든 브랜드",
-        "Free brand direction":"무료 브랜드 방향","Paid brand research list":"유료 브랜드 리서치 리스트","Japan fashion shopping map":"일본 패션 쇼핑 지도","Personal shopping support":"개인 쇼핑 지원","Proxy buying / shipping support":"대행 구매 / 배송 지원","I'm not sure yet":"아직 잘 모르겠어요" }
+        "Free brand direction":"무료 브랜드 방향","Paid brand research list":"유료 브랜드 리서치 리스트","Japan fashion shopping map":"일본 패션 쇼핑 지도","Personal shopping support":"개인 쇼핑 지원","Proxy buying / shipping support":"구매 / 배송 안내","I'm not sure yet":"아직 잘 모르겠어요" }
     };
 
     var LANG; try{ LANG = localStorage.getItem('tcnLang') || 'en'; }catch(e){ LANG='en'; }
@@ -2495,17 +2665,18 @@
        product goes live. While a value is empty (""), its button
        safely falls back to the Style Finder (#finder) and shows
        "opening soon" copy. No fake links are used.
-         FULL_MAP_PAYHIP_URL  → $19 Full Japan Fashion Map
-         BUNDLE_PAYHIP_URL    → $39 Full Map + Personal Research + Brand List
-         PROXY_REQUEST_URL    → Proxy Shopping Support inquiry (custom quote)
+         FULL_MAP_PAYHIP_URL       → $19 Full Japan Fashion Map
+         BUNDLE_PAYHIP_URL         → $39 Full Map + Personal Research + Brand List
+         BUYING_SUPPORT_REQUEST_URL → Personal Buying Support (empty = scroll to #buying-support form)
        This only sets button href/target; it never touches the
        Style Finder, Google Sheets, or free-map unlock logic.
        ============================================================ -->
   <script>
   window.TCN_PAYHIP = {
-    FULL_MAP_PAYHIP_URL: "",
+    FULL_MAP_PAYHIP_URL: "https://payhip.com/b/TUint",
     BUNDLE_PAYHIP_URL: "",
-    PROXY_REQUEST_URL: ""
+    BUYING_SUPPORT_REQUEST_URL: "",
+    PROXY_REQUEST_URL: "" /* backward-compatible alias for BUYING_SUPPORT_REQUEST_URL */
   };
   (function(){
     var CFG = window.TCN_PAYHIP || {};
@@ -2534,6 +2705,104 @@
       if (window.TCN_I18N && window.TCN_I18N.apply) { try { window.TCN_I18N.apply(); } catch (e) {} }
     }
     if (document.readyState !== 'loading') wire(); else document.addEventListener('DOMContentLoaded', wire);
+  })();
+  </script>
+
+  <!-- ============================================================
+       Personal Buying Support form submission — SEPARATE from the
+       Style Finder. It NEVER unlocks the free map and NEVER calls
+       setMapUnlocked()/revealMap(). Posts its own JSON payload
+       (formType:"personal_buying_support") to the same Apps Script URL.
+
+       BACKEND NOTE (Google Apps Script / Sheet): branch on `formType`.
+       When formType === "personal_buying_support", write the row to its
+       OWN sheet/tab with these columns:
+         submittedAt, bs_name, bs_email, bs_handle, bs_country, bs_item,
+         bs_budget, bs_url, bs_reference, bs_pref, bs_deadline,
+         bs_supportType, bs_details, consentRequest, consentThreshold,
+         consentCosts, consentContact, source, utmSource, utmMedium, utmCampaign
+       Until that branch exists, requests still POST but may land in the
+       wrong columns. The existing Style Finder payload/sheet is unchanged.
+       ============================================================ -->
+  <script>
+  (function(){
+    var GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby72ayXgnUzw7TZkqqHa3F6_ix5CJgNUXwsup-UUQZzaPQeJdwnH8rMNMexYCXHSPJl/exec";
+    function T(k){ return (window.TCN_I18N && window.TCN_I18N.t) ? window.TCN_I18N.t(k) : k; }
+    function $(id){ return document.getElementById(id); }
+    function show(el){ if(el) el.hidden=false; }
+    function hide(el){ if(el) el.hidden=true; }
+    function isEmail(s){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s); }
+    function qp(name){ try{ return new URLSearchParams(location.search).get(name)||""; }catch(e){ return ""; } }
+
+    function init(){
+      var form = $("buying-support-form");
+      if(!form) return;
+      var src=$("bs-source"); if(src) src.value = qp("source") || "tcn-site";
+      var us=$("bs-utm-source"); if(us) us.value = qp("utm_source");
+      var um=$("bs-utm-medium"); if(um) um.value = qp("utm_medium");
+      var uc=$("bs-utm-campaign"); if(uc) uc.value = qp("utm_campaign");
+
+      var errorEl=$("bs-form-error"), successEl=$("bs-form-success"), btn=$("bs-submit-btn");
+      function val(id){ var el=$(id); return el?el.value.trim():""; }
+      function checked(name){ return !!form.querySelector('input[name="'+name+'"]:checked'); }
+      function multi(name){ return Array.prototype.slice.call(form.querySelectorAll('input[name="'+name+'"]:checked')).map(function(x){return x.value;}); }
+
+      function collect(){
+        return {
+          formType:"personal_buying_support",
+          submittedAt:new Date().toISOString(),
+          bs_name:val("bs-name"), bs_email:val("bs-email"), bs_handle:val("bs-handle"), bs_country:val("bs-country"),
+          bs_item:val("bs-item"), bs_budget:val("bs-budget"), bs_url:val("bs-url"), bs_reference:val("bs-reference"),
+          bs_pref:val("bs-pref"), bs_deadline:val("bs-deadline"),
+          bs_supportType:multi("bs_supportType"), bs_details:val("bs-details"),
+          consentRequest:checked("bsConsentRequest"), consentThreshold:checked("bsConsentThreshold"),
+          consentCosts:checked("bsConsentCosts"), consentContact:checked("bsConsentContact"),
+          source:val("bs-source"), utmSource:val("bs-utm-source"), utmMedium:val("bs-utm-medium"), utmCampaign:val("bs-utm-campaign"),
+          _hp:val("bs-hp-company")
+        };
+      }
+      function validate(d){
+        if(!d.bs_email) return {m:T("bsVEmail"),f:"bs-email"};
+        if(!isEmail(d.bs_email)) return {m:T("bsVEmailBad"),f:"bs-email"};
+        if(!d.bs_country) return {m:T("bsVCountry"),f:"bs-country"};
+        if(!d.bs_item) return {m:T("bsVItem"),f:"bs-item"};
+        if(!d.bs_budget) return {m:T("bsVBudget"),f:"bs-budget"};
+        if(!d.bs_details) return {m:T("bsVDetails"),f:"bs-details"};
+        if(!(d.consentRequest&&d.consentThreshold&&d.consentCosts&&d.consentContact)) return {m:T("bsVConsent")};
+        return null;
+      }
+      function setLoading(on){
+        btn.disabled=on; btn.classList.toggle("is-loading",on);
+        var lbl=btn.querySelector(".btn-label"); if(lbl) lbl.textContent = on ? T("bsSending") : T("bsSend");
+      }
+      function strip(d){ var c={}; for(var k in d){ if(k!=="_hp") c[k]=d[k]; } return c; }
+
+      form.addEventListener("submit", async function(e){
+        e.preventDefault();
+        hide(errorEl);
+        var d=collect();
+        if(d._hp) return; // honeypot tripped
+        var p=validate(d);
+        if(p){ errorEl.textContent=p.m; show(errorEl);
+          if(p.f){ var el=$(p.f); if(el){ el.scrollIntoView({behavior:"smooth",block:"center"}); try{el.focus({preventScroll:true});}catch(_){} } }
+          return; }
+        setLoading(true);
+        try{
+          var res=await fetch(GOOGLE_APPS_SCRIPT_URL,{ method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(strip(d)) });
+          var json=null; try{ json=await res.json(); }catch(_){}
+          if(res.ok && json && json.result==="success"){
+            /* intentionally does NOT unlock the free map (no setMapUnlocked / revealMap) */
+            form.style.display="none";
+            show(successEl);
+            successEl.scrollIntoView({behavior:"smooth",block:"center"});
+          } else {
+            errorEl.textContent=(json&&json.message)||T("sendFail"); show(errorEl);
+          }
+        }catch(err){ errorEl.textContent=T("netFail"); show(errorEl); }
+        finally{ setLoading(false); }
+      });
+    }
+    if(document.readyState!=="loading") init(); else document.addEventListener("DOMContentLoaded",init);
   })();
   </script>
 </body>
