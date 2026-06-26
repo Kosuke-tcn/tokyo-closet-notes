@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suggest a Shop · Tokyo Closet Notes</title>
+  <meta name="description" content="Know a Japanese shop, brand space, vintage store, market, or fashion area we should review? Send a suggestion — every one is checked manually." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+  :root{
+    --bg:#f6f3ed;--surface:#fbfaf7;--surface-2:#fff;--ink:#111;--ink-soft:#2e2b27;--muted:#6f6a61;
+    --border:#d8d2c6;--border-2:#c7c0b2;--indigo:#44506b;--tcn-red:#b5302a;--tcn-red-d:#97231e;
+    --sans:"Nunito Sans",ui-rounded,"Hiragino Maru Gothic ProN","Segoe UI",system-ui,sans-serif;
+    --round:"Quicksand",ui-rounded,"Hiragino Maru Gothic ProN","Nunito Sans",system-ui,sans-serif;--maxw:760px;
+  }
+  *{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  a{color:inherit}
+  .site-header{border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:20}
+  .header-inner{display:flex;align-items:center;gap:14px;padding:14px 20px;flex-wrap:wrap;max-width:1000px;margin:0 auto}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+  .brand-logo{width:38px;height:38px;border-radius:50%;object-fit:cover}
+  .brand-name{font-family:var(--round);font-weight:700;font-size:17px;line-height:1.1;display:flex;flex-direction:column}
+  .brand-name small{font-weight:600;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .nav-links{display:flex;gap:8px;flex-wrap:wrap}
+  .nav-links a{font-size:13.5px;font-weight:600;text-decoration:none;color:var(--ink);padding:7px 12px;border:1px solid var(--border-2);border-radius:999px}
+  .nav-links a:hover,.nav-links a[aria-current="page"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .tcn-langsw{display:inline-flex;gap:2px;background:var(--surface);border:1px solid var(--border-2);border-radius:999px;padding:3px}
+  .tcn-langsw button{border:0;background:transparent;font:inherit;font-size:12.5px;font-weight:700;padding:5px 10px;border-radius:999px;cursor:pointer;color:var(--muted)}
+  .tcn-langsw button.active{background:var(--tcn-red);color:#fff}
+  main{padding:clamp(26px,6vw,56px) 0}
+  .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 12px}
+  h1{font-family:var(--round);font-weight:700;letter-spacing:-.01em;line-height:1.1;font-size:clamp(27px,5vw,40px);margin:0 0 12px}
+  .lead{font-size:clamp(15px,2vw,18px);color:var(--ink-soft);margin:0 0 22px}
+  .form-wrap{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:clamp(18px,4.5vw,32px)}
+  .grid-2{display:grid;gap:18px;grid-template-columns:1fr}
+  @media(min-width:560px){.grid-2{grid-template-columns:1fr 1fr}}
+  .field label{display:block;font-size:13.5px;font-weight:600;margin-bottom:8px}
+  .req{color:var(--indigo);font-weight:700}
+  .field input,.field textarea{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--surface-2);border:1px solid var(--border-2);border-radius:12px;padding:12px 14px}
+  .field textarea{resize:vertical;min-height:110px}
+  .field input:focus,.field textarea:focus{outline:0;border-color:var(--indigo);box-shadow:0 0 0 3px rgba(68,80,107,.12)}
+  .opt{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-soft);background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;cursor:pointer}
+  .opt input{margin-top:2px}
+  .hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .btn{display:inline-flex;align-items:center;justify-content:center;width:100%;gap:8px;font-family:var(--round);font-weight:700;font-size:16px;text-decoration:none;padding:15px 24px;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+  .btn:hover{background:#000}
+  .fine{font-size:14px;color:var(--muted);border-left:2px solid var(--border-2);padding-left:14px;margin:18px 0 0}
+  .form-error{color:var(--tcn-red);font-weight:600;background:rgba(181,48,42,.07);border-radius:12px;padding:12px 14px;margin:0 0 14px}
+  .form-success{text-align:center;padding:18px}
+  .form-success h3{font-family:var(--round);font-size:22px;margin:0 0 10px}
+  .form-success p{color:var(--ink-soft);max-width:48ch;margin:0 auto}
+  .mt{margin-top:18px}
+  .site-footer{border-top:1px solid var(--border);margin-top:48px;background:var(--surface)}
+  .footer-inner{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center;padding:26px 20px;max-width:1000px;margin:0 auto}
+  .footer-links{display:flex;flex-wrap:wrap;gap:14px}
+  .footer-links a{font-size:14px;font-weight:600;text-decoration:none;color:var(--ink-soft)}
+  .footer-links a:hover{color:var(--tcn-red)}
+  .footer-fine{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 24px;margin:0}
+  @media(max-width:620px){.nav-links{order:3;width:100%}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../" class="brand">
+        <img src="../assets/tcn-logo.png" alt="Tokyo Closet Notes logo" class="brand-logo" onerror="this.style.display='none'" />
+        <span class="brand-name">Tokyo Closet Notes<small data-i18n="tagline">Japan fashion finder</small></span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="../#finder" data-i18n="navFinder">Style Finder</a>
+        <a href="../#map" data-i18n="navMap">Free Map</a>
+        <a href="../full-map/" data-i18n="navFullMap">Full Map</a>
+        <a href="../buying-support/" data-i18n="navProxy">Buying Support</a>
+        <a href="../suggest-a-shop/" aria-current="page" data-i18n="navSuggest">Suggest a shop</a>
+      </nav>
+      <div class="tcn-langsw" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="zh">中文</button>
+        <button type="button" data-lang="ko">한국어</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <p class="eyebrow" data-i18n="ssEyebrow">Suggest a shop</p>
+      <h1 data-i18n="ssTitle">Know a shop we should check?</h1>
+      <p class="lead" data-i18n="ssLead">Send a shop, brand space, vintage store, market, or fashion area you think Tokyo Closet Notes should review. Suggestions are checked manually before anything is added.</p>
+
+      <div class="form-wrap">
+        <form id="suggest-form" novalidate>
+          <div class="hp-field" aria-hidden="true"><label>Company<input type="text" name="ss_company" id="ss-hp-company" tabindex="-1" autocomplete="off" /></label></div>
+
+          <div class="grid-2">
+            <div class="field"><label for="ss-name"><span data-i18n="ssLblName">Shop / place name</span> <span class="req">*</span></label><input type="text" id="ss-name" name="ss_name" data-i18n-ph="ssPhName" placeholder="e.g. Berberjin" required /></div>
+            <div class="field"><label for="ss-city"><span data-i18n="ssLblCity">City</span> <span class="req">*</span></label><input type="text" id="ss-city" name="ss_city" data-i18n-ph="ssPhCity" placeholder="e.g. Tokyo" required /></div>
+            <div class="field"><label for="ss-area" data-i18n="ssLblArea">Area / neighborhood</label><input type="text" id="ss-area" name="ss_area" data-i18n-ph="ssPhArea" placeholder="e.g. Harajuku" /></div>
+            <div class="field"><label for="ss-link" data-i18n="ssLblLink">Official website or Instagram</label><input type="text" id="ss-link" name="ss_link" placeholder="https://… / @handle" /></div>
+            <div class="field"><label for="ss-maps" data-i18n="ssLblMaps">Google Maps link</label><input type="text" id="ss-maps" name="ss_maps" placeholder="https://maps.app.goo.gl/…" /></div>
+            <div class="field"><label for="ss-yourname" data-i18n="ssLblYourName">Your name or nickname</label><input type="text" id="ss-yourname" name="ss_yourname" placeholder="Alex" /></div>
+          </div>
+
+          <div class="field mt"><label for="ss-why"><span data-i18n="ssLblWhy">Why should we check it?</span> <span class="req">*</span></label><textarea id="ss-why" name="ss_why" data-i18n-ph="ssPhWhy" placeholder="What makes it worth a visit? Brands, vibe, what they sell…" required></textarea></div>
+
+          <div class="grid-2 mt">
+            <div class="field"><label for="ss-email" data-i18n="ssLblEmail">Email</label><input type="email" id="ss-email" name="ss_email" autocomplete="email" placeholder="you@example.com (optional)" /></div>
+            <div class="field"><label for="ss-notes" data-i18n="ssLblNotes">Notes</label><input type="text" id="ss-notes" name="ss_notes" data-i18n-ph="ssPhNotes" placeholder="Anything else" /></div>
+          </div>
+
+          <div class="field mt"><div class="opt" style="display:block"><label class="opt" style="border:0;padding:0;background:transparent"><input type="checkbox" name="ssConsent" id="ss-consent" /><span data-i18n="ssConsent">I understand suggestions are reviewed manually and submission does not guarantee inclusion. I’m only sharing information and links I have the right to share, and no photos I don’t own.</span></label></div></div>
+
+          <p class="fine" data-i18n="ssFine">Please don’t upload or submit photos you don’t own or have permission to share. This is a suggestion intake only — nothing is published automatically.</p>
+
+          <input type="hidden" name="source" id="ss-source" value="" />
+          <input type="hidden" name="utmSource" id="ss-utm-source" value="" />
+          <input type="hidden" name="utmMedium" id="ss-utm-medium" value="" />
+          <input type="hidden" name="utmCampaign" id="ss-utm-campaign" value="" />
+
+          <div class="mt">
+            <p class="form-error" id="ss-form-error" role="alert" hidden></p>
+            <button type="submit" class="btn" id="ss-submit-btn"><span class="btn-label" data-i18n="ssSend">Send suggestion</span></button>
+          </div>
+        </form>
+
+        <div class="form-success" id="ss-form-success" role="status" hidden>
+          <h3 data-i18n="ssSuccessTitle">Thank you!</h3>
+          <p data-i18n="ssSuccessBody">We received your suggestion. We check every one by hand — thank you for helping make the map better.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p style="font-family:var(--round);font-weight:700;margin:0">Tokyo Closet Notes</p>
+      <nav class="footer-links" aria-label="Footer links">
+        <a href="../" data-i18n="navHome">Home</a>
+        <a href="../full-map/" data-i18n="navFullMap">Full Map</a>
+        <a href="../buying-support/" data-i18n="navProxy">Buying Support</a>
+        <a href="https://www.instagram.com/tokyo_closet_notes" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:tokyoclosetnotes@outlook.jp">Email</a>
+      </nav>
+    </div>
+    <p class="footer-fine">© <span id="year"></span> Tokyo Closet Notes</p>
+  </footer>
+
+  <script>
+  var TCN_LANG="en";
+  (function(){
+    var I={
+      en:{tagline:"Japan fashion finder",navFinder:"Style Finder",navMap:"Free Map",navFullMap:"Full Map",navProxy:"Buying Support",navSuggest:"Suggest a shop",navHome:"Home",
+        ssEyebrow:"Suggest a shop",ssTitle:"Know a shop we should check?",
+        ssLead:"Send a shop, brand space, vintage store, market, or fashion area you think Tokyo Closet Notes should review. Suggestions are checked manually before anything is added.",
+        ssLblName:"Shop / place name",ssPhName:"e.g. Berberjin",ssLblCity:"City",ssPhCity:"e.g. Tokyo",ssLblArea:"Area / neighborhood",ssPhArea:"e.g. Harajuku",
+        ssLblLink:"Official website or Instagram",ssLblMaps:"Google Maps link",ssLblYourName:"Your name or nickname",
+        ssLblWhy:"Why should we check it?",ssPhWhy:"What makes it worth a visit? Brands, vibe, what they sell…",
+        ssLblEmail:"Email",ssLblNotes:"Notes",ssPhNotes:"Anything else",
+        ssConsent:"I understand suggestions are reviewed manually and submission does not guarantee inclusion. I’m only sharing information and links I have the right to share, and no photos I don’t own.",
+        ssFine:"Please don’t upload or submit photos you don’t own or have permission to share. This is a suggestion intake only — nothing is published automatically.",
+        ssSend:"Send suggestion",ssSending:"Sending…",
+        ssVName:"Please add the shop or place name.",ssVCity:"Please add the city.",ssVWhy:"Please tell us why we should check it.",ssVConsent:"Please check the box before sending.",
+        ssSuccessTitle:"Thank you!",ssSuccessBody:"We received your suggestion. We check every one by hand — thank you for helping make the map better.",
+        sendFail:"Something went wrong. Please try again.",netFail:"We couldn’t send your suggestion. Check your connection and try again."},
+      zh:{tagline:"日本时尚指南",navFinder:"风格测试",navMap:"免费地图",navFullMap:"完整地图",navProxy:"代购支持",navSuggest:"推荐店铺",navHome:"首页",
+        ssEyebrow:"推荐店铺",ssTitle:"知道我们该去看看的店铺吗？",
+        ssLead:"把你认为 Tokyo Closet Notes 该去看看的店铺、品牌空间、古着店、市集或时尚街区告诉我们。所有推荐都会经过人工核查后才会收录。",
+        ssLblName:"店铺 / 地点名称",ssPhName:"例如：Berberjin",ssLblCity:"城市",ssPhCity:"例如：东京",ssLblArea:"区域 / 街区",ssPhArea:"例如：原宿",
+        ssLblLink:"官方网站或 Instagram",ssLblMaps:"Google 地图链接",ssLblYourName:"你的姓名或昵称",
+        ssLblWhy:"为什么我们该去看看？",ssPhWhy:"它有什么值得一去的？品牌、氛围、卖什么……",
+        ssLblEmail:"邮箱",ssLblNotes:"备注",ssPhNotes:"其他补充",
+        ssConsent:"我理解推荐会经过人工核查，提交并不保证收录。我只分享自己有权分享的信息与链接，且不上传我不拥有的照片。",
+        ssFine:"请勿上传或提交你不拥有或未获许可的照片。这只是推荐收集——不会自动发布任何内容。",
+        ssSend:"发送推荐",ssSending:"发送中…",
+        ssVName:"请填写店铺或地点名称。",ssVCity:"请填写城市。",ssVWhy:"请告诉我们为什么该去看看。",ssVConsent:"发送前请勾选该项。",
+        ssSuccessTitle:"谢谢你！",ssSuccessBody:"我们已收到你的推荐。每条都会人工核查——感谢你帮助让地图更好。",
+        sendFail:"出了点问题，请重试。",netFail:"无法发送你的推荐。请检查网络后重试。"},
+      ko:{tagline:"일본 패션 파인더",navFinder:"스타일 파인더",navMap:"무료 지도",navFullMap:"풀 맵",navProxy:"바잉 서포트",navSuggest:"매장 제보",navHome:"홈",
+        ssEyebrow:"매장 제보",ssTitle:"우리가 확인해야 할 매장을 알고 계세요?",
+        ssLead:"Tokyo Closet Notes가 살펴봐야 한다고 생각하는 매장, 브랜드 공간, 빈티지숍, 마켓, 패션 지역을 알려주세요. 모든 제보는 수동으로 확인한 뒤에만 반영됩니다.",
+        ssLblName:"매장 / 장소 이름",ssPhName:"예: Berberjin",ssLblCity:"도시",ssPhCity:"예: 도쿄",ssLblArea:"지역 / 동네",ssPhArea:"예: 하라주쿠",
+        ssLblLink:"공식 웹사이트 또는 Instagram",ssLblMaps:"Google 지도 링크",ssLblYourName:"이름 또는 닉네임",
+        ssLblWhy:"왜 확인해야 하나요?",ssPhWhy:"가볼 만한 이유는? 브랜드, 분위기, 판매 품목…",
+        ssLblEmail:"이메일",ssLblNotes:"메모",ssPhNotes:"그 외 내용",
+        ssConsent:"제보는 수동으로 검토되며 제출이 반영을 보장하지 않음을 이해합니다. 제가 공유할 권리가 있는 정보·링크만 공유하며, 소유하지 않은 사진은 올리지 않습니다.",
+        ssFine:"소유하지 않았거나 공유 권한이 없는 사진은 올리지 마세요. 이것은 제보 접수일 뿐이며 자동으로 게시되는 것은 없습니다.",
+        ssSend:"제보 보내기",ssSending:"전송 중…",
+        ssVName:"매장 또는 장소 이름을 입력해 주세요.",ssVCity:"도시를 입력해 주세요.",ssVWhy:"왜 확인해야 하는지 알려주세요.",ssVConsent:"보내기 전에 체크해 주세요.",
+        ssSuccessTitle:"감사합니다!",ssSuccessBody:"제보를 받았습니다. 모든 제보를 직접 확인합니다 — 지도를 더 좋게 만들어 주셔서 감사합니다.",
+        sendFail:"문제가 발생했습니다. 다시 시도해 주세요.",netFail:"제보를 보내지 못했습니다. 연결을 확인하고 다시 시도해 주세요."}
+    };
+    var L;try{L=localStorage.getItem('tcnLang')||'en'}catch(e){L='en'}if(!I[L])L='en';TCN_LANG=L;
+    window.TCN_T=function(k){return (I[TCN_LANG]&&I[TCN_LANG][k]!=null)?I[TCN_LANG][k]:(I.en[k]!=null?I.en[k]:k);};
+    function apply(){
+      document.querySelectorAll('[data-i18n]').forEach(function(el){var v=I[L][el.getAttribute('data-i18n')];if(v!=null)el.textContent=v;});
+      document.querySelectorAll('[data-i18n-ph]').forEach(function(el){var v=I[L][el.getAttribute('data-i18n-ph')];if(v!=null)el.setAttribute('placeholder',v);});
+      document.documentElement.lang=(L==='zh'?'zh-Hans':(L==='ko'?'ko':'en'));
+      document.querySelectorAll('.tcn-langsw button').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')===L);});
+    }
+    document.querySelectorAll('.tcn-langsw button').forEach(function(b){b.addEventListener('click',function(){L=b.getAttribute('data-lang');if(!I[L])L='en';TCN_LANG=L;try{localStorage.setItem('tcnLang',L)}catch(e){}apply();});});
+    var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();
+    apply();
+  })();
+
+  /* Submission — formType "suggest_shop". Never unlocks any map. */
+  (function(){
+    var URL="https://script.google.com/macros/s/AKfycby72ayXgnUzw7TZkqqHa3F6_ix5CJgNUXwsup-UUQZzaPQeJdwnH8rMNMexYCXHSPJl/exec";
+    function T(k){return window.TCN_T?window.TCN_T(k):k;}
+    function $(id){return document.getElementById(id);}
+    function qp(n){try{return new URLSearchParams(location.search).get(n)||""}catch(e){return ""}}
+    var form=$("suggest-form");if(!form)return;
+    var src=$("ss-source");if(src)src.value=qp("source")||"suggest-page";
+    var us=$("ss-utm-source");if(us)us.value=qp("utm_source");
+    var um=$("ss-utm-medium");if(um)um.value=qp("utm_medium");
+    var uc=$("ss-utm-campaign");if(uc)uc.value=qp("utm_campaign");
+    var errorEl=$("ss-form-error"),successEl=$("ss-form-success"),btn=$("ss-submit-btn");
+    function val(id){var el=$(id);return el?el.value.trim():"";}
+    function collect(){
+      return {formType:"suggest_shop",submittedAt:new Date().toISOString(),
+        ss_name:val("ss-name"),ss_city:val("ss-city"),ss_area:val("ss-area"),ss_link:val("ss-link"),ss_maps:val("ss-maps"),
+        ss_why:val("ss-why"),ss_yourname:val("ss-yourname"),ss_email:val("ss-email"),ss_notes:val("ss-notes"),
+        source:val("ss-source"),utmSource:val("ss-utm-source"),utmMedium:val("ss-utm-medium"),utmCampaign:val("ss-utm-campaign"),
+        _hp:val("ss-hp-company")};
+    }
+    function validate(d){
+      if(!d.ss_name)return{m:T("ssVName"),f:"ss-name"};
+      if(!d.ss_city)return{m:T("ssVCity"),f:"ss-city"};
+      if(!d.ss_why)return{m:T("ssVWhy"),f:"ss-why"};
+      if(!document.getElementById("ss-consent").checked)return{m:T("ssVConsent")};
+      return null;
+    }
+    function strip(d){var c={};for(var k in d){if(k!=="_hp")c[k]=d[k];}return c;}
+    form.addEventListener("submit",async function(e){
+      e.preventDefault();errorEl.hidden=true;
+      var d=collect();if(d._hp)return;
+      var p=validate(d);
+      if(p){errorEl.textContent=p.m;errorEl.hidden=false;if(p.f){var el=$(p.f);if(el){el.scrollIntoView({behavior:"smooth",block:"center"});try{el.focus({preventScroll:true})}catch(_){}}}return;}
+      btn.disabled=true;var lbl=btn.querySelector(".btn-label");if(lbl)lbl.textContent=T("ssSending");
+      try{
+        var res=await fetch(URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(strip(d))});
+        var json=null;try{json=await res.json()}catch(_){}
+        if(res.ok&&json&&json.result==="success"){form.style.display="none";successEl.hidden=false;successEl.scrollIntoView({behavior:"smooth",block:"center"});}
+        else{errorEl.textContent=(json&&json.message)||T("sendFail");errorEl.hidden=false;}
+      }catch(err){errorEl.textContent=T("netFail");errorEl.hidden=false;}
+      finally{btn.disabled=false;var l2=btn.querySelector(".btn-label");if(l2)l2.textContent=T("ssSend");}
+    });
+  })();
+  </script>
+</body>
+</html>

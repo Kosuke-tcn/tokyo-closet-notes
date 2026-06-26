@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Buying Support · Tokyo Closet Notes</title>
+  <meta name="description" content="Personal Buying Support — for selected requests we may help with item research, availability checks, purchase coordination, and shipping guidance. From ¥100,000 JPY / approximately US$700+." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+  :root{
+    --bg:#f6f3ed;--surface:#fbfaf7;--surface-2:#fff;--ink:#111;--ink-soft:#2e2b27;--muted:#6f6a61;
+    --border:#d8d2c6;--border-2:#c7c0b2;--indigo:#44506b;--navy:#1a2238;--tcn-red:#b5302a;--tcn-red-d:#97231e;
+    --sans:"Nunito Sans",ui-rounded,"Hiragino Maru Gothic ProN","Segoe UI",system-ui,sans-serif;
+    --round:"Quicksand",ui-rounded,"Hiragino Maru Gothic ProN","Nunito Sans",system-ui,sans-serif;--maxw:760px;
+  }
+  *{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  a{color:inherit}
+  .site-header{border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:20}
+  .header-inner{display:flex;align-items:center;gap:14px;padding:14px 20px;flex-wrap:wrap;max-width:1000px;margin:0 auto}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+  .brand-logo{width:38px;height:38px;border-radius:50%;object-fit:cover}
+  .brand-name{font-family:var(--round);font-weight:700;font-size:17px;line-height:1.1;display:flex;flex-direction:column}
+  .brand-name small{font-weight:600;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .nav-links{display:flex;gap:8px;flex-wrap:wrap}
+  .nav-links a{font-size:13.5px;font-weight:600;text-decoration:none;color:var(--ink);padding:7px 12px;border:1px solid var(--border-2);border-radius:999px}
+  .nav-links a:hover,.nav-links a[aria-current="page"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .tcn-langsw{display:inline-flex;gap:2px;background:var(--surface);border:1px solid var(--border-2);border-radius:999px;padding:3px}
+  .tcn-langsw button{border:0;background:transparent;font:inherit;font-size:12.5px;font-weight:700;padding:5px 10px;border-radius:999px;cursor:pointer;color:var(--muted)}
+  .tcn-langsw button.active{background:var(--tcn-red);color:#fff}
+  main{padding:clamp(26px,6vw,56px) 0}
+  .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 12px}
+  h1{font-family:var(--round);font-weight:700;letter-spacing:-.01em;line-height:1.1;font-size:clamp(27px,5vw,40px);margin:0 0 12px}
+  .lead{font-size:clamp(15px,2vw,18px);color:var(--ink-soft);margin:0 0 14px}
+  .threshold{font-size:15px;font-weight:700;color:var(--ink);margin:0 0 22px}
+  .form-wrap{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:clamp(18px,4.5vw,32px)}
+  .grid-2{display:grid;gap:18px;grid-template-columns:1fr}
+  @media(min-width:560px){.grid-2{grid-template-columns:1fr 1fr}}
+  .field{margin-bottom:0}
+  .field label{display:block;font-size:13.5px;font-weight:600;margin-bottom:8px}
+  .req{color:var(--indigo);font-weight:700}
+  .field input,.field textarea,.select-wrap select{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--surface-2);border:1px solid var(--border-2);border-radius:12px;padding:12px 14px}
+  .field textarea{resize:vertical;min-height:120px}
+  .field input:focus,.field textarea:focus,.select-wrap select:focus{outline:0;border-color:var(--indigo);box-shadow:0 0 0 3px rgba(68,80,107,.12)}
+  .select-wrap{position:relative}
+  .select-wrap select{appearance:none;-webkit-appearance:none;padding-right:40px;cursor:pointer}
+  .select-wrap::after{content:"";position:absolute;right:16px;top:50%;width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+  .consent{display:flex;flex-direction:column;gap:10px}
+  .opt{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-soft);background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;cursor:pointer}
+  .opt input{margin-top:2px}
+  .hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .btn{display:inline-flex;align-items:center;justify-content:center;width:100%;gap:8px;font-family:var(--round);font-weight:700;font-size:16px;text-decoration:none;padding:15px 24px;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+  .btn:hover{background:#000}
+  .fine{font-size:14px;color:var(--muted);border-left:2px solid var(--border-2);padding-left:14px;margin:18px 0 0}
+  .form-error{color:var(--tcn-red);font-weight:600;background:rgba(181,48,42,.07);border-radius:12px;padding:12px 14px;margin:0 0 14px}
+  .form-success{text-align:center;padding:18px}
+  .form-success h3{font-family:var(--round);font-size:22px;margin:0 0 10px}
+  .form-success p{color:var(--ink-soft);max-width:48ch;margin:0 auto}
+  .mt{margin-top:18px}
+  .site-footer{border-top:1px solid var(--border);margin-top:48px;background:var(--surface)}
+  .footer-inner{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center;padding:26px 20px;max-width:1000px;margin:0 auto}
+  .footer-links{display:flex;flex-wrap:wrap;gap:14px}
+  .footer-links a{font-size:14px;font-weight:600;text-decoration:none;color:var(--ink-soft)}
+  .footer-links a:hover{color:var(--tcn-red)}
+  .footer-fine{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 24px;margin:0}
+  @media(max-width:620px){.nav-links{order:3;width:100%}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../" class="brand">
+        <img src="../assets/tcn-logo.png" alt="Tokyo Closet Notes logo" class="brand-logo" onerror="this.style.display='none'" />
+        <span class="brand-name">Tokyo Closet Notes<small data-i18n="tagline">Japan fashion finder</small></span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="../#finder" data-i18n="navFinder">Style Finder</a>
+        <a href="../#map" data-i18n="navMap">Free Map</a>
+        <a href="../full-map/" data-i18n="navFullMap">Full Map</a>
+        <a href="../buying-support/" aria-current="page" data-i18n="navProxy">Buying Support</a>
+        <a href="../suggest-a-shop/" data-i18n="navSuggest">Suggest a shop</a>
+      </nav>
+      <div class="tcn-langsw" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="zh">中文</button>
+        <button type="button" data-lang="ko">한국어</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <p class="eyebrow" data-i18n="bsEyebrow">Personal Buying Support</p>
+      <h1 data-i18n="bsTitle">Looking for a specific Japanese item?</h1>
+      <p class="lead" data-i18n="bsLead">Tell us what you are looking for. You can send a specific item, a brand, a screenshot, or just a style direction. For selected requests, we may help with item research, availability checks, purchase coordination, and shipping guidance.</p>
+      <p class="threshold" data-i18n="bsThreshold">Available for selected requests from ¥100,000 JPY / approximately US$700+.</p>
+
+      <div class="form-wrap">
+        <form id="buying-support-form" novalidate>
+          <div class="hp-field" aria-hidden="true"><label>Company<input type="text" name="bs_company" id="bs-hp-company" tabindex="-1" autocomplete="off" /></label></div>
+
+          <div class="grid-2">
+            <div class="field"><label for="bs-name"><span data-i18n="bsLblName">Name or nickname</span> <span class="req">*</span></label><input type="text" id="bs-name" name="bs_name" autocomplete="name" placeholder="Alex" required /></div>
+            <div class="field"><label for="bs-email"><span data-i18n="bsLblEmail">Email</span> <span class="req">*</span></label><input type="email" id="bs-email" name="bs_email" autocomplete="email" placeholder="you@example.com" required /></div>
+            <div class="field"><label for="bs-country"><span data-i18n="bsLblCountry">Country / region</span> <span class="req">*</span></label><div class="select-wrap"><select id="bs-country" name="bs_country" required><option value="" disabled selected data-i18n="phCountry">Select your country</option></select></div></div>
+            <div class="field"><label for="bs-handle" data-i18n="bsLblHandle">Instagram or TikTok handle</label><input type="text" id="bs-handle" name="bs_handle" placeholder="@yourhandle" /></div>
+          </div>
+
+          <div class="field mt"><label for="bs-details"><span data-i18n="bsLblDetails">What are you looking for?</span> <span class="req">*</span></label><textarea id="bs-details" name="bs_details" data-i18n-ph="bsPhDetails" placeholder="Tell us what you want. You can describe a specific item, a brand, a mood, a screenshot, or just the kind of Japanese fashion piece you want us to help find." required></textarea></div>
+
+          <div class="grid-2 mt">
+            <div class="field"><label for="bs-budget" data-i18n="bsLblBudget">Budget / expected item value</label><input type="text" id="bs-budget" name="bs_budget" data-i18n-ph="bsPhBudget" placeholder="e.g. ¥150,000 / approx US$1000" /></div>
+            <div class="field"><label for="bs-reference" data-i18n="bsLblReference">Link or reference</label><input type="text" id="bs-reference" name="bs_reference" data-i18n-ph="bsPhReference" placeholder="Paste an image, post, or product link" /></div>
+            <div class="field"><label for="bs-deadline" data-i18n="bsLblDeadline">Timeline / deadline</label><input type="text" id="bs-deadline" name="bs_deadline" data-i18n-ph="bsPhDeadline" placeholder="e.g. arriving 2026-09" /></div>
+            <div class="field"><label data-i18n="bsLblSupportType">Desired support type</label><div class="consent">
+              <label class="opt"><input type="checkbox" name="bs_supportType" value="Find options" /><span data-i18n="bsOptResearch">Find options</span></label>
+              <label class="opt"><input type="checkbox" name="bs_supportType" value="Check availability" /><span data-i18n="bsOptAvailability">Check availability</span></label>
+              <label class="opt"><input type="checkbox" name="bs_supportType" value="Purchase support" /><span data-i18n="bsOptCoordination">Purchase support</span></label>
+              <label class="opt"><input type="checkbox" name="bs_supportType" value="Shipping guidance" /><span data-i18n="bsOptShipping">Shipping guidance</span></label>
+            </div></div>
+          </div>
+
+          <div class="field mt"><label><span data-i18n="bsConsentLegend">Before you send</span> <span class="req">*</span></label><div class="consent">
+            <label class="opt"><input type="checkbox" name="bsConsentRequest" /><span data-i18n="bsConsent1">I understand this is a request, not a guaranteed purchase.</span></label>
+            <label class="opt"><input type="checkbox" name="bsConsentThreshold" /><span data-i18n="bsConsent2">I understand Personal Buying Support is available only for selected requests from ¥100,000 JPY / approximately US$700+.</span></label>
+            <label class="opt"><input type="checkbox" name="bsConsentCosts" /><span data-i18n="bsConsent3">I understand item cost, service fee, domestic shipping, international shipping, customs/import taxes, delays, size risk, availability risk, used-item condition risk, cancellation rules, and buyer responsibility are confirmed case by case.</span></label>
+            <label class="opt"><input type="checkbox" name="bsConsentContact" /><span data-i18n="bsConsent4">I agree that Tokyo Closet Notes may contact me by email or social DM about this request.</span></label>
+          </div></div>
+
+          <p class="fine" data-i18n="bsFine">Item cost, service fee, domestic shipping, international shipping, customs/import taxes, delays, size risk, availability risk, used-item condition risk, and cancellation rules are confirmed case by case.</p>
+
+          <input type="hidden" name="source" id="bs-source" value="" />
+          <input type="hidden" name="utmSource" id="bs-utm-source" value="" />
+          <input type="hidden" name="utmMedium" id="bs-utm-medium" value="" />
+          <input type="hidden" name="utmCampaign" id="bs-utm-campaign" value="" />
+
+          <div class="mt">
+            <p class="form-error" id="bs-form-error" role="alert" hidden></p>
+            <button type="submit" class="btn" id="bs-submit-btn"><span class="btn-label" data-i18n="bsSend">Send request</span></button>
+          </div>
+        </form>
+
+        <div class="form-success" id="bs-form-success" role="status" hidden>
+          <h3 data-i18n="bsSuccessTitle">Request received.</h3>
+          <p data-i18n="bsSuccessBody">Thank you. We received your request. If it looks like a good fit, we will reply with next steps, estimate, and payment guidance.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p style="font-family:var(--round);font-weight:700;margin:0">Tokyo Closet Notes</p>
+      <nav class="footer-links" aria-label="Footer links">
+        <a href="../" data-i18n="navHome">Home</a>
+        <a href="../full-map/" data-i18n="navFullMap">Full Map</a>
+        <a href="../suggest-a-shop/" data-i18n="navSuggest">Suggest a shop</a>
+        <a href="https://www.instagram.com/tokyo_closet_notes" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:tokyoclosetnotes@outlook.jp">Email</a>
+      </nav>
+    </div>
+    <p class="footer-fine">© <span id="year"></span> Tokyo Closet Notes</p>
+  </footer>
+
+  <script>
+  /* Country list (compact, region-grouped). Values are the submitted country strings. */
+  (function(){
+    var COUNTRIES=["United States","Canada","Mexico","Brazil","Argentina","Chile","Colombia","Peru",
+      "United Kingdom","Ireland","France","Germany","Netherlands","Belgium","Spain","Portugal","Italy","Switzerland","Austria","Sweden","Norway","Denmark","Finland","Poland","Czech Republic","Greece",
+      "Australia","New Zealand",
+      "Japan","South Korea","China","Hong Kong","Taiwan","Singapore","Malaysia","Thailand","Vietnam","Philippines","Indonesia","India",
+      "United Arab Emirates","Saudi Arabia","Israel","Turkey","South Africa","Other"];
+    var sel=document.getElementById("bs-country");
+    if(sel){COUNTRIES.forEach(function(c){var o=document.createElement("option");o.value=c;o.textContent=c;sel.appendChild(o);});}
+  })();
+
+  /* i18n */
+  var TCN_LANG="en";
+  (function(){
+    var I={
+      en:{tagline:"Japan fashion finder",navFinder:"Style Finder",navMap:"Free Map",navFullMap:"Full Map",navProxy:"Buying Support",navSuggest:"Suggest a shop",navHome:"Home",
+        phCountry:"Select your country",
+        bsEyebrow:"Personal Buying Support",bsTitle:"Looking for a specific Japanese item?",
+        bsLead:"Tell us what you are looking for. You can send a specific item, a brand, a screenshot, or just a style direction. For selected requests, we may help with item research, availability checks, purchase coordination, and shipping guidance.",
+        bsThreshold:"Available for selected requests from ¥100,000 JPY / approximately US$700+.",
+        bsLblName:"Name or nickname",bsLblEmail:"Email",bsLblCountry:"Country / region",bsLblHandle:"Instagram or TikTok handle",
+        bsLblDetails:"What are you looking for?",bsPhDetails:"Tell us what you want. You can describe a specific item, a brand, a mood, a screenshot, or just the kind of Japanese fashion piece you want us to help find.",
+        bsLblBudget:"Budget / expected item value",bsPhBudget:"e.g. ¥150,000 / approx US$1000",bsLblReference:"Link or reference",bsPhReference:"Paste an image, post, or product link",
+        bsLblDeadline:"Timeline / deadline",bsPhDeadline:"e.g. arriving 2026-09",bsLblSupportType:"Desired support type",
+        bsOptResearch:"Find options",bsOptAvailability:"Check availability",bsOptCoordination:"Purchase support",bsOptShipping:"Shipping guidance",
+        bsConsentLegend:"Before you send",
+        bsConsent1:"I understand this is a request, not a guaranteed purchase.",
+        bsConsent2:"I understand Personal Buying Support is available only for selected requests from ¥100,000 JPY / approximately US$700+.",
+        bsConsent3:"I understand item cost, service fee, domestic shipping, international shipping, customs/import taxes, delays, size risk, availability risk, used-item condition risk, cancellation rules, and buyer responsibility are confirmed case by case.",
+        bsConsent4:"I agree that Tokyo Closet Notes may contact me by email or social DM about this request.",
+        bsFine:"Item cost, service fee, domestic shipping, international shipping, customs/import taxes, delays, size risk, availability risk, used-item condition risk, and cancellation rules are confirmed case by case.",
+        bsSend:"Send request",bsSending:"Sending…",
+        bsVName:"Please add your name or nickname.",bsVEmail:"Please add your email so we can reply.",bsVEmailBad:"That email doesn’t look right. Please check it.",
+        bsVCountry:"Please tell us your country or region.",bsVDetails:"Please tell us what you are looking for.",bsVConsent:"Please check all the boxes before sending.",
+        bsSuccessTitle:"Request received.",bsSuccessBody:"Thank you. We received your request. If it looks like a good fit, we will reply with next steps, estimate, and payment guidance.",
+        sendFail:"Something went wrong. Please try again.",netFail:"We couldn’t send your request. Check your connection and try again."},
+      zh:{tagline:"日本时尚指南",navFinder:"风格测试",navMap:"免费地图",navFullMap:"完整地图",navProxy:"代购支持",navSuggest:"推荐店铺",navHome:"首页",
+        phCountry:"选择你的国家",
+        bsEyebrow:"个人代购支持",bsTitle:"在找某件特定的日本单品？",
+        bsLead:"告诉我们你在找什么。可以是具体单品、品牌、截图，或只是一个风格方向。针对部分请求，我们可协助单品调查、库存确认、购买协调与配送指引。",
+        bsThreshold:"仅面向部分请求，起价 ¥100,000 日元 / 约 US$700 起。",
+        bsLblName:"姓名或昵称",bsLblEmail:"邮箱",bsLblCountry:"国家 / 地区",bsLblHandle:"Instagram 或 TikTok 账号",
+        bsLblDetails:"你在找什么？",bsPhDetails:"告诉我们你想要什么。可以描述具体单品、品牌、氛围、截图，或只是你希望我们帮你找的那类日本时尚单品。",
+        bsLblBudget:"预算 / 预期商品价值",bsPhBudget:"例如：¥150,000 / 约 US$1000",bsLblReference:"链接或参考",bsPhReference:"粘贴图片、帖子或商品链接",
+        bsLblDeadline:"时间 / 截止",bsPhDeadline:"例如：2026-09 抵达",bsLblSupportType:"希望的支持类型",
+        bsOptResearch:"寻找选项",bsOptAvailability:"确认库存",bsOptCoordination:"购买支持",bsOptShipping:"配送指引",
+        bsConsentLegend:"发送之前",
+        bsConsent1:"我理解这是请求，而非保证成交的购买。",
+        bsConsent2:"我理解个人代购支持仅面向 ¥100,000 日元 / 约 US$700 起的部分请求。",
+        bsConsent3:"我理解商品费用、服务费、国内运费、国际运费、关税/进口税、延误、尺码风险、库存风险、二手状态风险、取消规则与买家责任均按个案确认。",
+        bsConsent4:"我同意 Tokyo Closet Notes 可就此请求通过邮件或社交私信联系我。",
+        bsFine:"商品费用、服务费、日本国内运费、国际运费、关税/进口税、延误、尺码风险、库存风险、二手状态风险与取消规则均按个案确认。",
+        bsSend:"发送请求",bsSending:"发送中…",
+        bsVName:"请填写你的姓名或昵称。",bsVEmail:"请填写邮箱以便我们回复。",bsVEmailBad:"邮箱格式似乎不正确，请检查。",
+        bsVCountry:"请告诉我们你的国家或地区。",bsVDetails:"请告诉我们你在找什么。",bsVConsent:"发送前请勾选所有选项。",
+        bsSuccessTitle:"已收到请求。",bsSuccessBody:"谢谢你，我们已收到你的请求。如果合适，我们会回复后续步骤、报价与付款指引。",
+        sendFail:"出了点问题，请重试。",netFail:"无法发送你的请求。请检查网络后重试。"},
+      ko:{tagline:"일본 패션 파인더",navFinder:"스타일 파인더",navMap:"무료 지도",navFullMap:"풀 맵",navProxy:"바잉 서포트",navSuggest:"매장 제보",navHome:"홈",
+        phCountry:"국가를 선택하세요",
+        bsEyebrow:"퍼스널 바잉 서포트",bsTitle:"특정 일본 아이템을 찾고 계신가요?",
+        bsLead:"무엇을 찾는지 알려주세요. 구체적인 아이템, 브랜드, 스크린샷, 또는 그냥 스타일 방향만 보내셔도 됩니다. 선별된 요청에 한해 아이템 리서치, 재고 확인, 구매 조율, 배송 안내를 도와드릴 수 있습니다.",
+        bsThreshold:"선별된 요청에 한해 ¥100,000 JPY / 약 US$700 이상부터 가능합니다.",
+        bsLblName:"이름 또는 닉네임",bsLblEmail:"이메일",bsLblCountry:"국가 / 지역",bsLblHandle:"Instagram 또는 TikTok 핸들",
+        bsLblDetails:"무엇을 찾으세요?",bsPhDetails:"원하는 것을 알려주세요. 구체적인 아이템, 브랜드, 무드, 스크린샷, 또는 그냥 찾고 싶은 일본 패션 스타일을 설명해 주셔도 됩니다.",
+        bsLblBudget:"예산 / 예상 상품 가치",bsPhBudget:"예: ¥150,000 / 약 US$1000",bsLblReference:"링크 또는 참고",bsPhReference:"이미지, 게시물, 또는 상품 링크 붙여넣기",
+        bsLblDeadline:"타임라인 / 마감",bsPhDeadline:"예: 2026-09 도착",bsLblSupportType:"원하는 지원 유형",
+        bsOptResearch:"옵션 찾기",bsOptAvailability:"재고 확인",bsOptCoordination:"구매 지원",bsOptShipping:"배송 안내",
+        bsConsentLegend:"보내기 전에",
+        bsConsent1:"이것이 구매 확정이 아닌 요청임을 이해합니다.",
+        bsConsent2:"퍼스널 바잉 서포트는 ¥100,000 JPY / 약 US$700 이상의 선별된 요청에만 가능함을 이해합니다.",
+        bsConsent3:"상품 비용, 서비스 수수료, 국내 배송비, 국제 배송비, 관세/수입세, 지연, 사이즈 리스크, 재고 리스크, 중고 상태 리스크, 취소 규정, 구매자 책임이 케이스별로 확인됨을 이해합니다.",
+        bsConsent4:"Tokyo Closet Notes가 이 요청에 관해 이메일 또는 소셜 DM으로 연락할 수 있음에 동의합니다.",
+        bsFine:"상품 비용, 서비스 수수료, 일본 국내 배송비, 국제 배송비, 관세/수입세, 지연, 사이즈 리스크, 재고 리스크, 중고 상태 리스크, 취소 규정은 케이스별로 확인됩니다.",
+        bsSend:"요청 보내기",bsSending:"전송 중…",
+        bsVName:"이름 또는 닉네임을 입력해 주세요.",bsVEmail:"답장을 드릴 수 있도록 이메일을 입력해 주세요.",bsVEmailBad:"이메일 형식이 올바르지 않은 것 같습니다. 확인해 주세요.",
+        bsVCountry:"국가 또는 지역을 알려주세요.",bsVDetails:"무엇을 찾으시는지 알려주세요.",bsVConsent:"보내기 전에 모든 항목을 체크해 주세요.",
+        bsSuccessTitle:"요청을 받았습니다.",bsSuccessBody:"감사합니다. 요청을 받았습니다. 잘 맞는다고 판단되면 다음 단계, 견적, 결제 안내와 함께 회신드리겠습니다.",
+        sendFail:"문제가 발생했습니다. 다시 시도해 주세요.",netFail:"요청을 보내지 못했습니다. 연결을 확인하고 다시 시도해 주세요."}
+    };
+    var L;try{L=localStorage.getItem('tcnLang')||'en'}catch(e){L='en'}if(!I[L])L='en';TCN_LANG=L;
+    window.TCN_T=function(k){return (I[TCN_LANG]&&I[TCN_LANG][k]!=null)?I[TCN_LANG][k]:(I.en[k]!=null?I.en[k]:k);};
+    function apply(){
+      document.querySelectorAll('[data-i18n]').forEach(function(el){var v=I[L][el.getAttribute('data-i18n')];if(v!=null)el.textContent=v;});
+      document.querySelectorAll('[data-i18n-ph]').forEach(function(el){var v=I[L][el.getAttribute('data-i18n-ph')];if(v!=null)el.setAttribute('placeholder',v);});
+      document.documentElement.lang=(L==='zh'?'zh-Hans':(L==='ko'?'ko':'en'));
+      document.querySelectorAll('.tcn-langsw button').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')===L);});
+    }
+    document.querySelectorAll('.tcn-langsw button').forEach(function(b){b.addEventListener('click',function(){L=b.getAttribute('data-lang');if(!I[L])L='en';TCN_LANG=L;try{localStorage.setItem('tcnLang',L)}catch(e){}apply();});});
+    var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();
+    apply();
+  })();
+
+  /* Submission — formType "personal_buying_support". NEVER unlocks any map. */
+  (function(){
+    var URL="https://script.google.com/macros/s/AKfycby72ayXgnUzw7TZkqqHa3F6_ix5CJgNUXwsup-UUQZzaPQeJdwnH8rMNMexYCXHSPJl/exec";
+    function T(k){return window.TCN_T?window.TCN_T(k):k;}
+    function $(id){return document.getElementById(id);}
+    function isEmail(s){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);}
+    function qp(n){try{return new URLSearchParams(location.search).get(n)||""}catch(e){return ""}}
+    var form=$("buying-support-form");if(!form)return;
+    var src=$("bs-source");if(src)src.value=qp("source")||"bs-page";
+    var us=$("bs-utm-source");if(us)us.value=qp("utm_source");
+    var um=$("bs-utm-medium");if(um)um.value=qp("utm_medium");
+    var uc=$("bs-utm-campaign");if(uc)uc.value=qp("utm_campaign");
+    var errorEl=$("bs-form-error"),successEl=$("bs-form-success"),btn=$("bs-submit-btn");
+    function val(id){var el=$(id);return el?el.value.trim():"";}
+    function chk(n){return !!form.querySelector('input[name="'+n+'"]:checked');}
+    function multi(n){return Array.prototype.slice.call(form.querySelectorAll('input[name="'+n+'"]:checked')).map(function(x){return x.value;});}
+    function collect(){
+      var st=multi("bs_supportType");
+      return {formType:"personal_buying_support",submittedAt:new Date().toISOString(),
+        bs_name:val("bs-name"),bs_email:val("bs-email"),bs_handle:val("bs-handle"),bs_country:val("bs-country"),
+        bs_item:"",bs_budget:val("bs-budget"),bs_url:"",bs_reference:val("bs-reference"),bs_pref:"",bs_deadline:val("bs-deadline"),
+        bs_supportType:st,bs_details:val("bs-details"),
+        consentRequest:chk("bsConsentRequest"),consentThreshold:chk("bsConsentThreshold"),consentCosts:chk("bsConsentCosts"),consentContact:chk("bsConsentContact"),
+        source:val("bs-source"),utmSource:val("bs-utm-source"),utmMedium:val("bs-utm-medium"),utmCampaign:val("bs-utm-campaign"),
+        /* backward-compat keys so the current Apps Script (Style Finder schema) accepts this too */
+        name:val("bs-name"),email:val("bs-email"),handle:val("bs-handle"),country:val("bs-country"),
+        requestType:(st.length?st:["Personal buying support"]),freeText:val("bs-details"),
+        consentStyleInquiry:chk("bsConsentRequest"),consentExtraCosts:chk("bsConsentCosts"),
+        _hp:val("bs-hp-company")};
+    }
+    function validate(d){
+      if(!d.bs_name)return{m:T("bsVName"),f:"bs-name"};
+      if(!d.bs_email)return{m:T("bsVEmail"),f:"bs-email"};
+      if(!isEmail(d.bs_email))return{m:T("bsVEmailBad"),f:"bs-email"};
+      if(!d.bs_country)return{m:T("bsVCountry"),f:"bs-country"};
+      if(!d.bs_details)return{m:T("bsVDetails"),f:"bs-details"};
+      if(!(d.consentRequest&&d.consentThreshold&&d.consentCosts&&d.consentContact))return{m:T("bsVConsent")};
+      return null;
+    }
+    function strip(d){var c={};for(var k in d){if(k!=="_hp")c[k]=d[k];}return c;}
+    form.addEventListener("submit",async function(e){
+      e.preventDefault();errorEl.hidden=true;
+      var d=collect();if(d._hp)return;
+      var p=validate(d);
+      if(p){errorEl.textContent=p.m;errorEl.hidden=false;if(p.f){var el=$(p.f);if(el){el.scrollIntoView({behavior:"smooth",block:"center"});try{el.focus({preventScroll:true})}catch(_){}}}return;}
+      btn.disabled=true;var lbl=btn.querySelector(".btn-label");if(lbl)lbl.textContent=T("bsSending");
+      try{
+        var res=await fetch(URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(strip(d))});
+        var json=null;try{json=await res.json()}catch(_){}
+        if(res.ok&&json&&json.result==="success"){form.style.display="none";successEl.hidden=false;successEl.scrollIntoView({behavior:"smooth",block:"center"});}
+        else{errorEl.textContent=(json&&json.message)||T("sendFail");errorEl.hidden=false;}
+      }catch(err){errorEl.textContent=T("netFail");errorEl.hidden=false;}
+      finally{btn.disabled=false;var l2=btn.querySelector(".btn-label");if(l2)l2.textContent=T("bsSend");}
+    });
+  })();
+  </script>
+</body>
+</html>

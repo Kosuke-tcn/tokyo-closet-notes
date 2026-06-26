@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Full Japan Fashion Map — 2026 Edition · Tokyo Closet Notes</title>
+  <meta name="description" content="The $19 Full Japan Fashion Map — 2026 Edition: 200+ researched fashion shops across Tokyo, Osaka, Kyoto, Nagoya, and Fukuoka, with areas, routes, Google Maps links, and why-go notes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+  :root{
+    --bg:#f6f3ed;--surface:#fbfaf7;--ink:#111;--ink-soft:#2e2b27;--muted:#6f6a61;
+    --border:#d8d2c6;--border-2:#c7c0b2;--navy:#1a2238;--tcn-red:#b5302a;--tcn-red-d:#97231e;
+    --sans:"Nunito Sans",ui-rounded,"Hiragino Maru Gothic ProN","Segoe UI",system-ui,sans-serif;
+    --round:"Quicksand",ui-rounded,"Hiragino Maru Gothic ProN","Nunito Sans",system-ui,sans-serif;--maxw:1000px;
+  }
+  *{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  a{color:inherit}
+  .site-header{border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:20}
+  .header-inner{display:flex;align-items:center;gap:14px;padding:14px 20px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+  .brand-logo{width:38px;height:38px;border-radius:50%;object-fit:cover}
+  .brand-name{font-family:var(--round);font-weight:700;font-size:17px;line-height:1.1;display:flex;flex-direction:column}
+  .brand-name small{font-weight:600;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .nav-links{display:flex;gap:8px;flex-wrap:wrap}
+  .nav-links a{font-size:13.5px;font-weight:600;text-decoration:none;color:var(--ink);padding:7px 12px;border:1px solid var(--border-2);border-radius:999px}
+  .nav-links a:hover,.nav-links a[aria-current="page"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .tcn-langsw{display:inline-flex;gap:2px;background:var(--surface);border:1px solid var(--border-2);border-radius:999px;padding:3px}
+  .tcn-langsw button{border:0;background:transparent;font:inherit;font-size:12.5px;font-weight:700;padding:5px 10px;border-radius:999px;cursor:pointer;color:var(--muted)}
+  .tcn-langsw button.active{background:var(--tcn-red);color:#fff}
+  main{padding:clamp(28px,6vw,64px) 0}
+  .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 12px}
+  h1{font-family:var(--round);font-weight:700;letter-spacing:-.01em;line-height:1.08;font-size:clamp(30px,6vw,46px);margin:0 0 14px}
+  .lead{font-size:clamp(16px,2vw,19px);color:var(--ink-soft);max-width:60ch;margin:0 0 26px}
+  .hero-card{background:var(--navy);color:#e9ecf2;border-radius:18px;padding:clamp(22px,5vw,36px);display:grid;gap:22px}
+  .price{font-family:var(--round);font-weight:700;font-size:clamp(40px,9vw,58px);color:#fff;line-height:1}
+  .price small{display:block;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:#97a0ab;margin-top:6px}
+  .vlist{list-style:none;margin:0;padding:0}
+  .vlist li{position:relative;padding:9px 0 9px 26px;border-top:1px solid rgba(255,255,255,.1);color:#d4d8df;font-size:15px}
+  .vlist li:first-child{border-top:0}
+  .vlist li::before{content:"→";position:absolute;left:0;color:#ff8f88}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--round);font-weight:700;font-size:16px;text-decoration:none;padding:14px 24px;border-radius:999px;border:1px solid var(--tcn-red);background:var(--tcn-red);color:#fff;cursor:pointer}
+  .btn:hover{background:var(--tcn-red-d)}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--border-2)}
+  .btn-ghost:hover{background:var(--surface);border-color:var(--ink);color:var(--ink)}
+  .note{font-size:13px;color:#97a0ab;margin:0}
+  section.block{margin-top:clamp(28px,5vw,48px)}
+  h2{font-family:var(--round);font-weight:700;font-size:clamp(22px,3.4vw,30px);margin:0 0 14px}
+  .panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:clamp(18px,4vw,28px)}
+  .fine{font-size:14px;color:var(--muted);border-left:2px solid var(--border-2);padding-left:14px;margin:10px 0}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+  .site-footer{border-top:1px solid var(--border);margin-top:48px;background:var(--surface)}
+  .footer-inner{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center;padding:26px 20px}
+  .footer-links{display:flex;flex-wrap:wrap;gap:14px}
+  .footer-links a{font-size:14px;font-weight:600;text-decoration:none;color:var(--ink-soft)}
+  .footer-links a:hover{color:var(--tcn-red)}
+  .footer-fine{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 24px;margin:0}
+  @media(max-width:620px){.header-inner{gap:10px}.nav-links{order:3;width:100%}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../" class="brand">
+        <img src="../assets/tcn-logo.png" alt="Tokyo Closet Notes logo" class="brand-logo" onerror="this.style.display='none'" />
+        <span class="brand-name">Tokyo Closet Notes<small data-i18n="tagline">Japan fashion finder</small></span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="../#finder" data-i18n="navFinder">Style Finder</a>
+        <a href="../#map" data-i18n="navMap">Free Map</a>
+        <a href="../full-map/" aria-current="page" data-i18n="navFullMap">Full Map</a>
+        <a href="../buying-support/" data-i18n="navProxy">Buying Support</a>
+        <a href="../suggest-a-shop/" data-i18n="navSuggest">Suggest a shop</a>
+      </nav>
+      <div class="tcn-langsw" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="zh">中文</button>
+        <button type="button" data-lang="ko">한국어</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <p class="eyebrow" data-i18n="fmEyebrow">Paid product</p>
+      <h1 data-i18n="fmTitle">Full Japan Fashion Map — 2026 Edition</h1>
+      <p class="lead" data-i18n="fmLead">A researched, route-based shopping map for a real Japan trip — the shops worth crossing a city for, with the routes to walk them. This is the paid product, not the free preview.</p>
+
+      <div class="hero-card">
+        <div class="price">$19<small data-i18n="fmPriceSub">Full Japan Fashion Map · 2026 Edition</small></div>
+        <ul class="vlist">
+          <li data-i18n="fmV1">200+ researched fashion shops across Tokyo, Osaka, Kyoto, Nagoya & Fukuoka</li>
+          <li data-i18n="fmV2">Area notes for each district</li>
+          <li data-i18n="fmV3">Route ideas you can actually walk</li>
+          <li data-i18n="fmV4">Address + Google Maps link for every shop</li>
+          <li data-i18n="fmV5">“Why go” notes, not just names</li>
+          <li data-i18n="fmV6">Free 2026 edition updates when available</li>
+        </ul>
+        <div>
+          <a class="btn" href="https://payhip.com/b/TUint" target="_blank" rel="noopener" data-i18n="fmBuy">Buy on Payhip — $19</a>
+          <p class="note" style="margin-top:10px" data-i18n="fmBundleSoon">$39 Full Map + Personal Research + Brand List — coming soon.</p>
+        </div>
+      </div>
+
+      <section class="block">
+        <h2 data-i18n="fmBeforeTitle">Before you buy</h2>
+        <div class="panel">
+          <ul class="fine" style="border:0;padding:0;list-style:disc;margin-left:18px">
+            <li data-i18n="fmN1">Shop information can change — confirm opening hours, stock, prices, and access before visiting.</li>
+            <li data-i18n="fmN2">Digital product. No refunds after delivery/access except where required by law.</li>
+            <li data-i18n="fmN3">Personal use only. Do not redistribute, copy, resell, or republish.</li>
+            <li data-i18n="fmN4">Personal Buying Support is NOT included in this $19 map — it is a separate service.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2 data-i18n="fmNeedTitle">Need help buying a specific item?</h2>
+        <p class="lead" data-i18n="fmNeedLead">Personal Buying Support is a separate, request-based service for selected items from ¥100,000 JPY / approximately US$700+.</p>
+        <div class="cta-row">
+          <a class="btn" href="https://payhip.com/b/TUint" target="_blank" rel="noopener" data-i18n="fmBuy2">Buy the Full Map — $19</a>
+          <a class="btn btn-ghost" href="../buying-support/" data-i18n="fmBsLink">See Personal Buying Support →</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p style="font-family:var(--round);font-weight:700;margin:0">Tokyo Closet Notes</p>
+      <nav class="footer-links" aria-label="Footer links">
+        <a href="../" data-i18n="navHome">Home</a>
+        <a href="../buying-support/" data-i18n="navProxy">Buying Support</a>
+        <a href="../suggest-a-shop/" data-i18n="navSuggest">Suggest a shop</a>
+        <a href="https://www.instagram.com/tokyo_closet_notes" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:tokyoclosetnotes@outlook.jp">Email</a>
+      </nav>
+    </div>
+    <p class="footer-fine">© <span id="year"></span> Tokyo Closet Notes</p>
+  </footer>
+
+  <script>
+  (function(){
+    var I={
+      en:{tagline:"Japan fashion finder",navFinder:"Style Finder",navMap:"Free Map",navFullMap:"Full Map",navProxy:"Buying Support",navSuggest:"Suggest a shop",navHome:"Home",
+        fmEyebrow:"Paid product",fmTitle:"Full Japan Fashion Map — 2026 Edition",
+        fmLead:"A researched, route-based shopping map for a real Japan trip — the shops worth crossing a city for, with the routes to walk them. This is the paid product, not the free preview.",
+        fmPriceSub:"Full Japan Fashion Map · 2026 Edition",
+        fmV1:"200+ researched fashion shops across Tokyo, Osaka, Kyoto, Nagoya & Fukuoka",fmV2:"Area notes for each district",fmV3:"Route ideas you can actually walk",
+        fmV4:"Address + Google Maps link for every shop",fmV5:"“Why go” notes, not just names",fmV6:"Free 2026 edition updates when available",
+        fmBuy:"Buy on Payhip — $19",fmBundleSoon:"$39 Full Map + Personal Research + Brand List — coming soon.",
+        fmBeforeTitle:"Before you buy",
+        fmN1:"Shop information can change — confirm opening hours, stock, prices, and access before visiting.",
+        fmN2:"Digital product. No refunds after delivery/access except where required by law.",
+        fmN3:"Personal use only. Do not redistribute, copy, resell, or republish.",
+        fmN4:"Personal Buying Support is NOT included in this $19 map — it is a separate service.",
+        fmNeedTitle:"Need help buying a specific item?",
+        fmNeedLead:"Personal Buying Support is a separate, request-based service for selected items from ¥100,000 JPY / approximately US$700+.",
+        fmBuy2:"Buy the Full Map — $19",fmBsLink:"See Personal Buying Support →"},
+      zh:{tagline:"日本时尚指南",navFinder:"风格测试",navMap:"免费地图",navFullMap:"完整地图",navProxy:"代购支持",navSuggest:"推荐店铺",navHome:"首页",
+        fmEyebrow:"付费产品",fmTitle:"完整日本时尚地图 — 2026 版",
+        fmLead:"为真正的日本之旅精心研究的路线式购物地图——值得跨城前往的店铺，以及可步行的路线。这是付费产品，不是免费预览。",
+        fmPriceSub:"完整日本时尚地图 · 2026 版",
+        fmV1:"涵盖东京、大阪、京都、名古屋与福冈的 200+ 经研究时尚店铺",fmV2:"每个区域的导览笔记",fmV3:"真正可步行的路线建议",
+        fmV4:"每家店铺的地址与 Google 地图链接",fmV5:"“推荐理由”，不只是店名",fmV6:"2026 版上线时免费更新",
+        fmBuy:"在 Payhip 购买 — $19",fmBundleSoon:"$39 完整地图 + 个人研究 + 品牌清单 — 即将推出。",
+        fmBeforeTitle:"购买前须知",
+        fmN1:"店铺信息可能变动——到访前请确认营业时间、库存、价格与交通。",
+        fmN2:"数字产品。除法律另有规定外，交付/取得后不予退款。",
+        fmN3:"仅限个人使用。请勿再分发、复制、转售或再发布。",
+        fmN4:"本 $19 地图不含个人代购支持——那是单独的服务。",
+        fmNeedTitle:"需要帮忙购买某件特定单品？",
+        fmNeedLead:"个人代购支持是单独的、按需申请的服务，面向 ¥100,000 日元 / 约 US$700 起的精选单品。",
+        fmBuy2:"购买完整地图 — $19",fmBsLink:"查看个人代购支持 →"},
+      ko:{tagline:"일본 패션 파인더",navFinder:"스타일 파인더",navMap:"무료 지도",navFullMap:"풀 맵",navProxy:"바잉 서포트",navSuggest:"매장 제보",navHome:"홈",
+        fmEyebrow:"유료 제품",fmTitle:"풀 재팬 패션 맵 — 2026 에디션",
+        fmLead:"진짜 일본 여행을 위한 리서치 기반 루트형 쇼핑 지도 — 도시를 가로질러 갈 가치가 있는 매장과 걷는 루트. 무료 미리보기가 아닌 유료 제품입니다.",
+        fmPriceSub:"풀 재팬 패션 맵 · 2026 에디션",
+        fmV1:"도쿄·오사카·교토·나고야·후쿠오카의 200+ 리서치 패션 매장",fmV2:"지역별 노트",fmV3:"실제로 걸을 수 있는 루트 아이디어",
+        fmV4:"매장별 주소 + Google 지도 링크",fmV5:"이름뿐 아닌 ‘가는 이유’ 노트",fmV6:"2026 에디션 업데이트 무료 제공",
+        fmBuy:"Payhip에서 구매 — $19",fmBundleSoon:"$39 풀 맵 + 개인 리서치 + 브랜드 리스트 — 곧 출시.",
+        fmBeforeTitle:"구매 전 안내",
+        fmN1:"매장 정보는 바뀔 수 있습니다 — 방문 전 영업시간·재고·가격·접근성을 확인하세요.",
+        fmN2:"디지털 제품. 법으로 정한 경우를 제외하고 전달/접근 후 환불 불가.",
+        fmN3:"개인 사용 한정. 재배포·복제·재판매·재게시 금지.",
+        fmN4:"이 $19 지도에는 퍼스널 바잉 서포트가 포함되지 않습니다 — 별도 서비스입니다.",
+        fmNeedTitle:"특정 아이템 구매에 도움이 필요하세요?",
+        fmNeedLead:"퍼스널 바잉 서포트는 ¥100,000 JPY / 약 US$700 이상의 선별 아이템을 위한 별도의 요청제 서비스입니다.",
+        fmBuy2:"풀 맵 구매 — $19",fmBsLink:"퍼스널 바잉 서포트 보기 →"}
+    };
+    var L;try{L=localStorage.getItem('tcnLang')||'en'}catch(e){L='en'}if(!I[L])L='en';
+    function apply(){
+      document.querySelectorAll('[data-i18n]').forEach(function(el){var v=I[L][el.getAttribute('data-i18n')];if(v!=null)el.textContent=v;});
+      document.documentElement.lang=(L==='zh'?'zh-Hans':(L==='ko'?'ko':'en'));
+      document.querySelectorAll('.tcn-langsw button').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')===L);});
+    }
+    document.querySelectorAll('.tcn-langsw button').forEach(function(b){b.addEventListener('click',function(){L=b.getAttribute('data-lang');if(!I[L])L='en';try{localStorage.setItem('tcnLang',L)}catch(e){}apply();});});
+    var y=document.getElementById('year');if(y)y.textContent=new Date().getFullYear();
+    apply();
+  })();
+  </script>
+</body>
+</html>
