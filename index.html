@@ -146,13 +146,20 @@
     text-transform: uppercase; color: var(--muted); font-weight: 600; margin-top: 1px; white-space: nowrap; }
   .header-social { display: flex; gap: 8px; flex: none; }
 
+  /* desktop primary nav (hidden on phones, where the Menu button is used) */
+  .header-nav { display: flex; gap: 4px; flex-wrap: wrap; margin-left: auto; }
+  .header-nav a { font-size: 13px; font-weight: 600; text-decoration: none; color: var(--ink);
+    padding: 6px 11px; border: 1px solid transparent; border-radius: 999px; white-space: nowrap; }
+  .header-nav a:hover { background: var(--ink); color: #fff; }
+
   /* mobile menu — hidden on desktop (desktop keeps the social pills) */
   .menu-btn { display: none; }
   .mobile-menu { display: none; }
 
-  /* phones: collapse secondary nav into a single clean Menu button */
-  @media (max-width: 640px) {
+  /* phones & tablets: collapse the nav into a single clean Menu button */
+  @media (max-width: 860px) {
     .header-social { display: none; }
+    .header-nav { display: none; }
     .menu-btn {
       display: inline-flex; align-items: center; gap: 8px; flex: none;
       font: inherit; font-family: var(--round); font-weight: 700; font-size: 13.5px; color: var(--ink);
@@ -173,7 +180,7 @@
       border-top: 1px solid transparent;
       transition: max-height .28s var(--ease), border-color .28s var(--ease);
     }
-    .mobile-menu.open { max-height: 380px; border-top-color: var(--border); }
+    .mobile-menu.open { max-height: 520px; border-top-color: var(--border); }
     .mobile-menu .container { padding-top: 4px; padding-bottom: 8px; }
     .mm-link {
       display: block; text-decoration: none; color: var(--ink);
@@ -183,6 +190,8 @@
     .mm-link:last-child { border-bottom: 0; }
     .mm-link:active { color: var(--indigo); }
   }
+  /* keep the inline nav uncrowded: show social pills only on wide desktops */
+  @media (max-width: 999px) { .header-social { display: none; } }
   @media (max-width: 460px) {
     .header-inner { height: 56px; gap: 8px; }
     .brand { gap: 9px; }
@@ -743,6 +752,13 @@
         <span class="brand-mark" style="display:none" aria-hidden="true">tcn</span>
         <span class="brand-name">Tokyo Closet Notes<small data-i18n="tagline">Japan fashion finder</small></span>
       </a>
+      <nav class="header-nav" aria-label="Primary">
+        <a href="#finder" data-scroll data-i18n="navFinder">Finder</a>
+        <a href="#map" data-scroll data-i18n="navMap">Map</a>
+        <a href="full-map/" data-i18n="navFullMap">Full Map</a>
+        <a href="buying-support/" data-i18n="navProxy">Buying Support</a>
+        <a href="suggest-a-shop/" data-i18n="navSuggest">Suggest a shop</a>
+      </nav>
       <nav class="header-social" aria-label="Social links">
         <a class="tlink" href="https://www.instagram.com/tokyo_closet_notes" target="_blank" rel="noopener">Instagram</a>
         <a class="tlink" href="https://www.tiktok.com/@tokyo_closet_notes" target="_blank" rel="noopener">TikTok</a>
