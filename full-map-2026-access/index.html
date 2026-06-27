@@ -23,9 +23,9 @@
     --ease:cubic-bezier(.22,.61,.36,1);
   }
   *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
+  html{-webkit-text-size-adjust:100%;overflow-x:hidden;max-width:100%}
   body{margin:0;background:var(--pbg);color:var(--pink);font-family:var(--sans);font-size:16px;line-height:1.6;
-    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;max-width:100%;width:100%}
   a{color:inherit}
   .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 20px}
 
@@ -45,7 +45,7 @@
 
   /* section quick-nav (anchor scroll) */
   .navrow{padding:9px 0 0}
-  .tabnav{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+  .tabnav{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px;overscroll-behavior-x:contain}
   .tabnav::-webkit-scrollbar{display:none}
   .tabnav button{font:inherit;font-family:var(--round);font-size:13.5px;font-weight:700;cursor:pointer;white-space:nowrap;flex:none;
     color:var(--psoft);background:rgba(255,255,255,.05);border:1px solid var(--pborder);border-radius:999px;padding:8px 15px;
@@ -73,7 +73,7 @@
   /* city tabs */
   .citybar{position:sticky;top:0;z-index:40;background:rgba(14,21,36,.92);backdrop-filter:blur(8px);
     border-bottom:1px solid var(--pborder);margin-top:22px}
-  .city-tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .city-tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain}
   .city-tabs::-webkit-scrollbar{display:none}
   .city-tab{font:inherit;font-family:var(--round);font-weight:700;font-size:15px;color:#9aa3bb;background:none;
     border:0;border-bottom:2px solid transparent;padding:14px 12px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s}
@@ -105,7 +105,7 @@
   .filters{margin:8px 0 0}
   .filt-label{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--pmuted);font-weight:700;margin:14px 0 8px}
   .filt-row{display:flex;gap:7px;flex-wrap:wrap}
-  @media(max-width:640px){.filt-row{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:3px}
+  @media(max-width:640px){.filt-row{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:3px;overscroll-behavior-x:contain}
     .filt-row::-webkit-scrollbar{display:none}}
   .filt{font:inherit;font-size:13px;font-weight:600;color:#d3dbec;background:rgba(255,255,255,.05);
     border:1px solid var(--pborder);border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap;min-height:38px;transition:background .18s,border-color .18s,color .18s}
@@ -203,7 +203,7 @@
   .search::before{content:"⌕";position:absolute;left:15px;top:50%;transform:translateY(-55%);color:var(--pmuted);font-size:17px}
 
   /* active-filter summary bar */
-  .filter-summary{display:none;flex-wrap:nowrap;align-items:center;gap:7px;overflow-x:auto;scrollbar-width:none;
+  .filter-summary{display:none;flex-wrap:nowrap;align-items:center;gap:7px;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;
     margin:13px 0 2px;padding-bottom:3px}
   .filter-summary::-webkit-scrollbar{display:none}
   .filter-summary.show{display:flex}
@@ -320,7 +320,7 @@
       display:flex;flex-direction:row;gap:11px;align-items:stretch;
       overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;
       -webkit-overflow-scrolling:touch;scrollbar-width:none;
-      margin:0 -20px;padding:2px 20px 9px}
+      margin:0;padding:2px 0 9px;overscroll-behavior-x:contain}
     .shopgrid::-webkit-scrollbar{display:none}
     .shopgrid>.shopitem{flex:0 0 84%;scroll-snap-align:center;height:auto}
     .shopgrid>.empty{flex:0 0 100%;scroll-snap-align:center}
@@ -329,7 +329,7 @@
       display:flex;flex-direction:row;gap:12px;align-items:flex-start;
       overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;
       -webkit-overflow-scrolling:touch;scrollbar-width:none;
-      margin:0 -20px;padding:2px 20px 9px}
+      margin:0;padding:2px 0 9px;overscroll-behavior-x:contain}
     .routes::-webkit-scrollbar{display:none}
     .routes>.route{flex:0 0 88%;scroll-snap-align:center}
     .routes>.route .timeline{max-height:240px;overflow-y:auto;-webkit-overflow-scrolling:touch}
@@ -448,14 +448,14 @@
     /* Latest mini cards become a horizontal swipe carousel (same pattern as shops/routes) */
     .upd-mini-row{display:flex;flex-direction:row;gap:11px;align-items:stretch;
       overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;
-      -webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -20px;padding:2px 20px 9px}
+      -webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0;padding:2px 0 9px;overscroll-behavior-x:contain}
     .upd-mini-row::-webkit-scrollbar{display:none}
     .upd-mini-row>.upd-mini{flex:0 0 76%;scroll-snap-align:center}
     .upd-banner{margin-top:14px}
     .fb-row{flex-direction:column}
     .fb-btn{width:100%}
     /* quick-nav: full-bleed scroll row, larger tap targets */
-    .tabnav{margin:0 -20px;padding:2px 20px}
+    .tabnav{margin:0;padding:2px 0;overscroll-behavior-x:contain}
     .tabnav button{font-size:14px;padding:9px 16px}
     /* Updates section: roomier, more readable cards + easier category chips on phones */
     .updates-sec{margin-top:26px}
@@ -469,7 +469,7 @@
        Scoped to #upd-grid only — the collapsed "Past" list stays a vertical stack. */
     #upd-grid{display:flex;flex-direction:row;gap:12px;align-items:stretch;
       overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;
-      -webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -20px;padding:2px 20px 10px}
+      -webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0;padding:2px 0 10px;overscroll-behavior-x:contain}
     #upd-grid::-webkit-scrollbar{display:none}
     #upd-grid>.upd-card{flex:0 0 86%;scroll-snap-align:center}
     #upd-grid>.upd-empty{flex:0 0 100%;scroll-snap-align:center}
