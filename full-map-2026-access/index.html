@@ -307,6 +307,10 @@
 
   footer.foot{border-top:1px solid var(--pborder);padding:24px 0 50px;color:var(--pmuted);font-size:12.5px}
   .foot a{color:var(--psoft)}
+  /* small, quiet SNS / official-site line at the very bottom of the buyer page */
+  .foot-social{display:block;margin-top:10px;font-size:12px;color:var(--pmuted);line-height:1.7}
+  .foot-social a{color:var(--psoft);font-weight:700;text-decoration:none}
+  .foot-social a:hover{color:#fff;text-decoration:underline}
   @media(prefers-reduced-motion:reduce){*{transition-duration:.001ms!important}}
 
   /* mobile: turn the vertical shop + route stacks into horizontal swipe carousels
@@ -378,6 +382,11 @@
   .upd-sec-head h2{font-family:var(--round);font-weight:700;font-size:18px;color:#fff;margin:0}
   .upd-sec-count{font-size:12.5px;font-weight:700;color:var(--pgold2);white-space:nowrap;flex:none}
   .upd-sec-intro{color:var(--psoft);font-size:13.5px;max-width:64ch;margin:0 0 13px;line-height:1.55}
+  /* Updates filters: City group + Category group, each with a small label */
+  .upd-filters{display:flex;flex-direction:column;gap:9px;margin:0 0 13px}
+  .upd-filt-group{display:flex;align-items:center;gap:9px;min-width:0}
+  .upd-filt-label{flex:none;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pmuted);width:64px}
+  .upd-filt-group .filt-row{flex:1 1 auto;min-width:0}
   .upd-grid{display:flex;flex-direction:column;gap:12px}
   /* PC: Updates body is a multi-column overview; mobile becomes a swipe row (below) */
   @media(min-width:640px){ #upd-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;align-items:stretch} }
@@ -454,7 +463,8 @@
     .upd-c-title{font-size:16.5px}
     .upd-c-note{font-size:14px;line-height:1.55}
     .upd-card{padding:15px 16px}
-    #upd-cat-filters .filt{padding:9px 14px;font-size:13px}
+    .upd-filt-group .filt{padding:9px 14px;font-size:13px}
+    .upd-filt-label{width:auto}
     /* Updates BODY becomes a horizontal swipe carousel (one card at a time, neighbor peek).
        Scoped to #upd-grid only — the collapsed "Past" list stays a vertical stack. */
     #upd-grid{display:flex;flex-direction:row;gap:12px;align-items:stretch;
@@ -554,7 +564,16 @@
           <span class="upd-sec-count" id="upd-sec-count"></span>
         </div>
         <p class="upd-sec-intro" data-i18n="updatesIntro">Flea markets, pop-ups, vintage fairs, store events and new-shop notes. Manually checked — always confirm dates and details with the source before you go.</p>
-        <div class="filt-row" id="upd-cat-filters" aria-label="Update categories"></div>
+        <div class="upd-filters">
+          <div class="upd-filt-group" id="upd-city-group">
+            <span class="upd-filt-label" data-i18n="cityFilterLabel">City</span>
+            <div class="filt-row" id="upd-city-filters" aria-label="Update cities"></div>
+          </div>
+          <div class="upd-filt-group" id="upd-cat-group">
+            <span class="upd-filt-label" data-i18n="catFilterLabel">Category</span>
+            <div class="filt-row" id="upd-cat-filters" aria-label="Update categories"></div>
+          </div>
+        </div>
         <div class="upd-grid" id="upd-grid"></div>
         <details class="upd-past" id="upd-past" hidden>
           <summary data-i18n="updatesPast">Past updates</summary>
@@ -587,6 +606,10 @@
       <span data-i18n-html="footNote1">For personal use by the purchaser only. Shop details can change — please confirm hours, stock, prices, and access before visiting.</span>
       <span data-i18n="footNote2">Shop details can change — please confirm hours, stock, prices, and access before visiting.</span>
       <span> · <button type="button" class="fb-foot-link" data-fb="map_feedback" data-i18n="fbFootLink">Send map feedback</button></span>
+      <span class="foot-social"><span data-i18n="followUs">Follow Tokyo Closet Notes:</span>
+        <a href="https://www.instagram.com/tokyo_closet_notes" target="_blank" rel="noopener">Instagram</a> /
+        <a href="https://www.tiktok.com/@tokyo_closet_notes" target="_blank" rel="noopener">TikTok</a> /
+        <a href="https://tokyoclosetnotes.com/" target="_blank" rel="noopener" data-i18n="officialSiteLabel">Official site</a></span>
     </div>
   </footer>
 
@@ -628,6 +651,10 @@
       limited_info:{en:"Limited info", zh:"限定情报", ko:"한정 정보"}
     };
     var updCat = 'all';   // active category filter in the Updates section
+    var updCity = 'all';  // active city filter in the Updates section (combines with updCat)
+    // maps a cityId to its i18n label key (declared up here so it exists before init render)
+    var CITY_KEY = { tokyo:'cityTokyo', osaka:'cityOsaka', kyoto:'cityKyoto', nagoya:'cityNagoya', fukuoka:'cityFukuoka' };
+    var CITY_ORDER = ['tokyo','osaka','kyoto','nagoya','fukuoka'];
     // visibility level: explicit s.status wins; otherwise verify:false = "core", verify:true = "candidate".
     function statusOf(s){ return s.status || (s.verify ? "candidate" : "core"); }
 
@@ -656,6 +683,9 @@
         updatesPast:"Past updates", updEmpty:"No current updates this week.", updEmptySub:"We add new finds regularly — check back soon.",
         stActive:"On now", stUpcoming:"Upcoming", stExpired:"Ended", confirmDetails:"Confirm details ↗", unconfirmed:"Unconfirmed", thisWeekWord:"This week", allCats:"All",
         officialSource:"Official source", updVerified:"Verified", updNeedsCheck:"Needs check", confirmVisit:"Confirm details before visiting.", featuredLabel:"Featured",
+        cityFilterLabel:"City", catFilterLabel:"Category", allCities:"All cities",
+        cityTokyo:"Tokyo", cityOsaka:"Osaka", cityKyoto:"Kyoto", cityNagoya:"Nagoya", cityFukuoka:"Fukuoka",
+        followUs:"Follow Tokyo Closet Notes:", officialSiteLabel:"Official site",
         fbTitle:"Help keep the map accurate", fbSub:"Spotted something to add, fix, or share? Send a quick note — we check everything before updating the map.",
         fbAdd:"Found a shop we should add?", fbReport:"Report an update or closure", fbFeedback:"Send map feedback", fbFootLink:"Send map feedback",
         fbComingTitle:"Feedback form coming soon", fbComingMsg:"Thanks for wanting to help! The in-page feedback form isn't live yet. For now, email tokyoclosetnotes@outlook.jp or DM @tokyo_closet_notes.", fbClose:"Got it",
@@ -683,6 +713,9 @@
         updatesPast:"往期动态", updEmpty:"本周暂无最新动态。", updEmptySub:"我们会定期更新——请稍后再来。",
         stActive:"进行中", stUpcoming:"即将开始", stExpired:"已结束", confirmDetails:"确认详情 ↗", unconfirmed:"待确认", thisWeekWord:"本周", allCats:"全部",
         officialSource:"官方信息", updVerified:"已确认", updNeedsCheck:"待确认", confirmVisit:"到访前请确认详情。", featuredLabel:"精选",
+        cityFilterLabel:"城市", catFilterLabel:"类别", allCities:"全部城市",
+        cityTokyo:"东京", cityOsaka:"大阪", cityKyoto:"京都", cityNagoya:"名古屋", cityFukuoka:"福冈",
+        followUs:"关注 Tokyo Closet Notes：", officialSiteLabel:"官方网站",
         fbTitle:"帮助保持地图准确", fbSub:"发现可补充、需更正或想分享的内容？发条简短留言——我们会先核查再更新地图。",
         fbAdd:"有想推荐加入的店铺？", fbReport:"报告动态或闭店", fbFeedback:"发送地图反馈", fbFootLink:"发送地图反馈",
         fbComingTitle:"反馈表单即将上线", fbComingMsg:"感谢你的帮助！页内反馈表单尚未上线。目前请发邮件至 tokyoclosetnotes@outlook.jp 或私信 @tokyo_closet_notes。", fbClose:"知道了",
@@ -710,6 +743,9 @@
         updatesPast:"지난 업데이트", updEmpty:"이번 주 업데이트가 없습니다.", updEmptySub:"새 소식을 꾸준히 추가합니다 — 곧 다시 확인하세요.",
         stActive:"진행 중", stUpcoming:"예정", stExpired:"종료", confirmDetails:"세부사항 확인 ↗", unconfirmed:"미확인", thisWeekWord:"이번 주", allCats:"전체",
         officialSource:"공식 정보", updVerified:"확인됨", updNeedsCheck:"확인 필요", confirmVisit:"방문 전 세부사항을 확인하세요.", featuredLabel:"추천",
+        cityFilterLabel:"도시", catFilterLabel:"카테고리", allCities:"전체 도시",
+        cityTokyo:"도쿄", cityOsaka:"오사카", cityKyoto:"교토", cityNagoya:"나고야", cityFukuoka:"후쿠오카",
+        followUs:"Tokyo Closet Notes 팔로우:", officialSiteLabel:"공식 사이트",
         fbTitle:"지도 정확도 유지에 도움 주세요", fbSub:"추가·수정·공유할 내용을 발견하셨나요? 간단히 알려주세요 — 지도 반영 전 모두 확인합니다.",
         fbAdd:"추가하면 좋을 매장이 있나요?", fbReport:"업데이트·폐점 제보", fbFeedback:"지도 피드백 보내기", fbFootLink:"지도 피드백 보내기",
         fbComingTitle:"피드백 폼 준비 중", fbComingMsg:"도와주셔서 감사합니다! 페이지 내 피드백 폼은 아직 준비 중입니다. 지금은 tokyoclosetnotes@outlook.jp 이메일 또는 @tokyo_closet_notes DM으로 보내주세요.", fbClose:"확인",
@@ -1114,6 +1150,7 @@
        UPD_CAT / updCat are declared near the top of this script (not here) so their
        values exist before the init render call. */
     function catLabel(c){ var m=UPD_CAT[c]; return m ? (m[LANG]||m.en) : (c||''); }
+    function updCityLabel(id){ var k=CITY_KEY[id]; if(k) return t(k); if(CITIES[id]) return CITIES[id].name; return id?(id.charAt(0).toUpperCase()+id.slice(1)):''; }
     function updTitle(u){ return (LANG==='zh'&&u.titleZh)||(LANG==='ko'&&u.titleKo)||u.title||''; }
     function updNote(u){ return (LANG==='zh'&&u.noteZh)||(LANG==='ko'&&u.noteKo)||u.note||''; }
     function updCityName(u){ if(u.city && CITIES[u.city]) return CITIES[u.city].name; return u.city ? (u.city.charAt(0).toUpperCase()+u.city.slice(1)) : ''; }
@@ -1188,7 +1225,22 @@
       if(tb){ if(badgeN){ tb.hidden=false; tb.textContent=String(badgeN); } else { tb.hidden=true; tb.textContent=''; } }
       var sc=document.getElementById('upd-sec-count');
       if(sc){ sc.textContent = badgeN ? (badgeN+' '+t('updatesLiveWord')) : ''; }
-      // category filter chips (All + categories present in live list)
+      // CITY filter chips (All cities + cities present in live list, fixed order).
+      // Clicking the active non-"all" chip toggles back to "All cities".
+      var cw=document.getElementById('upd-city-filters');
+      if(cw){
+        var cities=[]; live.forEach(function(u){ if(u.city && cities.indexOf(u.city)===-1) cities.push(u.city); });
+        cities.sort(function(a,b){ return CITY_ORDER.indexOf(a)-CITY_ORDER.indexOf(b); });
+        if(cities.indexOf(updCity)===-1 && updCity!=='all') updCity='all';
+        cw.innerHTML='';
+        var mkCity=function(val,label){ var b=document.createElement('button'); b.type='button';
+          b.className='filt'+(updCity===val?' active':''); b.textContent=label;
+          b.addEventListener('click',function(){ updCity=(updCity===val&&val!=='all')?'all':val; renderUpdates(); }); cw.appendChild(b); };
+        mkCity('all', t('allCities'));
+        cities.forEach(function(c){ mkCity(c, updCityLabel(c)); });
+        var cg=document.getElementById('upd-city-group'); if(cg) cg.style.display = cities.length>1 ? '' : 'none';
+      }
+      // CATEGORY filter chips (All + categories present in live list). Same toggle behavior.
       var fw=document.getElementById('upd-cat-filters');
       if(fw){
         var cats=[]; live.forEach(function(u){ if(u.category && cats.indexOf(u.category)===-1) cats.push(u.category); });
@@ -1196,13 +1248,15 @@
         fw.innerHTML='';
         var mk=function(val,label){ var b=document.createElement('button'); b.type='button';
           b.className='filt'+(updCat===val?' active':''); b.textContent=label;
-          b.addEventListener('click',function(){ updCat=val; renderUpdates(); }); fw.appendChild(b); };
+          b.addEventListener('click',function(){ updCat=(updCat===val&&val!=='all')?'all':val; renderUpdates(); }); fw.appendChild(b); };
         mk('all', t('allCats'));
         cats.forEach(function(c){ mk(c, catLabel(c)); });
-        fw.style.display = cats.length>1 ? '' : 'none';
+        var catg=document.getElementById('upd-cat-group'); if(catg) catg.style.display = cats.length>1 ? '' : 'none';
       }
-      // main grid (filtered by category)
-      var shown = updCat==='all' ? live : live.filter(function(u){ return u.category===updCat; });
+      // main grid: combine CITY and CATEGORY filters (active + upcoming only)
+      var shown = live.filter(function(u){
+        return (updCity==='all' || u.city===updCity) && (updCat==='all' || u.category===updCat);
+      });
       if(shown.length){ grid.innerHTML=shown.map(updCardHtml).join(''); }
       else{ grid.innerHTML='<div class="upd-empty"><span class="em-emoji">🗓️</span><p><b>'+esc(t('updEmpty'))+'</b><br>'+esc(t('updEmptySub'))+'</p></div>'; }
       // past (expired) — collapsed, hidden entirely when none
@@ -1257,7 +1311,7 @@
       if(typeof id==='string' && id){
         setTimeout(function(){
           var cards=document.querySelectorAll('#upd-grid .upd-card');
-          var live=liveUpdates(), shown=updCat==='all'?live:live.filter(function(u){return u.category===updCat;});
+          var live=liveUpdates(), shown=live.filter(function(u){ return (updCity==='all'||u.city===updCity)&&(updCat==='all'||u.category===updCat); });
           var idx=-1; shown.forEach(function(u,i){ if(u.id===id) idx=i; });
           var el=idx>=0?cards[idx]:null;
           if(el){ el.style.transition='box-shadow .3s var(--ease)'; el.style.boxShadow='0 0 0 2px var(--pgold2)';
