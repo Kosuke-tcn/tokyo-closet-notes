@@ -294,6 +294,28 @@
   footer.foot{border-top:1px solid var(--pborder);padding:24px 0 50px;color:var(--pmuted);font-size:12.5px}
   .foot a{color:var(--psoft)}
   @media(prefers-reduced-motion:reduce){*{transition-duration:.001ms!important}}
+
+  /* mobile: turn the vertical shop + route stacks into horizontal swipe carousels
+     (scroll-snap, one card at a time). PC (>=640px) keeps the existing grid. */
+  @media(max-width:639px){
+    .shopgrid{
+      display:flex;flex-direction:row;gap:11px;align-items:stretch;
+      overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;scrollbar-width:none;
+      margin:0 -20px;padding:2px 20px 9px}
+    .shopgrid::-webkit-scrollbar{display:none}
+    .shopgrid>.shopitem{flex:0 0 84%;scroll-snap-align:center;height:auto}
+    .shopgrid>.empty{flex:0 0 100%;scroll-snap-align:center}
+
+    .routes{
+      display:flex;flex-direction:row;gap:12px;align-items:flex-start;
+      overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;scrollbar-width:none;
+      margin:0 -20px;padding:2px 20px 9px}
+    .routes::-webkit-scrollbar{display:none}
+    .routes>.route{flex:0 0 88%;scroll-snap-align:center}
+    .routes>.route .timeline{max-height:240px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  }
   </style>
 </head>
 <body>
