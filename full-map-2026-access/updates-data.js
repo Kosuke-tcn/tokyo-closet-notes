@@ -38,6 +38,21 @@
    BADGE MEANING: the "Updates N" badge counts ACTIVE + UPCOMING only.
                   expired and hold entries are NOT counted.
 
+   WEEKLY OPERATING RULES (manual, verify-first):
+     1. Research once a week (flea markets, pop-ups, brand events, vintage fairs,
+        department-store events, new shops, area notes, limited info).
+     2. For events/flea/pop-up/dept/brand events, put an OFFICIAL link in sourceUrl
+        — official site / official Instagram / venue page / organizer page.
+        Confirm the official URL BEFORE adding it.
+     3. Not personally confirmed yet? -> verified:false (shows "Needs check").
+        Confirmed -> verified:true (shows "Verified").
+     4. Do NOT delete finished events. Let them go "expired" (dates pass), or set
+        status:"hold" to hide without deleting. Keeps a history you can reuse.
+     5. Big/anchor events (large fleas, major pop-ups, key fairs) -> featured:true
+        so they pin to the top and show first on mobile.
+     6. If there is a venue, add mapsUrl (Google Maps link) -> "Open in Google Maps".
+     7. NEVER auto-fetch or auto-publish. Every entry is added by hand after a check.
+
    WEEKLY FLOW: research -> confirm the official source URL -> add an object here
                 with verified:true (or verified:false + a confirm note) -> deploy
                 index.html + this file. Expired items fall to "Past" automatically.
