@@ -43,12 +43,26 @@
   .langsw button:hover{color:#fff}
   .langsw button.active{background:var(--pred);color:#fff}
 
+  /* section quick-nav (anchor scroll) */
+  .navrow{padding:9px 0 0}
+  .tabnav{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+  .tabnav::-webkit-scrollbar{display:none}
+  .tabnav button{font:inherit;font-family:var(--round);font-size:13.5px;font-weight:700;cursor:pointer;white-space:nowrap;flex:none;
+    color:var(--psoft);background:rgba(255,255,255,.05);border:1px solid var(--pborder);border-radius:999px;padding:8px 15px;
+    display:inline-flex;align-items:center;gap:7px;transition:background .15s,border-color .15s,color .15s}
+  .tabnav button:hover{border-color:var(--pgold);color:#fff}
+  .tabnav button:active{background:var(--pred);border-color:var(--pred);color:#fff}
+  .tabnav .tabnav-upd{border-color:rgba(201,169,106,.45)}
+  .tabnav .tabnav-badge{font-size:10.5px;font-weight:700;letter-spacing:.02em;color:#1a1300;background:var(--pgold2);
+    border-radius:999px;padding:1px 7px;line-height:1.55}
+
   header.top{padding:14px 0 6px}
   .kicker{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--pgold2);font-weight:700;margin:0 0 12px}
   h1.title{font-family:var(--round);font-weight:700;font-size:clamp(28px,6vw,44px);line-height:1.05;margin:0 0 12px;letter-spacing:-.01em}
-  .price-row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 6px}
-  .price{font-family:var(--round);font-weight:700;font-size:clamp(30px,7vw,42px);color:#fff;line-height:1}
-  .price small{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--pmuted);font-weight:700;margin-left:4px}
+  .edition-row{margin:4px 0 10px}
+  .edition-badge{display:inline-flex;align-items:center;font-family:var(--round);font-weight:700;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--pgold2);background:rgba(201,169,106,.14);border:1px solid rgba(201,169,106,.4);
+    border-radius:999px;padding:6px 14px;line-height:1}
   .sub{color:var(--psoft);max-width:62ch;margin:6px 0 0;font-size:15.5px}
 
   /* differentiators strip */
@@ -316,6 +330,112 @@
     .routes>.route{flex:0 0 88%;scroll-snap-align:center}
     .routes>.route .timeline{max-height:240px;overflow-y:auto;-webkit-overflow-scrolling:touch}
   }
+
+  /* ===== Japan Fashion Updates (manual, verify-first) + Feedback CTA ===== */
+  /* small "this week" banner — sits just under the map, within the first scrolls */
+  .upd-banner{display:flex;align-items:center;justify-content:space-between;gap:13px;flex-wrap:wrap;
+    background:linear-gradient(160deg,rgba(201,169,106,.14),var(--pcard));border:1px solid rgba(201,169,106,.42);
+    border-radius:var(--r);padding:13px 15px;margin:16px 0 0}
+  .upd-banner.is-empty{background:linear-gradient(160deg,var(--pcard),var(--psurface));border-color:var(--pborder)}
+  .upd-bn-l{min-width:0;flex:1 1 auto}
+  .upd-bn-title{font-family:var(--round);font-weight:700;font-size:14.5px;color:#fff;margin:0 0 2px;display:flex;align-items:center;gap:8px}
+  .upd-bn-badge{font-size:10px;font-weight:700;letter-spacing:.04em;color:#1a1300;background:var(--pgold2);
+    border-radius:999px;padding:2px 8px;line-height:1.5;white-space:nowrap}
+  .upd-bn-sub{font-size:12.5px;color:var(--psoft);margin:0;line-height:1.45}
+  .upd-bn-btn{font:inherit;font-family:var(--round);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex:none;
+    border-radius:999px;padding:9px 16px;border:1px solid var(--pgold);background:rgba(201,169,106,.18);color:var(--pgold2);
+    transition:background .18s,border-color .18s,color .18s}
+  .upd-bn-btn:hover{background:var(--pred);border-color:var(--pred);color:#fff}
+
+  /* "Latest updates" mini cards — between map and shop list */
+  .upd-latest{margin:14px 0 0}
+  .upd-latest-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 10px}
+  .upd-latest-head h2{font-family:var(--round);font-weight:700;font-size:15px;color:#fff;margin:0}
+  .upd-seeall{font:inherit;font-size:12px;font-weight:700;cursor:pointer;color:var(--pgold2);background:none;border:0;padding:0;white-space:nowrap}
+  .upd-seeall:hover{color:#fff}
+  .upd-mini-row{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+  .upd-mini{font:inherit;color:inherit;text-align:left;width:100%;cursor:pointer;display:flex;flex-direction:column;gap:6px;
+    background:var(--pcard);border:1px solid var(--pborder);border-radius:12px;padding:12px 13px;
+    transition:border-color .15s,background .15s,transform .15s}
+  .upd-mini:hover{border-color:rgba(201,169,106,.5);background:var(--pcard2);transform:translateY(-1px)}
+  .upd-mini-top{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .upd-mini-title{font-family:var(--round);font-weight:700;font-size:13.5px;line-height:1.3;margin:0;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .upd-mini-meta{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--pmuted);margin:0}
+
+  /* category badge + status pill (shared) */
+  .upd-cat{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:6px;padding:3px 7px;line-height:1;white-space:nowrap;
+    background:rgba(120,150,200,.14);color:#aab7d8;border:1px solid rgba(120,150,200,.4)}
+  .upd-pill{font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:6px;padding:3px 6px;line-height:1;white-space:nowrap}
+  .upd-pill.is-active{background:rgba(80,180,120,.16);color:#9be3b6;border:1px solid rgba(120,210,160,.4)}
+  .upd-pill.is-upcoming{background:rgba(240,198,116,.12);color:#f0c674;border:1px solid rgba(240,198,116,.4)}
+  .upd-pill.is-expired{background:rgba(255,255,255,.05);color:var(--pmuted);border:1px solid var(--pborder)}
+  .upd-date{font-size:11.5px;font-weight:700;color:var(--psoft);white-space:nowrap}
+
+  /* Updates section (full list) */
+  .updates-sec{margin-top:30px}
+  .upd-sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 8px}
+  .upd-sec-head h2{font-family:var(--round);font-weight:700;font-size:18px;color:#fff;margin:0}
+  .upd-sec-count{font-size:12.5px;font-weight:700;color:var(--pgold2);white-space:nowrap;flex:none}
+  .upd-sec-intro{color:var(--psoft);font-size:13.5px;max-width:64ch;margin:0 0 13px;line-height:1.55}
+  .upd-grid{display:flex;flex-direction:column;gap:12px}
+  .upd-card{background:var(--pcard);border:1px solid var(--pborder);border-radius:var(--r);padding:15px 16px}
+  .upd-card.is-featured{border-color:rgba(201,169,106,.5);box-shadow:0 0 0 1px rgba(201,169,106,.18) inset}
+  .upd-c-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 7px}
+  .upd-c-title{font-family:var(--round);font-weight:700;font-size:16px;line-height:1.25;margin:0 0 4px;letter-spacing:-.01em}
+  .upd-c-loc{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--pmuted);margin:0 0 8px}
+  .upd-c-note{font-size:13.5px;color:var(--psoft);line-height:1.5;margin:0 0 10px}
+  .upd-c-foot{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .upd-c-src{font-size:12px;font-weight:700;text-decoration:none;color:var(--pgold2)}
+  .upd-c-src:hover{color:#fff}
+  .upd-unverified{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#f0c674;
+    background:rgba(240,198,116,.1);border:1px solid rgba(240,198,116,.35);border-radius:7px;padding:4px 8px}
+  .upd-unverified::before{content:"⚑"}
+  .upd-empty{text-align:center;padding:22px 16px;background:var(--pcard);border:1px solid var(--pborder);border-radius:12px}
+  .upd-empty p{color:var(--psoft);font-size:13.5px;margin:0;line-height:1.5}
+  .upd-empty .em-emoji{font-size:22px;display:block;margin:0 0 7px}
+  /* Past (expired) — collapsed by default so old info never shows first */
+  .upd-past{margin-top:14px;border-top:1px solid var(--pborder);padding-top:6px}
+  .upd-past>summary{cursor:pointer;list-style:none;font-size:12.5px;font-weight:700;color:var(--pmuted);padding:8px 0}
+  .upd-past>summary::-webkit-details-marker{display:none}
+  .upd-past>summary::before{content:"▸ ";color:var(--pgold2)}
+  .upd-past[open]>summary::before{content:"▾ "}
+  .upd-past .upd-grid{margin-top:10px;opacity:.82}
+
+  /* Feedback — light CTA only (no submit wired this phase) */
+  .fb-cta{margin-top:22px;background:linear-gradient(160deg,var(--pcard),var(--psurface));border:1px solid var(--pborder);
+    border-radius:var(--r);padding:16px 17px}
+  .fb-cta h3{font-family:var(--round);font-weight:700;font-size:15px;color:#fff;margin:0 0 3px}
+  .fb-cta p{font-size:12.5px;color:var(--psoft);margin:0 0 12px;line-height:1.45}
+  .fb-row{display:flex;flex-wrap:wrap;gap:8px}
+  .fb-btn{font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;text-align:left;
+    border-radius:999px;padding:9px 14px;border:1px solid var(--pborder);background:rgba(255,255,255,.05);color:var(--pink);
+    transition:border-color .15s,background .15s}
+  .fb-btn:hover{border-color:var(--pgold);background:rgba(201,169,106,.12);color:#fff}
+  .fb-foot-link{font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--psoft);background:none;border:0;padding:0;text-decoration:underline}
+  .fb-foot-link:hover{color:#fff}
+
+  @media(max-width:639px){
+    /* Latest mini cards become a horizontal swipe carousel (same pattern as shops/routes) */
+    .upd-mini-row{display:flex;flex-direction:row;gap:11px;align-items:stretch;
+      overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -20px;padding:2px 20px 9px}
+    .upd-mini-row::-webkit-scrollbar{display:none}
+    .upd-mini-row>.upd-mini{flex:0 0 76%;scroll-snap-align:center}
+    .upd-banner{margin-top:14px}
+    .fb-row{flex-direction:column}
+    .fb-btn{width:100%}
+    /* quick-nav: full-bleed scroll row, larger tap targets */
+    .tabnav{margin:0 -20px;padding:2px 20px}
+    .tabnav button{font-size:14px;padding:9px 16px}
+    /* Updates section: roomier, more readable cards + easier category chips on phones */
+    .updates-sec{margin-top:26px}
+    .upd-sec-head{flex-wrap:wrap;gap:4px 10px}
+    .upd-c-title{font-size:16.5px}
+    .upd-c-note{font-size:14px;line-height:1.55}
+    .upd-card{padding:15px 16px}
+    #upd-cat-filters .filt{padding:9px 14px;font-size:13px}
+  }
   </style>
 </head>
 <body>
@@ -329,11 +449,21 @@
     </div>
   </div>
 
+  <!-- section quick-nav (anchor scroll) — high up so Updates is reachable on mobile -->
+  <div class="wrap navrow">
+    <nav class="tabnav" id="tabnav" aria-label="Jump to section">
+      <button type="button" data-go="map" data-i18n="navMap">Map</button>
+      <button type="button" data-go="shops" data-i18n="navShops">Shops</button>
+      <button type="button" data-go="routes" data-i18n="navRoutes">Routes</button>
+      <button type="button" data-go="updates" class="tabnav-upd"><span data-i18n="navUpdates">Updates</span><span class="tabnav-badge" id="tabnav-badge" hidden></span></button>
+    </nav>
+  </div>
+
   <header class="top">
     <div class="wrap">
       <p class="kicker" data-i18n="kicker">Full Japan Fashion Map · 2026 Edition</p>
       <h1 class="title">Full Japan Fashion Map</h1>
-      <div class="price-row"><span class="price">$19<small>2026 Edition</small></span></div>
+      <div class="edition-row"><span class="edition-badge" data-i18n="editionBadge">2026 Edition</span></div>
       <p class="sub" data-i18n="sub">A researched, route-based shopping map for a real Japan trip — the shops worth crossing a city for, in the order to walk them.</p>
       <div class="diffs">
         <span data-i18n="d1">Route depth</span><span data-i18n="d2">Hidden shops</span><span data-i18n="d3">Brand notes</span><span data-i18n="d4">Shopping strategy</span><span data-i18n="d5">Travel-friendly order</span>
@@ -350,7 +480,7 @@
       <p class="city-blurb" id="city-blurb"></p>
       <p class="city-stats" id="city-stats"></p>
 
-      <h2 class="h" data-i18n="filterMap">Filter the map</h2>
+      <h2 class="h" id="filter-head" data-i18n="filterMap">Filter the map</h2>
       <div class="toolbar">
         <div class="search"><input type="search" id="shop-search" data-i18n-ph="searchPh" placeholder="Search shop, brand, tag or area…" autocomplete="off" /></div>
       </div>
@@ -369,6 +499,11 @@
       <div class="mapwrap"><div id="paid-map" role="application" aria-label="Paid map"></div></div>
       <div class="maptools"><button type="button" class="recenter" id="recenter" data-i18n="recenter" aria-label="Recenter map on visible shops">⟳ Recenter</button></div>
 
+      <!-- Japan Fashion Updates: small "this week" banner (rendered by JS; hidden if no data) -->
+      <div class="upd-banner" id="upd-banner" hidden></div>
+      <!-- Latest updates mini cards (horizontal swipe on mobile; rendered by JS) -->
+      <div class="upd-latest" id="upd-latest" hidden></div>
+
       <div class="listhead"><h2 id="shops-head">Shops</h2><span class="count" id="shop-count"></span></div>
       <div class="route-invite">
         <div>
@@ -382,6 +517,32 @@
       <h2 class="h" id="routes-head" data-i18n="curatedRoutes">Curated routes</h2>
       <p class="routes-intro" data-i18n="routesIntro">Walkable shopping plans built from the shops above — in the order to actually walk them. Pick one to focus the map and shop list.</p>
       <div class="routes" id="routes"></div>
+
+      <!-- ===== Japan Fashion Updates (full list) ===== -->
+      <section class="updates-sec" id="updates" aria-label="Japan Fashion Updates">
+        <div class="upd-sec-head">
+          <h2 data-i18n="updatesTitle">Japan Fashion Updates</h2>
+          <span class="upd-sec-count" id="upd-sec-count"></span>
+        </div>
+        <p class="upd-sec-intro" data-i18n="updatesIntro">Flea markets, pop-ups, vintage fairs, store events and new-shop notes. Manually checked — always confirm dates and details with the source before you go.</p>
+        <div class="filt-row" id="upd-cat-filters" aria-label="Update categories"></div>
+        <div class="upd-grid" id="upd-grid"></div>
+        <details class="upd-past" id="upd-past" hidden>
+          <summary data-i18n="updatesPast">Past updates</summary>
+          <div class="upd-grid" id="upd-past-grid"></div>
+        </details>
+
+        <!-- Feedback: light CTA only — no submit wired in this phase -->
+        <div class="fb-cta" id="fb-cta">
+          <h3 data-i18n="fbTitle">Help keep the map accurate</h3>
+          <p data-i18n="fbSub">Spotted something to add, fix, or share? Send a quick note — we check everything before updating the map.</p>
+          <div class="fb-row">
+            <button type="button" class="fb-btn" data-fb="shop_suggestion" data-i18n="fbAdd">Found a shop we should add?</button>
+            <button type="button" class="fb-btn" data-fb="closed_or_moved" data-i18n="fbReport">Report an update or closure</button>
+            <button type="button" class="fb-btn" data-fb="map_feedback" data-i18n="fbFeedback">Send map feedback</button>
+          </div>
+        </div>
+      </section>
     </div>
   </section>
 
@@ -396,12 +557,14 @@
     <div class="wrap">
       <span data-i18n-html="footNote1">For personal use by the purchaser only. Shop details can change — please confirm hours, stock, prices, and access before visiting.</span>
       <span data-i18n="footNote2">Shop details can change — please confirm hours, stock, prices, and access before visiting.</span>
+      <span> · <button type="button" class="fb-foot-link" data-fb="map_feedback" data-i18n="fbFootLink">Send map feedback</button></span>
     </div>
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="./paid-map-data.js?v=2026-access-1"></script>
+  <script src="./updates-data.js?v=2026-updates-1"></script>
   <script>
   (function(){
     var D = window.TCN_PAID_PREVIEW;
@@ -425,7 +588,7 @@
 
     /* ---- i18n: EN / 中文 / 한국어 (UI labels only — shop names/brands/addresses/URLs untranslated) ---- */
     var I18N = {
-      en:{ kicker:"Full Japan Fashion Map · 2026 Edition", sub:"A researched, route-based shopping map for a real Japan trip — the shops worth crossing a city for, in the order to walk them.",
+      en:{ kicker:"Full Japan Fashion Map · 2026 Edition", editionBadge:"2026 Edition", sub:"A researched, route-based shopping map for a real Japan trip — the shops worth crossing a city for, in the order to walk them.",
         d1:"Route depth", d2:"Hidden shops", d3:"Brand notes", d4:"Shopping strategy", d5:"Travel-friendly order",
         filterMap:"Filter the map", area:"Area", styleMood:"Style / mood", rank:"Rank", status:"Status",
         searchPh:"Search shop, brand, tag or area…", recenter:"⟳ Recenter",
@@ -440,8 +603,18 @@
         verifiedWord:"verified", needCheckWord:"need final check", routesWord:"routes", shopsWord:"shops", newTag:"New",
         intbarNote:"<b>Full Japan Fashion Map - 2026 Edition.</b> For personal use by the purchaser only. Please confirm opening hours, stock, prices, and access before visiting.",
         footNote1:"For personal use by the purchaser only. Shop details can change — please confirm hours, stock, prices, and access before visiting.",
-        footNote2:"Shop details can change — please confirm hours, stock, prices, and access before visiting." },
-      zh:{ kicker:"完整日本时尚地图 · 2026 版", sub:"为真正的日本之旅精心研究的路线式购物地图——值得跨城前往的店铺，按步行顺序排列。",
+        footNote2:"Shop details can change — please confirm hours, stock, prices, and access before visiting.",
+        bannerTitle:"This week in Japan fashion", bannerSub:"Flea markets, pop-ups, vintage fairs and shop updates.", bannerCta:"View updates →",
+        bannerEmpty:"Japan fashion updates", bannerEmptySub:"No current updates — check back soon.",
+        latestTitle:"Latest updates", seeAll:"See all updates →",
+        updatesTitle:"Japan Fashion Updates", updatesIntro:"Flea markets, pop-ups, vintage fairs, store events and new-shop notes. Manually checked — always confirm dates and details with the source before you go.",
+        updatesPast:"Past updates", updEmpty:"No current updates this week.", updEmptySub:"We add new finds regularly — check back soon.",
+        stActive:"On now", stUpcoming:"Upcoming", stExpired:"Ended", confirmDetails:"Confirm details ↗", unconfirmed:"Unconfirmed", thisWeekWord:"This week", allCats:"All",
+        fbTitle:"Help keep the map accurate", fbSub:"Spotted something to add, fix, or share? Send a quick note — we check everything before updating the map.",
+        fbAdd:"Found a shop we should add?", fbReport:"Report an update or closure", fbFeedback:"Send map feedback", fbFootLink:"Send map feedback",
+        fbComingTitle:"Feedback form coming soon", fbComingMsg:"Thanks for wanting to help! The in-page feedback form isn't live yet. For now, email tokyoclosetnotes@outlook.jp or DM @tokyo_closet_notes.", fbClose:"Got it",
+        navMap:"Map", navShops:"Shops", navRoutes:"Routes", navUpdates:"Updates", updatesLiveWord:"happening now & upcoming" },
+      zh:{ kicker:"完整日本时尚地图 · 2026 版", editionBadge:"2026 版", sub:"为真正的日本之旅精心研究的路线式购物地图——值得跨城前往的店铺，按步行顺序排列。",
         d1:"路线深度", d2:"隐藏店铺", d3:"品牌笔记", d4:"购物策略", d5:"适合旅行的顺序",
         filterMap:"筛选地图", area:"区域", styleMood:"风格 / 氛围", rank:"评级", status:"状态",
         searchPh:"搜索店铺、品牌、标签或区域…", recenter:"⟳ 重新居中",
@@ -456,8 +629,18 @@
         verifiedWord:"已确认", needCheckWord:"待确认", routesWord:"条路线", shopsWord:"家店铺", newTag:"新",
         intbarNote:"<b>Full Japan Fashion Map - 2026 Edition。</b>仅供购买者个人使用。到访前请确认营业时间、库存、价格与交通。",
         footNote1:"仅供购买者个人使用。店铺信息可能变动——到访前请确认营业时间、库存、价格与交通。",
-        footNote2:"店铺信息可能变动——到访前请确认营业时间、库存、价格与交通。" },
-      ko:{ kicker:"풀 재팬 패션 맵 · 2026 에디션", sub:"진짜 일본 여행을 위한 리서치 기반 루트형 쇼핑 지도 — 도시를 가로질러 갈 가치가 있는 매장을, 걷는 순서대로.",
+        footNote2:"店铺信息可能变动——到访前请确认营业时间、库存、价格与交通。",
+        bannerTitle:"本周日本时尚", bannerSub:"跳蚤市集、快闪、古着展与店铺动态。", bannerCta:"查看动态 →",
+        bannerEmpty:"日本时尚动态", bannerEmptySub:"暂无最新动态——请稍后再来。",
+        latestTitle:"最新动态", seeAll:"查看全部动态 →",
+        updatesTitle:"日本时尚动态", updatesIntro:"跳蚤市集、快闪、古着展、店铺企划与新店笔记。均为人工核查——出发前请向来源确认日期与详情。",
+        updatesPast:"往期动态", updEmpty:"本周暂无最新动态。", updEmptySub:"我们会定期更新——请稍后再来。",
+        stActive:"进行中", stUpcoming:"即将开始", stExpired:"已结束", confirmDetails:"确认详情 ↗", unconfirmed:"待确认", thisWeekWord:"本周", allCats:"全部",
+        fbTitle:"帮助保持地图准确", fbSub:"发现可补充、需更正或想分享的内容？发条简短留言——我们会先核查再更新地图。",
+        fbAdd:"有想推荐加入的店铺？", fbReport:"报告动态或闭店", fbFeedback:"发送地图反馈", fbFootLink:"发送地图反馈",
+        fbComingTitle:"反馈表单即将上线", fbComingMsg:"感谢你的帮助！页内反馈表单尚未上线。目前请发邮件至 tokyoclosetnotes@outlook.jp 或私信 @tokyo_closet_notes。", fbClose:"知道了",
+        navMap:"地图", navShops:"店铺", navRoutes:"路线", navUpdates:"动态", updatesLiveWord:"进行中・即将开始" },
+      ko:{ kicker:"풀 재팬 패션 맵 · 2026 에디션", editionBadge:"2026 에디션", sub:"진짜 일본 여행을 위한 리서치 기반 루트형 쇼핑 지도 — 도시를 가로질러 갈 가치가 있는 매장을, 걷는 순서대로.",
         d1:"루트 깊이", d2:"숨은 매장", d3:"브랜드 노트", d4:"쇼핑 전략", d5:"여행 친화적 순서",
         filterMap:"지도 필터", area:"지역", styleMood:"스타일 / 무드", rank:"등급", status:"상태",
         searchPh:"매장, 브랜드, 태그 또는 지역 검색…", recenter:"⟳ 다시 중앙으로",
@@ -472,7 +655,17 @@
         verifiedWord:"확인", needCheckWord:"확인 필요", routesWord:"개 루트", shopsWord:"개 매장", newTag:"신규",
         intbarNote:"<b>Full Japan Fashion Map - 2026 Edition.</b> 구매자 본인의 개인 사용 전용. 방문 전 영업시간, 재고, 가격, 접근성을 확인하세요.",
         footNote1:"구매자 본인의 개인 사용 전용. 매장 정보는 바뀔 수 있습니다 — 방문 전 영업시간·재고·가격·접근성을 확인하세요.",
-        footNote2:"매장 정보는 바뀔 수 있습니다 — 방문 전 영업시간·재고·가격·접근성을 확인하세요." }
+        footNote2:"매장 정보는 바뀔 수 있습니다 — 방문 전 영업시간·재고·가격·접근성을 확인하세요.",
+        bannerTitle:"이번 주 일본 패션", bannerSub:"플리마켓, 팝업, 빈티지 페어, 매장 소식.", bannerCta:"업데이트 보기 →",
+        bannerEmpty:"일본 패션 업데이트", bannerEmptySub:"현재 업데이트가 없습니다 — 곧 다시 확인하세요.",
+        latestTitle:"최신 업데이트", seeAll:"전체 업데이트 보기 →",
+        updatesTitle:"일본 패션 업데이트", updatesIntro:"플리마켓, 팝업, 빈티지 페어, 매장 행사, 신규 매장 노트. 직접 확인한 정보이며 — 방문 전 출처에서 날짜와 세부사항을 꼭 확인하세요.",
+        updatesPast:"지난 업데이트", updEmpty:"이번 주 업데이트가 없습니다.", updEmptySub:"새 소식을 꾸준히 추가합니다 — 곧 다시 확인하세요.",
+        stActive:"진행 중", stUpcoming:"예정", stExpired:"종료", confirmDetails:"세부사항 확인 ↗", unconfirmed:"미확인", thisWeekWord:"이번 주", allCats:"전체",
+        fbTitle:"지도 정확도 유지에 도움 주세요", fbSub:"추가·수정·공유할 내용을 발견하셨나요? 간단히 알려주세요 — 지도 반영 전 모두 확인합니다.",
+        fbAdd:"추가하면 좋을 매장이 있나요?", fbReport:"업데이트·폐점 제보", fbFeedback:"지도 피드백 보내기", fbFootLink:"지도 피드백 보내기",
+        fbComingTitle:"피드백 폼 준비 중", fbComingMsg:"도와주셔서 감사합니다! 페이지 내 피드백 폼은 아직 준비 중입니다. 지금은 tokyoclosetnotes@outlook.jp 이메일 또는 @tokyo_closet_notes DM으로 보내주세요.", fbClose:"확인",
+        navMap:"지도", navShops:"매장", navRoutes:"루트", navUpdates:"업데이트", updatesLiveWord:"진행 중·예정" }
     };
     var LANG = (function(){ try{ return localStorage.getItem('tcnLang')||'en'; }catch(e){ return 'en'; } })();
     if(!I18N[LANG]) LANG='en';
@@ -518,6 +711,7 @@
         var sh=shopById(state.openShopId);
         if(sh){ var body=document.getElementById('sheet-body'); var top=body?body.scrollTop:0; if(body){ body.innerHTML=sheetHtml(sh); body.scrollTop=top; } }
       }
+      renderUpdates(); renderLatestUpdates();  // Japan Fashion Updates re-render in the active language
       // NOTE: map position is intentionally left untouched (no applyView) to preserve the current view.
     }
     function setLang(lang){
@@ -546,6 +740,7 @@
     });
     applyStaticI18n();
     selectCity("tokyo");
+    renderUpdates(); renderLatestUpdates();   // Japan Fashion Updates (nationwide, independent of city)
     setTimeout(function(){ map.invalidateSize(); applyView(); },250);
 
     function cityShops(){ return SHOPS.filter(function(s){return s.cityId===state.city;}); }
@@ -860,6 +1055,173 @@
       return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(parts.join(', '));
     }
     function esc(v){ return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+    /* ===================== Japan Fashion Updates (manual, verify-first) =====================
+       Reads window.TCN_PAID_UPDATES (separate file). Never mutates shop data. Status is
+       computed from dates each render; expired items drop to a collapsed "Past" section. */
+    var UPD_CAT = {
+      flea:        {en:"Flea market", zh:"跳蚤市集", ko:"플리마켓"},
+      popup:       {en:"Pop-up",       zh:"快闪",     ko:"팝업"},
+      brand_event: {en:"Brand event",  zh:"品牌活动", ko:"브랜드 행사"},
+      vintage_fair:{en:"Vintage fair", zh:"古着展",   ko:"빈티지 페어"},
+      dept_event:  {en:"Store event",  zh:"店铺企划", ko:"매장 행사"},
+      new_shop:    {en:"New shop",     zh:"新店",     ko:"신규 매장"},
+      area_note:   {en:"Area note",    zh:"区域笔记", ko:"지역 노트"},
+      limited_info:{en:"Limited info", zh:"限定情报", ko:"한정 정보"}
+    };
+    var updCat = 'all';   // active category filter in the Updates section
+
+    function catLabel(c){ var m=UPD_CAT[c]; return m ? (m[LANG]||m.en) : (c||''); }
+    function updTitle(u){ return (LANG==='zh'&&u.titleZh)||(LANG==='ko'&&u.titleKo)||u.title||''; }
+    function updNote(u){ return (LANG==='zh'&&u.noteZh)||(LANG==='ko'&&u.noteKo)||u.note||''; }
+    function updCityName(u){ if(u.city && CITIES[u.city]) return CITIES[u.city].name; return u.city ? (u.city.charAt(0).toUpperCase()+u.city.slice(1)) : ''; }
+    function parseISO(d){ if(!d) return null; var p=String(d).split('-'); if(p.length!==3) return null; var dt=new Date(+p[0],(+p[1])-1,+p[2]); return isNaN(dt.getTime())?null:dt; }
+    function todayMid(){ var n=new Date(); return new Date(n.getFullYear(),n.getMonth(),n.getDate()); }
+    function fmtRange(u){ var s=parseISO(u.dateStart), e=parseISO(u.dateEnd)||s; if(!s) return '';
+      function md(d){ return (d.getMonth()+1)+'/'+d.getDate(); }
+      return (e && e.getTime()!==s.getTime()) ? md(s)+'–'+md(e) : md(s); }
+    function updStatus(u){ if(u.status==='hold') return 'hold';
+      var s=parseISO(u.dateStart), e=parseISO(u.dateEnd)||s, today=todayMid();
+      if(e && e.getTime() < today.getTime()) return 'expired';
+      if(s && s.getTime() > today.getTime()) return 'upcoming';
+      return 'active'; }
+    function getUpdates(){ try{ var U=window.TCN_PAID_UPDATES; return (U&&U.updates)?U.updates.slice():[]; }catch(e){ return []; } }
+    function liveUpdates(){   // non-hold, non-expired; featured pinned, then by start date
+      return getUpdates().filter(function(u){ var st=updStatus(u); return st!=='hold' && st!=='expired'; })
+        .sort(function(a,b){
+          var af=a.status==='featured'?0:1, bf=b.status==='featured'?0:1; if(af!==bf) return af-bf;
+          var as=parseISO(a.dateStart), bs=parseISO(b.dateStart);
+          return (as?as.getTime():0)-(bs?bs.getTime():0);
+        }); }
+    function expiredUpdates(){ return getUpdates().filter(function(u){ return updStatus(u)==='expired'; })
+        .sort(function(a,b){ var ae=parseISO(a.dateEnd)||parseISO(a.dateStart), be=parseISO(b.dateEnd)||parseISO(b.dateStart);
+          return (be?be.getTime():0)-(ae?ae.getTime():0); }); }
+    function thisWeekCount(){ var t7=todayMid().getTime()+7*864e5;
+      return liveUpdates().filter(function(u){ var s=parseISO(u.dateStart); return s && s.getTime()<=t7; }).length; }
+
+    function updPill(st){
+      var lab = st==='upcoming'?t('stUpcoming'):(st==='expired'?t('stExpired'):t('stActive'));
+      return '<span class="upd-pill is-'+st+'">'+esc(lab)+'</span>';
+    }
+    function updCardHtml(u){
+      var st=updStatus(u), loc=[updCityName(u), u.area, u.venue].filter(Boolean).map(esc).join(' · ');
+      return '<article class="upd-card'+(u.status==='featured'?' is-featured':'')+'">'+
+        '<div class="upd-c-top"><span class="upd-cat">'+esc(catLabel(u.category))+'</span>'+updPill(st)+
+          '<span class="upd-date">'+esc(fmtRange(u))+'</span></div>'+
+        '<h3 class="upd-c-title">'+esc(updTitle(u))+'</h3>'+
+        (loc?'<p class="upd-c-loc">'+loc+'</p>':'')+
+        (updNote(u)?'<p class="upd-c-note">'+esc(updNote(u))+'</p>':'')+
+        '<div class="upd-c-foot">'+
+          (u.sourceUrl?'<a class="upd-c-src" target="_blank" rel="noopener" href="'+esc(u.sourceUrl)+'">'+t('confirmDetails')+'</a>':'')+
+          (u.verified===false?'<span class="upd-unverified">'+t('unconfirmed')+'</span>':'')+
+        '</div></article>';
+    }
+    function renderUpdates(){
+      var grid=document.getElementById('upd-grid'); if(!grid) return;
+      var live=liveUpdates(), past=expiredUpdates();
+      // top quick-nav badge + section count (active + upcoming)
+      var tb=document.getElementById('tabnav-badge');
+      if(tb){ if(live.length){ tb.hidden=false; tb.textContent=String(live.length); } else { tb.hidden=true; tb.textContent=''; } }
+      var sc=document.getElementById('upd-sec-count');
+      if(sc){ sc.textContent = live.length ? (live.length+' '+t('updatesLiveWord')) : ''; }
+      // category filter chips (All + categories present in live list)
+      var fw=document.getElementById('upd-cat-filters');
+      if(fw){
+        var cats=[]; live.forEach(function(u){ if(u.category && cats.indexOf(u.category)===-1) cats.push(u.category); });
+        if(cats.indexOf(updCat)===-1 && updCat!=='all') updCat='all';
+        fw.innerHTML='';
+        var mk=function(val,label){ var b=document.createElement('button'); b.type='button';
+          b.className='filt'+(updCat===val?' active':''); b.textContent=label;
+          b.addEventListener('click',function(){ updCat=val; renderUpdates(); }); fw.appendChild(b); };
+        mk('all', t('allCats'));
+        cats.forEach(function(c){ mk(c, catLabel(c)); });
+        fw.style.display = cats.length>1 ? '' : 'none';
+      }
+      // main grid (filtered by category)
+      var shown = updCat==='all' ? live : live.filter(function(u){ return u.category===updCat; });
+      if(shown.length){ grid.innerHTML=shown.map(updCardHtml).join(''); }
+      else{ grid.innerHTML='<div class="upd-empty"><span class="em-emoji">🗓️</span><p><b>'+esc(t('updEmpty'))+'</b><br>'+esc(t('updEmptySub'))+'</p></div>'; }
+      // past (expired) — collapsed, hidden entirely when none
+      var pastWrap=document.getElementById('upd-past'), pastGrid=document.getElementById('upd-past-grid');
+      if(pastWrap && pastGrid){
+        if(past.length){ pastGrid.innerHTML=past.map(updCardHtml).join(''); pastWrap.hidden=false;
+          pastWrap.querySelector('summary').textContent=t('updatesPast')+' ('+past.length+')'; }
+        else{ pastWrap.hidden=true; pastGrid.innerHTML=''; }
+      }
+      // "this week" banner under the map
+      var bn=document.getElementById('upd-banner');
+      if(bn){
+        var liveCount=live.length, wk=thisWeekCount();
+        if(liveCount>0){
+          bn.classList.remove('is-empty'); bn.hidden=false;
+          var badge = wk>0 ? (t('thisWeekWord')+' '+wk) : (''+liveCount);
+          bn.innerHTML='<div class="upd-bn-l"><p class="upd-bn-title">'+esc(t('bannerTitle'))+
+              ' <span class="upd-bn-badge">'+esc(badge)+'</span></p>'+
+              '<p class="upd-bn-sub">'+esc(t('bannerSub'))+'</p></div>'+
+            '<button type="button" class="upd-bn-btn" id="upd-bn-go">'+esc(t('bannerCta'))+'</button>';
+          var go=document.getElementById('upd-bn-go'); if(go) go.addEventListener('click', gotoUpdates);
+        } else {
+          bn.classList.add('is-empty'); bn.hidden=false;
+          bn.innerHTML='<div class="upd-bn-l"><p class="upd-bn-title">'+esc(t('bannerEmpty'))+'</p>'+
+              '<p class="upd-bn-sub">'+esc(t('bannerEmptySub'))+'</p></div>';
+        }
+      }
+    }
+    function renderLatestUpdates(){
+      var wrap=document.getElementById('upd-latest'); if(!wrap) return;
+      var live=liveUpdates().slice(0,3);
+      if(!live.length){ wrap.hidden=true; wrap.innerHTML=''; return; }
+      wrap.hidden=false;
+      wrap.innerHTML='<div class="upd-latest-head"><h2>'+esc(t('latestTitle'))+'</h2>'+
+          '<button type="button" class="upd-seeall" id="upd-seeall">'+esc(t('seeAll'))+'</button></div>'+
+        '<div class="upd-mini-row">'+live.map(function(u){
+          var meta=[updCityName(u), u.area].filter(Boolean).map(esc).join(' · ');
+          return '<button type="button" class="upd-mini" data-upd="'+esc(u.id)+'">'+
+            '<div class="upd-mini-top"><span class="upd-cat">'+esc(catLabel(u.category))+'</span>'+
+              '<span class="upd-date">'+esc(fmtRange(u))+'</span></div>'+
+            '<p class="upd-mini-title">'+esc(updTitle(u))+'</p>'+
+            (meta?'<p class="upd-mini-meta">'+meta+'</p>':'')+'</button>';
+        }).join('')+'</div>';
+      var sa=document.getElementById('upd-seeall'); if(sa) sa.addEventListener('click', gotoUpdates);
+      wrap.querySelectorAll('.upd-mini').forEach(function(b){
+        b.addEventListener('click', function(){ gotoUpdates(b.getAttribute('data-upd')); });
+      });
+    }
+    // jump to the Updates section; optionally flash the matching card
+    function gotoUpdates(id){
+      var sec=document.getElementById('updates'); if(sec) sec.scrollIntoView({behavior:'smooth', block:'start'});
+      if(typeof id==='string' && id){
+        setTimeout(function(){
+          var cards=document.querySelectorAll('#upd-grid .upd-card');
+          var live=liveUpdates(), shown=updCat==='all'?live:live.filter(function(u){return u.category===updCat;});
+          var idx=-1; shown.forEach(function(u,i){ if(u.id===id) idx=i; });
+          var el=idx>=0?cards[idx]:null;
+          if(el){ el.style.transition='box-shadow .3s var(--ease)'; el.style.boxShadow='0 0 0 2px var(--pgold2)';
+            setTimeout(function(){ el.style.boxShadow=''; },1100); }
+        }, 360);
+      }
+    }
+    // Feedback CTAs — light contact panel only (NO submission wired this phase)
+    function openFeedbackPanel(){
+      var body=document.getElementById('sheet-body'), sheet=document.getElementById('sheet'), scrim=document.getElementById('sheet-scrim');
+      if(!body||!sheet) return;
+      body.innerHTML='<div class="sheet-top"><h3 class="sheet-name">'+esc(t('fbComingTitle'))+'</h3></div>'+
+        '<p class="sheet-desc">'+esc(t('fbComingMsg'))+'</p>'+
+        '<div class="act"><a class="maps" href="mailto:tokyoclosetnotes@outlook.jp">tokyoclosetnotes@outlook.jp</a></div>';
+      body.scrollTop=0; sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false'); if(scrim) scrim.classList.add('show');
+    }
+    document.querySelectorAll('[data-fb]').forEach(function(b){ b.addEventListener('click', function(){ openFeedbackPanel(); }); });
+    // top section quick-nav — anchor scroll only (no scroll-spy / sticky)
+    var NAV_TARGET={ map:'filter-head', shops:'shops-head', routes:'routes-head', updates:'updates' };
+    document.querySelectorAll('#tabnav [data-go]').forEach(function(b){
+      b.addEventListener('click', function(){ var el=document.getElementById(NAV_TARGET[b.getAttribute('data-go')]); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); });
+    });
+    // Escape also closes the light feedback panel (additive; shop-sheet Escape is wired separately)
+    document.addEventListener('keydown', function(e){
+      if(e.key==='Escape' && !state.openShopId){ var sh=document.getElementById('sheet');
+        if(sh && sh.classList.contains('open')){ sh.classList.remove('open'); sh.setAttribute('aria-hidden','true');
+          var sc=document.getElementById('sheet-scrim'); if(sc) sc.classList.remove('show'); } }
+    });
 
     // search box (wired once) — search is a separate layer; it does not clear the active route
     var searchEl=document.getElementById('shop-search');
