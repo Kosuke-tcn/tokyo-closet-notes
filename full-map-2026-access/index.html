@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" translate="no">
+<html lang="en" translate="no" class="tcn-locked">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -475,9 +475,58 @@
     #upd-grid>.upd-empty{flex:0 0 100%;scroll-snap-align:center}
     .upd-act{padding:10px 14px;font-size:13px}
   }
+
+  /* ===== Buyer access gate (MVP soft password) ===== */
+  html.tcn-locked{overflow:hidden}
+  html.tcn-locked body{overflow:hidden}
+  .tcn-gate{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;
+    padding:24px 20px;background:radial-gradient(120% 120% at 50% 0%,var(--psurface),var(--pbg));overflow-y:auto}
+  .tcn-gate-card{width:100%;max-width:380px;background:linear-gradient(180deg,var(--pcard2),var(--psurface));
+    border:1px solid var(--pborder);border-radius:18px;box-shadow:0 28px 70px -30px rgba(0,0,0,.9);
+    padding:26px 22px 22px;text-align:center}
+  .tcn-gate-langs{display:inline-flex;gap:2px;background:rgba(255,255,255,.06);border:1px solid var(--pborder);
+    border-radius:999px;padding:3px;margin:0 0 16px}
+  .tcn-gate-langs button{font:inherit;font-family:var(--round);font-size:12px;font-weight:700;cursor:pointer;color:var(--pmuted);
+    background:none;border:0;border-radius:999px;padding:5px 12px;transition:background .15s,color .15s}
+  .tcn-gate-langs button:hover{color:#fff}
+  .tcn-gate-langs button.active{background:var(--pred);color:#fff}
+  .tcn-gate-kicker{font-family:var(--round);font-weight:700;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--pgold2);margin:0 0 8px}
+  .tcn-gate-title{font-family:var(--round);font-weight:700;font-size:23px;line-height:1.2;margin:0 0 8px;color:#fff;letter-spacing:-.01em}
+  .tcn-gate-sub{font-size:13.5px;color:var(--psoft);line-height:1.5;margin:0 0 18px}
+  .tcn-gate-input{width:100%;font:inherit;font-size:16px;color:var(--pink);background:rgba(255,255,255,.05);
+    border:1px solid var(--pborder);border-radius:12px;padding:13px 15px;text-align:center;letter-spacing:.02em}
+  .tcn-gate-input::placeholder{color:var(--pmuted)}
+  .tcn-gate-input:focus{outline:none;border-color:var(--pred)}
+  .tcn-gate-btn{width:100%;font:inherit;font-family:var(--round);font-size:15px;font-weight:700;cursor:pointer;
+    margin-top:11px;border-radius:12px;padding:13px;border:1px solid var(--pred);background:var(--pred);color:#fff;
+    transition:background .15s,border-color .15s}
+  .tcn-gate-btn:hover{background:var(--pred-d);border-color:var(--pred-d)}
+  .tcn-gate-error{display:none;font-size:12.5px;font-weight:700;color:#f3a39b;margin:12px 0 0;line-height:1.45}
+  .tcn-gate-remember{font-size:11.5px;color:var(--pmuted);margin:14px 0 0;line-height:1.45}
+  .tcn-gate-note{font-size:11.5px;color:var(--pmuted);margin:10px 0 0;line-height:1.5;border-top:1px solid var(--pborder);padding-top:12px}
   </style>
 </head>
 <body>
+  <!-- ===== Buyer access gate (shown until the purchaser password is entered) ===== -->
+  <div id="tcn-gate" class="tcn-gate" role="dialog" aria-modal="true" aria-label="Purchaser access">
+    <div class="tcn-gate-card">
+      <div class="tcn-gate-langs" id="tcn-gate-langs" role="group" aria-label="Language">
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="zh">中文</button>
+        <button type="button" data-lang="ko">한국어</button>
+      </div>
+      <p class="tcn-gate-kicker">2026 Edition · Purchaser access</p>
+      <h1 id="tcn-gate-title" class="tcn-gate-title">Full Japan Fashion Map</h1>
+      <p id="tcn-gate-sub" class="tcn-gate-sub">Enter the purchaser password from your Payhip delivery PDF.</p>
+      <input id="tcn-gate-input" class="tcn-gate-input" type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Password" aria-label="Password" />
+      <button id="tcn-gate-unlock" type="button" class="tcn-gate-btn">Unlock map</button>
+      <p id="tcn-gate-error" class="tcn-gate-error" role="alert"></p>
+      <p id="tcn-gate-remember" class="tcn-gate-remember">This device will stay unlocked after a successful password entry.</p>
+      <p id="tcn-gate-note" class="tcn-gate-note">This page is for personal use by the purchaser only. Do not share the access link or password.</p>
+    </div>
+  </div>
+
   <div class="intbar"><div class="wrap"><span data-i18n-html="intbarNote"><b>Full Japan Fashion Map - 2026 Edition.</b> For personal use by the purchaser only. Please confirm opening hours, stock, prices, and access before visiting.</span></div></div>
 
   <div class="wrap langrow">
@@ -615,10 +664,12 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="./paid-map-data.js?v=2026-access-1"></script>
-  <script src="./updates-data.js?v=2026-updates-1"></script>
+  <!-- buyer access gate config (access version + hashed password; contains NO shop data) -->
+  <script src="./access-config.js?v=1"></script>
+  <!-- NOTE: paid-map-data.js / updates-data.js are intentionally NOT loaded here.
+       The password gate injects them only after a successful unlock (see gate script below). -->
   <script>
-  (function(){
+  window.__tcnBoot = function(){
     var D = window.TCN_PAID_PREVIEW;
     if(!D || typeof L==="undefined"){ document.getElementById('shop-grid').innerHTML='<p style="color:#f0c674">Data or map library failed to load.</p>'; return; }
     var CITIES = D.cities, SHOPS = D.shops;
@@ -1361,6 +1412,122 @@
     var sheetScrim=document.getElementById('sheet-scrim');
     if(sheetScrim){ sheetScrim.addEventListener('click', closeSheet); }
     document.addEventListener('keydown', function(e){ if(e.key==='Escape' && state.openShopId){ closeSheet(); } });
+  };
+  </script>
+
+  <!-- ===== Buyer access gate (MVP soft password; NOT true authentication) ===== -->
+  <script>
+  (function(){
+    var ACC = window.TCN_ACCESS || {version:0, salt:"", hash:""};
+    var KEY = 'tcnPaidAccess';
+    var gate   = document.getElementById('tcn-gate');
+    var booted = false;
+
+    // gate UI strings (self-contained so they work before the main app i18n loads)
+    var G = {
+      en:{ title:"Full Japan Fashion Map", sub:"Enter the purchaser password from your Payhip delivery PDF.",
+           ph:"Password", unlock:"Unlock map",
+           note:"This page is for personal use by the purchaser only. Do not share the access link or password.",
+           remember:"This device will stay unlocked after a successful password entry.",
+           wrong:"That password did not work. Please check your Payhip delivery PDF and try again." },
+      zh:{ title:"完整日本时尚地图", sub:"请输入 Payhip 交付 PDF 中的购买者密码。",
+           ph:"密码", unlock:"解锁地图",
+           note:"本页仅供购买者个人使用。请勿分享访问链接或密码。",
+           remember:"成功输入密码后，本设备将保持解锁状态。",
+           wrong:"密码不正确。请查看你的 Payhip 交付 PDF 后重试。" },
+      ko:{ title:"풀 재팬 패션 맵", sub:"Payhip 전달 PDF에 있는 구매자 비밀번호를 입력하세요.",
+           ph:"비밀번호", unlock:"지도 잠금 해제",
+           note:"이 페이지는 구매자 본인의 개인 사용 전용입니다. 액세스 링크나 비밀번호를 공유하지 마세요.",
+           remember:"비밀번호 입력에 성공하면 이 기기는 잠금 해제 상태로 유지됩니다.",
+           wrong:"비밀번호가 올바르지 않습니다. Payhip 전달 PDF를 확인한 뒤 다시 시도하세요." }
+    };
+    function lang(){ try{ var l=localStorage.getItem('tcnLang'); return G[l]?l:'en'; }catch(e){ return 'en'; } }
+    function tg(k){ return (G[lang()]||G.en)[k]; }
+
+    function paintGate(){
+      if(!gate) return;
+      var d=G[lang()]||G.en;
+      var set=function(id,txt){ var el=document.getElementById(id); if(el) el.textContent=txt; };
+      set('tcn-gate-title', d.title); set('tcn-gate-sub', d.sub);
+      set('tcn-gate-unlock', d.unlock); set('tcn-gate-note', d.note); set('tcn-gate-remember', d.remember);
+      var inp=document.getElementById('tcn-gate-input'); if(inp) inp.setAttribute('placeholder', d.ph);
+      document.querySelectorAll('#tcn-gate-langs button').forEach(function(b){
+        b.classList.toggle('active', b.getAttribute('data-lang')===lang()); });
+    }
+
+    function sha256Hex(str){
+      // crypto.subtle is available in secure contexts (https). Returns a Promise<hex>.
+      var enc=new TextEncoder().encode(str);
+      return crypto.subtle.digest('SHA-256', enc).then(function(buf){
+        var a=Array.prototype.map.call(new Uint8Array(buf), function(b){ return ('0'+b.toString(16)).slice(-2); });
+        return a.join('');
+      });
+    }
+
+    function loadScript(src){
+      return new Promise(function(res, rej){
+        var s=document.createElement('script'); s.src=src;
+        s.onload=function(){ res(); }; s.onerror=function(){ rej(new Error('load '+src)); };
+        document.body.appendChild(s);
+      });
+    }
+
+    function reveal(){
+      // remove the gate and let the page scroll/interact again
+      document.documentElement.classList.remove('tcn-locked');
+      if(gate){ gate.parentNode && gate.parentNode.removeChild(gate); }
+    }
+
+    function unlock(persist){
+      if(booted) return;
+      if(persist){ try{ localStorage.setItem(KEY, String(ACC.version)); }catch(e){} }
+      reveal();
+      // inject the paid data ONLY now, then boot the map
+      loadScript('./paid-map-data.js?v=2026-access-1')
+        .then(function(){ return loadScript('./updates-data.js?v=2026-updates-1'); })
+        .then(function(){ booted=true; if(typeof window.__tcnBoot==='function') window.__tcnBoot(); })
+        .catch(function(){ var g=document.getElementById('shop-grid'); if(g) g.innerHTML='<p style="color:#f0c674">Data failed to load. Please reload.</p>'; });
+    }
+
+    function alreadyUnlocked(){
+      try{ return localStorage.getItem(KEY)===String(ACC.version); }catch(e){ return false; }
+    }
+
+    function showError(){
+      var e=document.getElementById('tcn-gate-error'); if(e){ e.textContent=tg('wrong'); e.style.display='block'; }
+    }
+
+    function submit(){
+      var inp=document.getElementById('tcn-gate-input'); if(!inp) return;
+      var val=inp.value||'';
+      if(!val){ inp.focus(); return; }
+      sha256Hex((ACC.salt||'')+val).then(function(h){
+        if(h===ACC.hash){ unlock(true); }
+        else { showError(); inp.select(); }
+      }).catch(function(){ showError(); });
+    }
+
+    // wire language buttons on the gate (also stores tcnLang so the app opens in that language)
+    function wireLangs(){
+      document.querySelectorAll('#tcn-gate-langs button').forEach(function(b){
+        b.addEventListener('click', function(){
+          try{ localStorage.setItem('tcnLang', b.getAttribute('data-lang')); }catch(e){}
+          paintGate();
+        });
+      });
+    }
+
+    // ----- run -----
+    if(alreadyUnlocked()){
+      unlock(false);   // same device already unlocked -> skip the gate, just boot
+    } else {
+      paintGate(); wireLangs();
+      var btn=document.getElementById('tcn-gate-unlock');
+      var inp=document.getElementById('tcn-gate-input');
+      if(btn) btn.addEventListener('click', submit);
+      if(inp) inp.addEventListener('keydown', function(e){ if(e.key==='Enter'){ submit(); } });
+      if(inp) setTimeout(function(){ inp.focus(); }, 60);
+    }
   })();
   </script>
 </body>
