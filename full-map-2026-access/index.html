@@ -385,12 +385,24 @@
   .upd-c-title{font-family:var(--round);font-weight:700;font-size:16px;line-height:1.25;margin:0 0 4px;letter-spacing:-.01em}
   .upd-c-loc{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--pmuted);margin:0 0 8px}
   .upd-c-note{font-size:13.5px;color:var(--psoft);line-height:1.5;margin:0 0 10px}
-  .upd-c-foot{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-  .upd-c-src{font-size:12px;font-weight:700;text-decoration:none;color:var(--pgold2)}
-  .upd-c-src:hover{color:#fff}
-  .upd-unverified{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#f0c674;
-    background:rgba(240,198,116,.1);border:1px solid rgba(240,198,116,.35);border-radius:7px;padding:4px 8px}
-  .upd-unverified::before{content:"⚑"}
+  .upd-c-foot{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  /* card action buttons: Official source (outline/gold) + Open in Google Maps (red) */
+  .upd-act{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;
+    font-size:12.5px;font-weight:700;border-radius:8px;padding:9px 13px;transition:background .15s,border-color .15s,color .15s}
+  .upd-act-src{color:var(--pgold2);background:rgba(201,169,106,.12);border:1px solid rgba(201,169,106,.45)}
+  .upd-act-src:hover{background:rgba(201,169,106,.22);border-color:var(--pgold);color:#fff}
+  .upd-act-src::after{content:" ↗";font-weight:700}
+  .upd-act-maps{color:#fff;background:var(--pred);border:1px solid var(--pred)}
+  .upd-act-maps:hover{background:var(--pred-d);border-color:var(--pred-d)}
+  /* verify chip in the card top row */
+  .upd-vchip{font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border-radius:6px;padding:3px 7px;line-height:1;white-space:nowrap}
+  .upd-vchip.is-ok{background:rgba(80,180,120,.16);color:#9be3b6;border:1px solid rgba(120,210,160,.4)}
+  .upd-vchip.is-ok::before{content:"✓ "}
+  .upd-vchip.is-needs{background:rgba(240,198,116,.12);color:#f0c674;border:1px solid rgba(240,198,116,.4)}
+  .upd-vchip.is-needs::before{content:"⚑ "}
+  .upd-c-confirm{font-size:12px;color:#f0c674;margin:0 0 10px;line-height:1.4}
+  /* section-nav anchor targets: keep a little breathing room when scrolled to */
+  #filter-head,#shops-head,#routes-head,#updates{scroll-margin-top:14px}
   .upd-empty{text-align:center;padding:22px 16px;background:var(--pcard);border:1px solid var(--pborder);border-radius:12px}
   .upd-empty p{color:var(--psoft);font-size:13.5px;margin:0;line-height:1.5}
   .upd-empty .em-emoji{font-size:22px;display:block;margin:0 0 7px}
@@ -583,6 +595,22 @@
     // area/style/rank/status are multi-select arrays (empty = "All"); route is a single id or null
     var state = { city:"tokyo", area:[], style:[], rank:[], status:[], route:null, q:"", openShopId:null };
     var markers = {};
+
+    /* Japan Fashion Updates — category labels + active category filter.
+       Declared up here (NOT inside the Updates block lower down) so their values
+       exist before the init render call runs; a `var` assigned later would still be
+       `undefined` at init time and throw. */
+    var UPD_CAT = {
+      flea:        {en:"Flea market", zh:"跳蚤市集", ko:"플리마켓"},
+      popup:       {en:"Pop-up",       zh:"快闪",     ko:"팝업"},
+      brand_event: {en:"Brand event",  zh:"品牌活动", ko:"브랜드 행사"},
+      vintage_fair:{en:"Vintage fair", zh:"古着展",   ko:"빈티지 페어"},
+      dept_event:  {en:"Store event",  zh:"店铺企划", ko:"매장 행사"},
+      new_shop:    {en:"New shop",     zh:"新店",     ko:"신규 매장"},
+      area_note:   {en:"Area note",    zh:"区域笔记", ko:"지역 노트"},
+      limited_info:{en:"Limited info", zh:"限定情报", ko:"한정 정보"}
+    };
+    var updCat = 'all';   // active category filter in the Updates section
     // visibility level: explicit s.status wins; otherwise verify:false = "core", verify:true = "candidate".
     function statusOf(s){ return s.status || (s.verify ? "candidate" : "core"); }
 
@@ -610,6 +638,7 @@
         updatesTitle:"Japan Fashion Updates", updatesIntro:"Flea markets, pop-ups, vintage fairs, store events and new-shop notes. Manually checked — always confirm dates and details with the source before you go.",
         updatesPast:"Past updates", updEmpty:"No current updates this week.", updEmptySub:"We add new finds regularly — check back soon.",
         stActive:"On now", stUpcoming:"Upcoming", stExpired:"Ended", confirmDetails:"Confirm details ↗", unconfirmed:"Unconfirmed", thisWeekWord:"This week", allCats:"All",
+        officialSource:"Official source", updVerified:"Verified", updNeedsCheck:"Needs check", confirmVisit:"Confirm details before visiting.",
         fbTitle:"Help keep the map accurate", fbSub:"Spotted something to add, fix, or share? Send a quick note — we check everything before updating the map.",
         fbAdd:"Found a shop we should add?", fbReport:"Report an update or closure", fbFeedback:"Send map feedback", fbFootLink:"Send map feedback",
         fbComingTitle:"Feedback form coming soon", fbComingMsg:"Thanks for wanting to help! The in-page feedback form isn't live yet. For now, email tokyoclosetnotes@outlook.jp or DM @tokyo_closet_notes.", fbClose:"Got it",
@@ -636,6 +665,7 @@
         updatesTitle:"日本时尚动态", updatesIntro:"跳蚤市集、快闪、古着展、店铺企划与新店笔记。均为人工核查——出发前请向来源确认日期与详情。",
         updatesPast:"往期动态", updEmpty:"本周暂无最新动态。", updEmptySub:"我们会定期更新——请稍后再来。",
         stActive:"进行中", stUpcoming:"即将开始", stExpired:"已结束", confirmDetails:"确认详情 ↗", unconfirmed:"待确认", thisWeekWord:"本周", allCats:"全部",
+        officialSource:"官方信息", updVerified:"已确认", updNeedsCheck:"待确认", confirmVisit:"到访前请确认详情。",
         fbTitle:"帮助保持地图准确", fbSub:"发现可补充、需更正或想分享的内容？发条简短留言——我们会先核查再更新地图。",
         fbAdd:"有想推荐加入的店铺？", fbReport:"报告动态或闭店", fbFeedback:"发送地图反馈", fbFootLink:"发送地图反馈",
         fbComingTitle:"反馈表单即将上线", fbComingMsg:"感谢你的帮助！页内反馈表单尚未上线。目前请发邮件至 tokyoclosetnotes@outlook.jp 或私信 @tokyo_closet_notes。", fbClose:"知道了",
@@ -662,6 +692,7 @@
         updatesTitle:"일본 패션 업데이트", updatesIntro:"플리마켓, 팝업, 빈티지 페어, 매장 행사, 신규 매장 노트. 직접 확인한 정보이며 — 방문 전 출처에서 날짜와 세부사항을 꼭 확인하세요.",
         updatesPast:"지난 업데이트", updEmpty:"이번 주 업데이트가 없습니다.", updEmptySub:"새 소식을 꾸준히 추가합니다 — 곧 다시 확인하세요.",
         stActive:"진행 중", stUpcoming:"예정", stExpired:"종료", confirmDetails:"세부사항 확인 ↗", unconfirmed:"미확인", thisWeekWord:"이번 주", allCats:"전체",
+        officialSource:"공식 정보", updVerified:"확인됨", updNeedsCheck:"확인 필요", confirmVisit:"방문 전 세부사항을 확인하세요.",
         fbTitle:"지도 정확도 유지에 도움 주세요", fbSub:"추가·수정·공유할 내용을 발견하셨나요? 간단히 알려주세요 — 지도 반영 전 모두 확인합니다.",
         fbAdd:"추가하면 좋을 매장이 있나요?", fbReport:"업데이트·폐점 제보", fbFeedback:"지도 피드백 보내기", fbFootLink:"지도 피드백 보내기",
         fbComingTitle:"피드백 폼 준비 중", fbComingMsg:"도와주셔서 감사합니다! 페이지 내 피드백 폼은 아직 준비 중입니다. 지금은 tokyoclosetnotes@outlook.jp 이메일 또는 @tokyo_closet_notes DM으로 보내주세요.", fbClose:"확인",
@@ -711,7 +742,7 @@
         var sh=shopById(state.openShopId);
         if(sh){ var body=document.getElementById('sheet-body'); var top=body?body.scrollTop:0; if(body){ body.innerHTML=sheetHtml(sh); body.scrollTop=top; } }
       }
-      renderUpdates(); renderLatestUpdates();  // Japan Fashion Updates re-render in the active language
+      try{ renderUpdates(); renderLatestUpdates(); }catch(e){}  // Japan Fashion Updates re-render in the active language
       // NOTE: map position is intentionally left untouched (no applyView) to preserve the current view.
     }
     function setLang(lang){
@@ -740,7 +771,8 @@
     });
     applyStaticI18n();
     selectCity("tokyo");
-    renderUpdates(); renderLatestUpdates();   // Japan Fashion Updates (nationwide, independent of city)
+    // Updates render is wrapped so a data hiccup can never abort the section-nav wiring below.
+    try{ renderUpdates(); renderLatestUpdates(); }catch(updErr){ if(window.console) console.error('Updates render failed:', updErr); }
     setTimeout(function(){ map.invalidateSize(); applyView(); },250);
 
     function cityShops(){ return SHOPS.filter(function(s){return s.cityId===state.city;}); }
@@ -1057,20 +1089,13 @@
     function esc(v){ return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
     /* ===================== Japan Fashion Updates (manual, verify-first) =====================
-       Reads window.TCN_PAID_UPDATES (separate file). Never mutates shop data. Status is
-       computed from dates each render; expired items drop to a collapsed "Past" section. */
-    var UPD_CAT = {
-      flea:        {en:"Flea market", zh:"跳蚤市集", ko:"플리마켓"},
-      popup:       {en:"Pop-up",       zh:"快闪",     ko:"팝업"},
-      brand_event: {en:"Brand event",  zh:"品牌活动", ko:"브랜드 행사"},
-      vintage_fair:{en:"Vintage fair", zh:"古着展",   ko:"빈티지 페어"},
-      dept_event:  {en:"Store event",  zh:"店铺企划", ko:"매장 행사"},
-      new_shop:    {en:"New shop",     zh:"新店",     ko:"신규 매장"},
-      area_note:   {en:"Area note",    zh:"区域笔记", ko:"지역 노트"},
-      limited_info:{en:"Limited info", zh:"限定情报", ko:"한정 정보"}
-    };
-    var updCat = 'all';   // active category filter in the Updates section
-
+       Reads window.TCN_PAID_UPDATES (separate file). Never mutates shop data.
+       - Display status is date-driven: active / upcoming / expired.
+       - status:"hold" always hides an entry (drafts / paused).
+       - featured:true pins an entry to the top of the list.
+       - The TAB/section count badge = ACTIVE + UPCOMING only (expired & hold excluded).
+       UPD_CAT / updCat are declared near the top of this script (not here) so their
+       values exist before the init render call. */
     function catLabel(c){ var m=UPD_CAT[c]; return m ? (m[LANG]||m.en) : (c||''); }
     function updTitle(u){ return (LANG==='zh'&&u.titleZh)||(LANG==='ko'&&u.titleKo)||u.title||''; }
     function updNote(u){ return (LANG==='zh'&&u.noteZh)||(LANG==='ko'&&u.noteKo)||u.note||''; }
@@ -1080,50 +1105,71 @@
     function fmtRange(u){ var s=parseISO(u.dateStart), e=parseISO(u.dateEnd)||s; if(!s) return '';
       function md(d){ return (d.getMonth()+1)+'/'+d.getDate(); }
       return (e && e.getTime()!==s.getTime()) ? md(s)+'–'+md(e) : md(s); }
-    function updStatus(u){ if(u.status==='hold') return 'hold';
-      var s=parseISO(u.dateStart), e=parseISO(u.dateEnd)||s, today=todayMid();
-      if(e && e.getTime() < today.getTime()) return 'expired';
-      if(s && s.getTime() > today.getTime()) return 'upcoming';
-      return 'active'; }
+    /* Effective display status. hold -> hidden. Dates drive active/upcoming/expired so
+       the owner does not have to hand-edit status as time passes. If an entry has no
+       dates, the manual status field (active/upcoming/expired) is used as a fallback. */
+    function updStatus(u){
+      if(u.status==='hold') return 'hold';
+      var s=parseISO(u.dateStart), e=parseISO(u.dateEnd)||s, today=todayMid().getTime();
+      if(s||e){
+        if(e && e.getTime() < today) return 'expired';
+        if(s && s.getTime() > today) return 'upcoming';
+        return 'active';
+      }
+      if(u.status==='active'||u.status==='upcoming'||u.status==='expired') return u.status;
+      return 'active';
+    }
+    function isFeatured(u){ return u.featured===true || u.status==='featured'; }   // featured:true preferred; legacy status:"featured" still pins
     function getUpdates(){ try{ var U=window.TCN_PAID_UPDATES; return (U&&U.updates)?U.updates.slice():[]; }catch(e){ return []; } }
-    function liveUpdates(){   // non-hold, non-expired; featured pinned, then by start date
-      return getUpdates().filter(function(u){ var st=updStatus(u); return st!=='hold' && st!=='expired'; })
+    // ACTIVE + UPCOMING entries (excludes expired & hold). This list is what the badge counts.
+    function activeUpcomingUpdates(){
+      return getUpdates().filter(function(u){ var st=updStatus(u); return st==='active' || st==='upcoming'; })
         .sort(function(a,b){
-          var af=a.status==='featured'?0:1, bf=b.status==='featured'?0:1; if(af!==bf) return af-bf;
+          var af=isFeatured(a)?0:1, bf=isFeatured(b)?0:1; if(af!==bf) return af-bf;   // featured pinned to top
           var as=parseISO(a.dateStart), bs=parseISO(b.dateStart);
           return (as?as.getTime():0)-(bs?bs.getTime():0);
-        }); }
+        });
+    }
+    function liveUpdates(){ return activeUpcomingUpdates(); }            // alias used by the renderers
+    function updatesBadgeCount(){ return activeUpcomingUpdates().length; } // Updates N = active + upcoming count
     function expiredUpdates(){ return getUpdates().filter(function(u){ return updStatus(u)==='expired'; })
         .sort(function(a,b){ var ae=parseISO(a.dateEnd)||parseISO(a.dateStart), be=parseISO(b.dateEnd)||parseISO(b.dateStart);
           return (be?be.getTime():0)-(ae?ae.getTime():0); }); }
     function thisWeekCount(){ var t7=todayMid().getTime()+7*864e5;
-      return liveUpdates().filter(function(u){ var s=parseISO(u.dateStart); return s && s.getTime()<=t7; }).length; }
+      return activeUpcomingUpdates().filter(function(u){ var s=parseISO(u.dateStart); return s && s.getTime()<=t7; }).length; }
 
     function updPill(st){
       var lab = st==='upcoming'?t('stUpcoming'):(st==='expired'?t('stExpired'):t('stActive'));
       return '<span class="upd-pill is-'+st+'">'+esc(lab)+'</span>';
     }
+    function updVerifyChip(u){
+      return u.verified===false
+        ? '<span class="upd-vchip is-needs">'+esc(t('updNeedsCheck'))+'</span>'
+        : '<span class="upd-vchip is-ok">'+esc(t('updVerified'))+'</span>';
+    }
     function updCardHtml(u){
       var st=updStatus(u), loc=[updCityName(u), u.area, u.venue].filter(Boolean).map(esc).join(' · ');
-      return '<article class="upd-card'+(u.status==='featured'?' is-featured':'')+'">'+
-        '<div class="upd-c-top"><span class="upd-cat">'+esc(catLabel(u.category))+'</span>'+updPill(st)+
+      return '<article class="upd-card'+(isFeatured(u)?' is-featured':'')+'">'+
+        '<div class="upd-c-top"><span class="upd-cat">'+esc(catLabel(u.category))+'</span>'+updPill(st)+updVerifyChip(u)+
           '<span class="upd-date">'+esc(fmtRange(u))+'</span></div>'+
         '<h3 class="upd-c-title">'+esc(updTitle(u))+'</h3>'+
         (loc?'<p class="upd-c-loc">'+loc+'</p>':'')+
         (updNote(u)?'<p class="upd-c-note">'+esc(updNote(u))+'</p>':'')+
+        (u.verified===false?'<p class="upd-c-confirm">'+esc(t('confirmVisit'))+'</p>':'')+
         '<div class="upd-c-foot">'+
-          (u.sourceUrl?'<a class="upd-c-src" target="_blank" rel="noopener" href="'+esc(u.sourceUrl)+'">'+t('confirmDetails')+'</a>':'')+
-          (u.verified===false?'<span class="upd-unverified">'+t('unconfirmed')+'</span>':'')+
+          (u.sourceUrl?'<a class="upd-act upd-act-src" target="_blank" rel="noopener" href="'+esc(u.sourceUrl)+'">'+t('officialSource')+'</a>':'')+
+          (u.mapsUrl?'<a class="upd-act upd-act-maps" target="_blank" rel="noopener" href="'+esc(u.mapsUrl)+'">'+t('openMaps')+'</a>':'')+
         '</div></article>';
     }
     function renderUpdates(){
       var grid=document.getElementById('upd-grid'); if(!grid) return;
       var live=liveUpdates(), past=expiredUpdates();
-      // top quick-nav badge + section count (active + upcoming)
+      // top quick-nav badge + section count = ACTIVE + UPCOMING count (expired & hold excluded)
+      var badgeN=updatesBadgeCount();
       var tb=document.getElementById('tabnav-badge');
-      if(tb){ if(live.length){ tb.hidden=false; tb.textContent=String(live.length); } else { tb.hidden=true; tb.textContent=''; } }
+      if(tb){ if(badgeN){ tb.hidden=false; tb.textContent=String(badgeN); } else { tb.hidden=true; tb.textContent=''; } }
       var sc=document.getElementById('upd-sec-count');
-      if(sc){ sc.textContent = live.length ? (live.length+' '+t('updatesLiveWord')) : ''; }
+      if(sc){ sc.textContent = badgeN ? (badgeN+' '+t('updatesLiveWord')) : ''; }
       // category filter chips (All + categories present in live list)
       var fw=document.getElementById('upd-cat-filters');
       if(fw){
