@@ -20,6 +20,17 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Product","name":"Full Japan Fashion Map - 2026 Edition","description":"200+ researched fashion shops across Tokyo, Osaka, Kyoto, Nagoya, and Fukuoka, with Google Maps links, why-go notes, routes, and Japan Fashion Updates.","brand":{"@type":"Brand","name":"Tokyo Closet Notes"},"image":"https://tokyoclosetnotes.com/assets/tcn-logo-round-light.png","url":"https://tokyoclosetnotes.com/full-map/","offers":{"@type":"Offer","price":"19","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://payhip.com/b/TUint"}}
   </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"What is included in the Full Japan Fashion Map?","acceptedAnswer":{"@type":"Answer","text":"200+ researched fashion shops with Google Maps links, why-go notes, area, style, and mood filters, walkable routes, and Japan Fashion Updates."}},
+    {"@type":"Question","name":"Which cities are covered?","acceptedAnswer":{"@type":"Answer","text":"Tokyo, Osaka, Kyoto, Nagoya, and Fukuoka."}},
+    {"@type":"Question","name":"Does it include Google Maps links?","acceptedAnswer":{"@type":"Answer","text":"Yes. Shops in the paid map include Google Maps links so you can navigate easily."}},
+    {"@type":"Question","name":"How often is it updated?","acceptedAnswer":{"@type":"Answer","text":"Buyer-facing Japan Fashion Updates are maintained and added over time. This public page shows only a short summary."}},
+    {"@type":"Question","name":"Is Personal Buying Support included?","acceptedAnswer":{"@type":"Answer","text":"No. Personal Buying Support is a separate, request-based service and is not included in the $19 map."}},
+    {"@type":"Question","name":"Can shop and event information change?","acceptedAnswer":{"@type":"Answer","text":"Yes. Please confirm opening hours, stock, prices, access, and event dates before visiting."}},
+    {"@type":"Question","name":"Can I share or resell the map?","acceptedAnswer":{"@type":"Answer","text":"No. The map is for personal use only. Do not redistribute, copy, resell, or republish."}}
+  ]}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -74,6 +85,17 @@
   .footer-links a:hover{color:var(--tcn-red)}
   .footer-fine{text-align:center;color:var(--muted);font-size:13px;padding:0 20px 24px;margin:0}
   @media(max-width:620px){.header-inner{gap:10px}.nav-links{order:3;width:100%}}
+  /* public updates summary + FAQ (sales-page only; no buyer data) */
+  .upd-latest{font-size:13.5px;color:var(--muted);border-left:2px solid var(--border-2);padding-left:14px;margin:12px 0 0}
+  .faq{padding:0}
+  .faq-item{border-top:1px solid var(--border)}
+  .faq-item:first-child{border-top:0}
+  .faq-item summary{cursor:pointer;font-family:var(--round);font-weight:700;font-size:15.5px;line-height:1.35;
+    padding:14px clamp(16px,4vw,24px);list-style:none;display:flex;justify-content:space-between;gap:14px;align-items:center}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{content:"+";color:var(--tcn-red);font-weight:700;font-size:19px;flex:none}
+  .faq-item[open] summary::after{content:"\2013"}
+  .faq-item .faq-a{margin:0;padding:0 clamp(16px,4vw,24px) 16px;color:var(--ink-soft);font-size:14.5px;line-height:1.6}
   </style>
 </head>
 <body>
@@ -134,6 +156,25 @@
         </div>
       </section>
 
+      <section class="block" aria-labelledby="fm-upd-h">
+        <h2 id="fm-upd-h" data-i18n="fmUpdTitle">Latest Japan Fashion Updates</h2>
+        <p class="lead" data-i18n="fmUpdBody">The Full Japan Fashion Map is updated with Japan fashion shopping notes for buyers, including pop-ups, vintage fairs, brand events, shop updates, and limited-time shopping information across Tokyo, Osaka, Kyoto, Nagoya, and Fukuoka.</p>
+        <p class="upd-latest" data-i18n="fmUpdLatest">Latest public summary: June 2026 — buyer updates include new event and shopping notes across the five covered cities. Detailed shop links, Google Maps links, and why-go notes are available inside the Full Japan Fashion Map.</p>
+      </section>
+
+      <section class="block" aria-labelledby="fm-faq-h">
+        <h2 id="fm-faq-h" data-i18n="fmFaqTitle">Frequently asked questions</h2>
+        <div class="panel faq">
+          <details class="faq-item"><summary data-i18n="fmFaqQ1">What is included in the Full Japan Fashion Map?</summary><p class="faq-a" data-i18n="fmFaqA1">200+ researched fashion shops with Google Maps links, why-go notes, area, style, and mood filters, walkable routes, and Japan Fashion Updates.</p></details>
+          <details class="faq-item"><summary data-i18n="fmFaqQ2">Which cities are covered?</summary><p class="faq-a" data-i18n="fmFaqA2">Tokyo, Osaka, Kyoto, Nagoya, and Fukuoka.</p></details>
+          <details class="faq-item"><summary data-i18n="fmFaqQ3">Does it include Google Maps links?</summary><p class="faq-a" data-i18n="fmFaqA3">Yes — shops in the paid map include Google Maps links so you can navigate easily.</p></details>
+          <details class="faq-item"><summary data-i18n="fmFaqQ4">How often is it updated?</summary><p class="faq-a" data-i18n="fmFaqA4">Buyer-facing Japan Fashion Updates are maintained and added over time. This public page shows only a short summary.</p></details>
+          <details class="faq-item"><summary data-i18n="fmFaqQ5">Is Personal Buying Support included?</summary><p class="faq-a" data-i18n="fmFaqA5">No. Personal Buying Support is a separate, request-based service and is not included in the $19 map.</p></details>
+          <details class="faq-item"><summary data-i18n="fmFaqQ6">Can shop and event information change?</summary><p class="faq-a" data-i18n="fmFaqA6">Yes. Please confirm opening hours, stock, prices, access, and event dates before visiting.</p></details>
+          <details class="faq-item"><summary data-i18n="fmFaqQ7">Can I share or resell the map?</summary><p class="faq-a" data-i18n="fmFaqA7">No. The map is for personal use only — do not redistribute, copy, resell, or republish.</p></details>
+        </div>
+      </section>
+
       <section class="block">
         <h2 data-i18n="fmNeedTitle">Need help buying a specific item?</h2>
         <p class="lead" data-i18n="fmNeedLead">Personal Buying Support is a separate, request-based service for selected items from ¥100,000 JPY / approximately US$700+.</p>
@@ -176,7 +217,18 @@
         fmN4:"Personal Buying Support is NOT included in this $19 map — it is a separate service.",
         fmNeedTitle:"Need help buying a specific item?",
         fmNeedLead:"Personal Buying Support is a separate, request-based service for selected items from ¥100,000 JPY / approximately US$700+.",
-        fmBuy2:"Buy the Full Map — $19",fmBsLink:"See Personal Buying Support →"},
+        fmBuy2:"Buy the Full Map — $19",fmBsLink:"See Personal Buying Support →",
+        fmUpdTitle:"Latest Japan Fashion Updates",
+        fmUpdBody:"The Full Japan Fashion Map is updated with Japan fashion shopping notes for buyers, including pop-ups, vintage fairs, brand events, shop updates, and limited-time shopping information across Tokyo, Osaka, Kyoto, Nagoya, and Fukuoka.",
+        fmUpdLatest:"Latest public summary: June 2026 — buyer updates include new event and shopping notes across the five covered cities. Detailed shop links, Google Maps links, and why-go notes are available inside the Full Japan Fashion Map.",
+        fmFaqTitle:"Frequently asked questions",
+        fmFaqQ1:"What is included in the Full Japan Fashion Map?",fmFaqA1:"200+ researched fashion shops with Google Maps links, why-go notes, area, style, and mood filters, walkable routes, and Japan Fashion Updates.",
+        fmFaqQ2:"Which cities are covered?",fmFaqA2:"Tokyo, Osaka, Kyoto, Nagoya, and Fukuoka.",
+        fmFaqQ3:"Does it include Google Maps links?",fmFaqA3:"Yes — shops in the paid map include Google Maps links so you can navigate easily.",
+        fmFaqQ4:"How often is it updated?",fmFaqA4:"Buyer-facing Japan Fashion Updates are maintained and added over time. This public page shows only a short summary.",
+        fmFaqQ5:"Is Personal Buying Support included?",fmFaqA5:"No. Personal Buying Support is a separate, request-based service and is not included in the $19 map.",
+        fmFaqQ6:"Can shop and event information change?",fmFaqA6:"Yes. Please confirm opening hours, stock, prices, access, and event dates before visiting.",
+        fmFaqQ7:"Can I share or resell the map?",fmFaqA7:"No. The map is for personal use only — do not redistribute, copy, resell, or republish."},
       zh:{tagline:"日本时尚指南",navFinder:"风格测试",navMap:"免费地图",navFullMap:"完整地图",navProxy:"代购支持",navSuggest:"推荐店铺",navHome:"首页",
         fmEyebrow:"付费产品",fmTitle:"完整日本时尚地图 — 2026 版",
         fmLead:"为真正的日本之旅精心研究的路线式购物地图——值得跨城前往的店铺，以及可步行的路线。这是付费产品，不是免费预览。",
@@ -191,7 +243,18 @@
         fmN4:"本 $19 地图不含个人代购支持——那是单独的服务。",
         fmNeedTitle:"需要帮忙购买某件特定单品？",
         fmNeedLead:"个人代购支持是单独的、按需申请的服务，面向 ¥100,000 日元 / 约 US$700 起的精选单品。",
-        fmBuy2:"购买完整地图 — $19",fmBsLink:"查看个人代购支持 →"},
+        fmBuy2:"购买完整地图 — $19",fmBsLink:"查看个人代购支持 →",
+        fmUpdTitle:"最新 Japan Fashion Updates",
+        fmUpdBody:"完整日本时尚地图会持续为购买者更新日本时尚购物笔记，包括快闪、古着展、品牌活动、店铺动态与限时购物信息，覆盖东京、大阪、京都、名古屋与福冈。",
+        fmUpdLatest:"最新公开摘要：2026 年 6 月——购买者更新涵盖五座城市的新活动与购物笔记。详细的店铺链接、Google 地图链接与“推荐理由”笔记可在完整日本时尚地图内查看。",
+        fmFaqTitle:"常见问题",
+        fmFaqQ1:"完整日本时尚地图包含什么？",fmFaqA1:"200+ 经研究的时尚店铺，附 Google 地图链接、“推荐理由”笔记、区域/风格/氛围筛选、可步行路线，以及 Japan Fashion Updates。",
+        fmFaqQ2:"覆盖哪些城市？",fmFaqA2:"东京、大阪、京都、名古屋与福冈。",
+        fmFaqQ3:"是否包含 Google 地图链接？",fmFaqA3:"是——付费地图中的店铺附有 Google 地图链接，方便导航。",
+        fmFaqQ4:"更新频率如何？",fmFaqA4:"面向购买者的 Japan Fashion Updates 会持续维护与新增。本公开页面仅显示简短摘要。",
+        fmFaqQ5:"是否包含个人代购支持？",fmFaqA5:"不包含。个人代购支持是单独的按需申请服务，不含在 $19 地图中。",
+        fmFaqQ6:"店铺与活动信息会变动吗？",fmFaqA6:"会。到访前请确认营业时间、库存、价格、交通与活动日期。",
+        fmFaqQ7:"可以分享或转售地图吗？",fmFaqA7:"不可以。地图仅供个人使用——请勿再分发、复制、转售或再发布。"},
       ko:{tagline:"일본 패션 파인더",navFinder:"스타일 파인더",navMap:"무료 지도",navFullMap:"풀 맵",navProxy:"바잉 서포트",navSuggest:"매장 제보",navHome:"홈",
         fmEyebrow:"유료 제품",fmTitle:"풀 재팬 패션 맵 — 2026 에디션",
         fmLead:"진짜 일본 여행을 위한 리서치 기반 루트형 쇼핑 지도 — 도시를 가로질러 갈 가치가 있는 매장과 걷는 루트. 무료 미리보기가 아닌 유료 제품입니다.",
@@ -206,7 +269,18 @@
         fmN4:"이 $19 지도에는 퍼스널 바잉 서포트가 포함되지 않습니다 — 별도 서비스입니다.",
         fmNeedTitle:"특정 아이템 구매에 도움이 필요하세요?",
         fmNeedLead:"퍼스널 바잉 서포트는 ¥100,000 JPY / 약 US$700 이상의 선별 아이템을 위한 별도의 요청제 서비스입니다.",
-        fmBuy2:"풀 맵 구매 — $19",fmBsLink:"퍼스널 바잉 서포트 보기 →"}
+        fmBuy2:"풀 맵 구매 — $19",fmBsLink:"퍼스널 바잉 서포트 보기 →",
+        fmUpdTitle:"최신 Japan Fashion Updates",
+        fmUpdBody:"풀 재팬 패션 맵은 구매자를 위해 일본 패션 쇼핑 노트를 지속적으로 업데이트합니다. 팝업, 빈티지 페어, 브랜드 행사, 매장 소식, 기간 한정 쇼핑 정보를 도쿄·오사카·교토·나고야·후쿠오카에 걸쳐 다룹니다.",
+        fmUpdLatest:"최신 공개 요약: 2026년 6월 — 구매자 업데이트는 다섯 개 도시의 새로운 행사·쇼핑 노트를 포함합니다. 상세 매장 링크, Google 지도 링크, ‘가는 이유’ 노트는 풀 재팬 패션 맵 안에서 확인할 수 있습니다.",
+        fmFaqTitle:"자주 묻는 질문",
+        fmFaqQ1:"풀 재팬 패션 맵에는 무엇이 포함되나요?",fmFaqA1:"200+ 리서치 패션 매장과 Google 지도 링크, 가는 이유 노트, 지역·스타일·무드 필터, 걷기 좋은 루트, 그리고 Japan Fashion Updates.",
+        fmFaqQ2:"어떤 도시를 다루나요?",fmFaqA2:"도쿄, 오사카, 교토, 나고야, 후쿠오카.",
+        fmFaqQ3:"Google 지도 링크가 포함되나요?",fmFaqA3:"네 — 유료 지도의 매장에는 Google 지도 링크가 있어 길찾기가 쉽습니다.",
+        fmFaqQ4:"얼마나 자주 업데이트되나요?",fmFaqA4:"구매자용 Japan Fashion Updates는 지속적으로 유지·추가됩니다. 이 공개 페이지는 짧은 요약만 보여줍니다.",
+        fmFaqQ5:"퍼스널 바잉 서포트가 포함되나요?",fmFaqA5:"아니요. 퍼스널 바잉 서포트는 별도의 요청제 서비스이며 $19 지도에 포함되지 않습니다.",
+        fmFaqQ6:"매장·행사 정보가 바뀔 수 있나요?",fmFaqA6:"네. 방문 전 영업시간, 재고, 가격, 접근성, 행사 날짜를 확인하세요.",
+        fmFaqQ7:"지도를 공유하거나 재판매할 수 있나요?",fmFaqA7:"아니요. 지도는 개인 사용 전용입니다 — 재배포, 복제, 재판매, 재게시를 하지 마세요."}
     };
     var L;try{L=localStorage.getItem('tcnLang')||'en'}catch(e){L='en'}if(!I[L])L='en';
     function apply(){
