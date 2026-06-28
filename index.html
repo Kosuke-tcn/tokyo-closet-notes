@@ -1737,6 +1737,14 @@
     menu.querySelectorAll("[data-menu-close]").forEach(function (a) {
       a.addEventListener("click", close);
     });
+    // tap outside the menu (and not the toggle button) closes it
+    document.addEventListener("click", function (e) {
+      if (menu.classList.contains("open") && !menu.contains(e.target) && !btn.contains(e.target)) { close(); }
+    });
+    // Escape closes the menu and returns focus to the button
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && menu.classList.contains("open")) { close(); btn.focus(); }
+    });
     // close if resized up to desktop
     window.addEventListener("resize", function () { if (window.innerWidth > 640) close(); }, { passive: true });
   }
