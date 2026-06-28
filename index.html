@@ -768,6 +768,7 @@
         <span class="brand-name">Tokyo Closet Notes<small data-i18n="tagline">Japan fashion finder</small></span>
       </a>
       <nav class="header-nav" aria-label="Primary">
+        <a href="#top" data-scroll data-i18n="navHome">Home</a>
         <a href="#finder" data-scroll data-i18n="navFinder">Finder</a>
         <a href="#map" data-scroll data-i18n="navMap">Map</a>
         <a href="full-map/" data-i18n="navFullMap">Full Map</a>
@@ -797,6 +798,7 @@
           <button type="button" data-lang="zh">中文</button>
           <button type="button" data-lang="ko">한국어</button>
         </div>
+        <a class="mm-link" href="#top" data-scroll data-menu-close data-i18n="navHome">Home</a>
         <a class="mm-link" href="#finder" data-scroll data-menu-close data-i18n="navFinder">Finder</a>
         <a class="mm-link" href="#map" data-scroll data-menu-close data-i18n="navMap">Map</a>
         <a class="mm-link" href="full-map/" data-menu-close data-i18n="navFullMap">Full Map</a>
@@ -827,7 +829,7 @@
             <p class="hero-note" data-i18n="heroNote">
               Free to start. Built for overseas shoppers planning a real Japan fashion day.
             </p>
-            <p class="hero-bs-line"><a href="#buying-support" class="hero-bs-link" data-scroll data-i18n="heroBuyingSupport">Need a specific item? Request Buying Support →</a></p>
+            <p class="hero-bs-line"><a href="buying-support/" class="hero-bs-link" data-i18n="heroBuyingSupport">Need a specific item? Request Buying Support →</a></p>
           </div>
 
           <div class="hero-art reveal d1" aria-hidden="false">
@@ -1326,7 +1328,7 @@
             <div><b data-i18n="paidStatRoutes">Routes</b> <span data-i18n="paidStatRoutesSub">walk-by-walk</span></div>
           </div>
           <p style="font-size:13px;color:#8a93ad" id="paid-note"></p>
-          <a href="#full-map" class="btn btn-red" data-scroll data-payhip="fullmap" data-soon-key="ctaFullSoon" data-buy-key="ctaFullBuy" style="margin-top:8px" data-i18n="ctaFullBuy">Get the Full Map — $19</a>
+          <a href="full-map/" class="btn btn-red" style="margin-top:8px" data-i18n="ctaFullBuy">Get the Full Map — $19</a>
         </div>
 
         <p class="map-unlock-note" data-i18n="unlockNote">Unlocked after Style Finder submission.</p>
@@ -1356,7 +1358,7 @@
               <li data-i18n="pv6">Travel-friendly shopping routes</li>
               <li data-i18n="pv7">Japan Fashion Updates: flea markets, pop-ups, vintage fairs &amp; shop updates</li>
             </ul>
-            <a href="#finder" class="btn btn-red" data-scroll data-payhip="fullmap" data-soon-key="ctaFullSoon" data-buy-key="ctaFullBuy" data-i18n="ctaFullSoon">Opening soon — answer the Style Finder</a>
+            <a href="full-map/" class="btn btn-red" data-i18n="ctaFullBuy">Get the Full Map — $19</a>
           </div>
         </div>
 
@@ -2283,7 +2285,7 @@
   window.TCN_I18N = (function(){
     var I18N = {
       en:{
-        tagline:"Japan fashion finder", menu:"Menu", navFinder:"Finder", navMap:"Map", navFullMap:"Full Map", navProxy:"Buying Support", navSuggest:"Suggest a shop",
+        tagline:"Japan fashion finder", menu:"Menu", navHome:"Home", navFinder:"Finder", navMap:"Map", navFullMap:"Full Map", navProxy:"Buying Support", navSuggest:"Suggest a shop",
         heroEyebrow:"Japan Fashion Finder", heroTitle:"Find Your Japan Fashion Route.",
         heroSub:"Match your taste to Japanese brands, vintage shops, select stores, and walkable shopping areas before you land.",
         ctaStartFinder:"Start the Style Finder", ctaExploreMap:"Explore the Free Map",
@@ -2408,7 +2410,7 @@
         chips:{}
       },
       zh:{
-        tagline:"日本时尚指南", menu:"菜单", navFinder:"风格测试", navMap:"地图", navFullMap:"完整地图", navProxy:"代购支持", navSuggest:"推荐店铺",
+        tagline:"日本时尚指南", menu:"菜单", navHome:"首页", navFinder:"风格测试", navMap:"地图", navFullMap:"完整地图", navProxy:"代购支持", navSuggest:"推荐店铺",
         heroBuyingSupport:"在找某件特定单品？申请代购支持 →",
         bsEyebrow:"个人代购支持", bsTitle:"想找日本时尚单品，需要帮忙吗？",
         bsLead:"告诉我们你在找什么。可以是具体单品、品牌、截图，或只是一个风格方向。针对部分请求，我们可协助调查、库存确认、购买协调与配送指引。",
@@ -2532,7 +2534,7 @@
         chips:{}
       },
       ko:{
-        tagline:"일본 패션 파인더", menu:"메뉴", navFinder:"스타일 파인더", navMap:"지도", navFullMap:"풀 맵", navProxy:"바잉 서포트", navSuggest:"매장 제보",
+        tagline:"일본 패션 파인더", menu:"메뉴", navHome:"홈", navFinder:"스타일 파인더", navMap:"지도", navFullMap:"풀 맵", navProxy:"바잉 서포트", navSuggest:"매장 제보",
         heroBuyingSupport:"특정 아이템을 찾으세요? 바잉 서포트 신청 →",
         bsEyebrow:"퍼스널 바잉 서포트", bsTitle:"일본 패션 아이템 찾는 데 도움이 필요하세요?",
         bsLead:"무엇을 찾는지 알려주세요. 구체적인 아이템, 브랜드, 스크린샷, 또는 그냥 스타일 방향만 보내셔도 됩니다. 선별된 요청에 한해 리서치, 재고 확인, 구매 조율, 배송 안내를 도와드릴 수 있습니다.",
