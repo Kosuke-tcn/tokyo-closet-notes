@@ -125,6 +125,7 @@
         <a href="../../#finder" data-i18n="navFinder">Style Finder</a>
         <a href="../../#map" data-i18n="navMap">Free Map</a>
         <a href="../../full-map/" data-i18n="navFullMap">Full Map</a>
+        <a href="./" aria-current="page" data-i18n="navGuide">Guide</a>
         <a href="../../buying-support/" data-i18n="navProxy">Buying Support</a>
         <a href="../../suggest-a-shop/" data-i18n="navSuggest">Suggest a shop</a>
       </nav>
@@ -255,9 +256,9 @@
   (function(){
     /* nav-only i18n (article body is English). Same pattern as other public pages. */
     var I={
-      en:{tagline:"Japan fashion finder",navHome:"Home",navFinder:"Style Finder",navMap:"Free Map",navFullMap:"Full Map",navProxy:"Buying Support",navSuggest:"Suggest a shop"},
-      zh:{tagline:"日本时尚指南",navHome:"首页",navFinder:"风格测试",navMap:"免费地图",navFullMap:"完整地图",navProxy:"代购支持",navSuggest:"推荐店铺"},
-      ko:{tagline:"일본 패션 파인더",navHome:"홈",navFinder:"스타일 파인더",navMap:"무료 지도",navFullMap:"풀 맵",navProxy:"바잉 서포트",navSuggest:"매장 제보"}
+      en:{tagline:"Japan fashion finder",navHome:"Home",navFinder:"Style Finder",navMap:"Free Map",navFullMap:"Full Map",navGuide:"Guide",navProxy:"Buying Support",navSuggest:"Suggest a shop"},
+      zh:{tagline:"日本时尚指南",navHome:"首页",navFinder:"风格测试",navMap:"免费地图",navFullMap:"完整地图",navGuide:"指南",navProxy:"代购支持",navSuggest:"推荐店铺"},
+      ko:{tagline:"일본 패션 파인더",navHome:"홈",navFinder:"스타일 파인더",navMap:"무료 지도",navFullMap:"풀 맵",navGuide:"가이드",navProxy:"바잉 서포트",navSuggest:"매장 제보"}
     };
     var L;try{L=localStorage.getItem('tcnLang')||'en'}catch(e){L='en'}if(!I[L])L='en';
     function apply(){

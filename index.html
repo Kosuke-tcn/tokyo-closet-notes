@@ -190,6 +190,8 @@
   /* mobile menu — hidden on desktop (desktop keeps the social pills) */
   .menu-btn { display: none; }
   .mobile-menu { display: none; }
+  /* lock the background while the mobile menu is open so only the menu scrolls */
+  html.nav-open, html.nav-open body { overflow: hidden; }
 
   /* phones & tablets: collapse the nav into a single clean Menu button */
   @media (max-width: 860px) {
@@ -215,8 +217,10 @@
       border-top: 1px solid transparent;
       transition: max-height .28s var(--ease), border-color .28s var(--ease);
     }
-    .mobile-menu.open { max-height: 520px; border-top-color: var(--border); }
-    .mobile-menu .container { padding-top: 4px; padding-bottom: 8px; }
+    .mobile-menu.open { max-height: 80vh; max-height: calc(100dvh - 56px);
+      overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+      border-top-color: var(--border); }
+    .mobile-menu .container { padding-top: 4px; padding-bottom: 14px; }
     .mm-link {
       display: block; text-decoration: none; color: var(--ink);
       font-family: var(--round); font-weight: 700; font-size: 16px;
@@ -1722,10 +1726,11 @@
     var btn = document.getElementById("menu-btn");
     var menu = document.getElementById("mobile-menu");
     if (!btn || !menu) return;
-    function close() { menu.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); }
+    function close() { menu.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); document.documentElement.classList.remove("nav-open"); }
     function toggle() {
       var open = menu.classList.toggle("open");
       btn.setAttribute("aria-expanded", String(open));
+      document.documentElement.classList.toggle("nav-open", open);
     }
     btn.addEventListener("click", toggle);
     // close after choosing an item
