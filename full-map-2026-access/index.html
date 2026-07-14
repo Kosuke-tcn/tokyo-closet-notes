@@ -1484,7 +1484,7 @@
       reveal();
       // inject the paid data ONLY now, then boot the map
       loadScript('./paid-map-data.js?v=2026-access-1')
-        .then(function(){ return loadScript('./updates-data.js?v=2026-updates-2'); })
+        .then(function(){ return loadScript('./updates-data.js?v=2026-updates-3'); })
         .then(function(){ booted=true; if(typeof window.__tcnBoot==='function') window.__tcnBoot(); })
         .catch(function(){ var g=document.getElementById('shop-grid'); if(g) g.innerHTML='<p style="color:#f0c674">Data failed to load. Please reload.</p>'; });
     }
