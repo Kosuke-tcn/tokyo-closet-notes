@@ -14,9 +14,10 @@
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <style>
   :root{
-    --pbg:#0e1524; --psurface:#16203a; --pcard:#1a2742; --pcard2:#202e4d;
-    --pink:#eef1f6; --psoft:#cdd4e4; --pmuted:#93a0bd; --pborder:rgba(255,255,255,.12);
-    --pred:#d9544a; --pred-d:#b73f37; --pgold:#cBa96a; --pgold2:#d8bd86;
+    /* 2026-07 dark editorial tokens — aligned with the public site (near-black / white / muted / red, cream accents) */
+    --pbg:#090a0e; --psurface:#11131a; --pcard:#14161f; --pcard2:#171a22;
+    --pink:#f4f2ed; --psoft:#c9c6bd; --pmuted:#a7a7ae; --pborder:rgba(255,255,255,.10);
+    --pred:#c9342f; --pred-d:#a92824; --pgold:#eeeae2; --pgold2:#f4f2ed;
     --r:14px;
     --sans:"Nunito Sans",ui-rounded,"Hiragino Maru Gothic ProN",system-ui,sans-serif;
     --round:"Quicksand",ui-rounded,"Hiragino Maru Gothic ProN",system-ui,sans-serif;
@@ -289,6 +290,9 @@
     display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s}
   .sheet-close:hover{background:var(--pred);border-color:var(--pred);color:#fff}
   .sheet-body{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 20px 26px}
+  /* mobile: the sheet is anchored to bottom:0 but the fixed bottom tab bar (z600) sits on top of it,
+     so pad the scroll area past the tab bar + safe-area to keep the last action (Google Maps) fully visible & tappable */
+  @media(max-width:900px){ .sheet-body{padding-bottom:calc(92px + env(safe-area-inset-bottom))} }
   .sheet-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin:6px 0 5px;padding-right:34px}
   .sheet-name{font-family:var(--round);font-weight:700;font-size:21px;line-height:1.18;margin:0;letter-spacing:-.01em}
   .sheet-loc{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pmuted);margin:0 0 12px}
@@ -506,6 +510,250 @@
   .tcn-gate-remember{font-size:11.5px;color:var(--pmuted);margin:14px 0 0;line-height:1.45}
   .tcn-gate-note{font-size:11.5px;color:var(--pmuted);margin:10px 0 0;line-height:1.5;border-top:1px solid var(--pborder);padding-top:12px}
   </style>
+  <!-- ============ 2026-07 PAID APP UI (dark editorial) — additive layer ============ -->
+  <style id="tcn-app">
+  /* ---- loader: same identity as the public site ---- */
+  .tcn-loader{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:#090a0e;opacity:1;transition:opacity .45s ease}
+  .tcn-loader.tcn-hide{opacity:0;pointer-events:none}
+  .tcn-loader.tcn-gone{display:none}
+  .tcn-loader-inner{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .tcn-loader-mark{font-family:var(--round);font-weight:700;font-size:clamp(46px,12vw,72px);line-height:1;color:#fff;letter-spacing:.02em}
+  .tcn-loader-mark::after{content:"";display:block;width:34px;height:3px;background:var(--pred);border-radius:2px;margin:14px auto 0}
+  .tcn-loader-name{font-family:var(--round);font-weight:600;font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+  @media (prefers-reduced-motion:reduce){.tcn-loader{transition:opacity .001s linear}}
+  /* ---- app header ---- */
+  .appbar{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1120px;margin:0 auto;padding:14px 20px 6px}
+  .appbar-brand{display:flex;align-items:baseline;gap:11px;text-decoration:none}
+  .appbar-tcn{font-family:var(--round);font-weight:800;font-size:24px;color:#fff;line-height:1}
+  .appbar-word{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.6);white-space:nowrap}
+  @media(max-width:430px){.appbar-word{display:none}}
+  /* ---- home hero ---- */
+  .home-hero{position:relative;min-height:72svh;display:flex;align-items:flex-end;overflow:hidden;border-radius:0 0 22px 22px;
+    background:#090a0e url("./assets/paid-hero-desktop.webp") center 30% / cover no-repeat}
+  @media(max-width:640px){
+    .home-hero{background-image:url("./assets/paid-hero-mobile.webp");min-height:76svh;background-position:center 28%}
+    /* keep the upper subjects visible; darken only the lower area where the title/meta/CTAs sit */
+    .home-hero-ov{background:linear-gradient(180deg,rgba(9,10,14,.34) 0%,rgba(9,10,14,0) 32%,rgba(9,10,14,.5) 62%,rgba(9,10,14,.9) 100%)}
+  }
+  .home-hero-ov{position:absolute;inset:0;pointer-events:none;background:
+    linear-gradient(180deg,rgba(9,10,14,.55) 0%,rgba(9,10,14,.12) 34%,rgba(9,10,14,.94) 100%)}
+  /* PC (≥641px): swap the Home hero to the new Tokyo-night image; darken only the left so the
+     kicker/title/meta/CTAs stay readable while the centre-right subjects remain visible. Mobile hero untouched. */
+  @media(min-width:641px){
+    .home-hero{background-image:url("./assets/paid-home-hero-desktop-new.webp");background-position:center 40%}
+    .home-hero-ov{background:
+      linear-gradient(90deg,rgba(9,10,14,.86) 0%,rgba(9,10,14,.54) 30%,rgba(9,10,14,.12) 60%,rgba(9,10,14,0) 100%),
+      linear-gradient(180deg,rgba(9,10,14,.32) 0%,rgba(9,10,14,0) 38%,rgba(9,10,14,.6) 100%)}
+  }
+  .home-hero-c{position:relative;z-index:1;width:100%;max-width:1120px;margin:0 auto;padding:0 20px clamp(24px,4.5vh,44px)}
+  .hh-kicker{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.72);font-weight:700;margin:0 0 10px}
+  .hh-title{font-family:var(--round);font-weight:800;color:#fff;line-height:1.05;letter-spacing:-.01em;
+    font-size:clamp(32px,6.4vw,56px);margin:0 0 6px;text-shadow:0 2px 24px rgba(0,0,0,.6)}
+  .hh-meta{color:rgba(255,255,255,.8);font-size:clamp(13px,1.6vw,15px);letter-spacing:.1em;text-transform:uppercase;margin:0 0 20px}
+  .hh-ctas{display:flex;flex-wrap:wrap;gap:10px}
+  .hh-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--round);font-weight:700;
+    font-size:14.5px;min-height:48px;padding:12px 20px;border-radius:999px;cursor:pointer;text-decoration:none;
+    border:1px solid rgba(255,255,255,.4);background:rgba(9,10,14,.4);color:#fff;-webkit-tap-highlight-color:transparent}
+  .hh-btn:hover{border-color:#fff;background:rgba(9,10,14,.65)}
+  .hh-btn.hh-primary{background:#fff;border-color:#fff;color:#12131a}
+  .hh-btn.hh-primary:hover{background:var(--pgold)}
+  @media(max-width:640px){.hh-ctas{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hh-btn{width:100%;padding:12px 10px;font-size:13.5px}}
+  /* ---- city cards ---- */
+  .citycards-sec{max-width:1120px;margin:0 auto;padding:clamp(26px,5vw,44px) 20px 6px}
+  .cc-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 12px}
+  .cc-title{font-family:var(--round);font-weight:800;font-size:clamp(20px,3vw,26px);color:var(--pink);margin:0}
+  .cc-sub{color:var(--pmuted);font-size:12.5px;margin:0}
+  .citycards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+  @media(max-width:900px){.citycards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    overscroll-behavior-x:contain;scrollbar-width:none;padding-bottom:6px;margin:0 -20px;padding-left:20px;padding-right:20px}
+    .citycards::-webkit-scrollbar{display:none}
+    .citycards .citycard{flex:0 0 46%;scroll-snap-align:start}}
+  @media(max-width:520px){.citycards .citycard{flex-basis:62%}}
+  .citycard{position:relative;display:flex;align-items:flex-end;min-height:150px;border-radius:14px;overflow:hidden;cursor:pointer;
+    border:1px solid var(--pborder);background-color:var(--pcard);background-size:cover;background-position:center;
+    color:#fff;text-align:left;padding:0;-webkit-tap-highlight-color:transparent}
+  .citycard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,10,14,.12) 0%,rgba(9,10,14,.4) 55%,rgba(9,10,14,.92) 100%)}
+  .citycard:hover{border-color:rgba(255,255,255,.35)}
+  .citycard.active{border-color:var(--pred);box-shadow:0 0 0 1px var(--pred)}
+  .cc-in{position:relative;z-index:1;display:block;padding:12px 12px 12px;width:100%}
+  .cc-name{display:block;font-family:var(--round);font-weight:800;font-size:17px;letter-spacing:.04em;text-transform:uppercase;margin:0 0 3px}
+  .cc-count{display:block;font-size:11.5px;color:rgba(255,255,255,.75);margin:0}
+  /* ---- bottom tab bar (mobile) / top app nav (desktop) ---- */
+  .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:600;display:flex;justify-content:space-around;gap:2px;
+    background:rgba(9,10,14,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border-top:1px solid rgba(255,255,255,.1);padding:6px max(8px,env(safe-area-inset-left)) calc(6px + env(safe-area-inset-bottom))}
+  .tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:0;cursor:pointer;
+    font:inherit;font-size:10.5px;font-weight:700;letter-spacing:.02em;color:var(--pmuted);padding:6px 2px;min-height:48px;border-radius:10px;-webkit-tap-highlight-color:transparent}
+  .tabbar button .ticon{font-size:17px;line-height:1}
+  .tabbar button.active{color:#fff}
+  .tabbar button.active .ticon{color:var(--pred)}
+  .tabbar .tabbar-badge{position:absolute;transform:translate(14px,-4px);background:var(--pred);color:#fff;font-size:9px;font-weight:800;
+    min-width:15px;height:15px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;padding:0 4px}
+  .tabbar .tabbar-badge[hidden]{display:none}
+  body{padding-bottom:76px}
+  @media(min-width:901px){
+    .tabbar{position:sticky;top:0;bottom:auto;justify-content:center;gap:6px;border-top:0;border-bottom:1px solid rgba(255,255,255,.1);padding:8px 12px}
+    .tabbar button{flex:0 0 auto;flex-direction:row;gap:8px;font-size:13px;padding:9px 16px;min-height:42px}
+    .tabbar button.active{background:rgba(255,255,255,.08)}
+    body{padding-bottom:0}
+  }
+  /* ---- card + sheet action buttons (Save / My Route) ---- */
+  .si-actions{display:flex;gap:8px;margin-top:10px}
+  .act-mini{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:12px;font-weight:700;cursor:pointer;
+    color:var(--psoft);background:rgba(255,255,255,.05);border:1px solid var(--pborder);border-radius:999px;padding:8px 13px;min-height:36px;-webkit-tap-highlight-color:transparent}
+  .act-mini:hover{border-color:rgba(255,255,255,.35);color:#fff}
+  .act-mini.on{color:#fff;background:rgba(201,52,47,.16);border-color:var(--pred)}
+  .act-mini.on .ic{color:var(--pred)}
+  .sheet-actrow{display:flex;gap:8px;margin:14px 0 4px}
+  .sheet-actrow .act-mini{flex:1;justify-content:center;min-height:44px;font-size:13px}
+  /* ---- saved / my route section ---- */
+  .saved-sec{margin-top:clamp(34px,6vw,56px)}
+  .saved-banner{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--pborder);min-height:158px;display:flex;align-items:flex-end;
+    background:var(--pcard) url("./assets/paid-saved-mobile.webp") center 30%/cover no-repeat}
+  .saved-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,10,14,.12) 0%,rgba(9,10,14,0) 34%,rgba(9,10,14,.55) 70%,rgba(9,10,14,.88) 100%)}
+  .saved-banner .sb-in{position:relative;z-index:1;padding:14px 16px}
+  .saved-banner h2{font-family:var(--round);font-weight:800;color:#fff;margin:0 0 2px;font-size:clamp(20px,3vw,26px)}
+  .saved-banner p{margin:0;color:rgba(255,255,255,.75);font-size:12.5px}
+  .saved-cols{display:grid;gap:16px;grid-template-columns:1fr;margin-top:16px}
+  @media(min-width:901px){.saved-cols{grid-template-columns:1fr 1fr}}
+  .saved-col{background:var(--pcard);border:1px solid var(--pborder);border-radius:14px;padding:16px}
+  .saved-col h3{font-family:var(--round);font-weight:800;font-size:16px;color:var(--pink);margin:0 0 4px;display:flex;align-items:center;gap:8px}
+  .saved-col .sc-sub{color:var(--pmuted);font-size:12px;margin:0 0 12px}
+  .saved-count{background:rgba(255,255,255,.09);border-radius:999px;font-size:11.5px;padding:2px 9px;color:var(--psoft)}
+  .sv-item{display:flex;align-items:center;gap:10px;border-top:1px solid var(--pborder);padding:10px 0}
+  .sv-item:first-of-type{border-top:0}
+  .sv-num{flex:none;width:24px;height:24px;border-radius:999px;background:var(--pred);color:#fff;font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  .sv-main{flex:1;min-width:0;text-align:left;background:none;border:0;font:inherit;color:inherit;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent}
+  .sv-name{font-weight:700;font-size:14px;color:var(--pink);margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sv-loc{font-size:11.5px;color:var(--pmuted);margin:0}
+  .sv-ctl{display:flex;gap:4px;flex:none}
+  .sv-btn{width:34px;height:34px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
+    background:rgba(255,255,255,.05);border:1px solid var(--pborder);color:var(--psoft);font-size:13px;-webkit-tap-highlight-color:transparent}
+  .sv-btn:hover{border-color:rgba(255,255,255,.35);color:#fff}
+  .sv-btn:disabled{opacity:.3;cursor:default}
+  .sv-foot{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .sv-empty{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--pborder);min-height:150px;display:flex;align-items:flex-end;
+    background:var(--pcard2) url("./assets/empty-saved.webp") center/cover no-repeat}
+  .sv-empty::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,10,14,.3),rgba(9,10,14,.88))}
+  .sv-empty .sve-in{position:relative;z-index:1;padding:14px}
+  .sv-empty p{margin:0 0 2px;color:#fff;font-weight:700;font-size:14px}
+  .sv-empty small{color:rgba(255,255,255,.7);font-size:12px;display:block;margin-bottom:10px}
+  /* My Route empty state: plain, image-free (it's a working list) */
+  .route-empty{border:1px dashed var(--pborder);border-radius:12px;padding:18px 16px;background:rgba(255,255,255,.02)}
+  .route-empty p{margin:0 0 3px;color:var(--pink);font-weight:700;font-size:14px}
+  .route-empty small{color:var(--pmuted);font-size:12.5px;display:block;margin-bottom:12px;line-height:1.5}
+  /* ---- filters: pill toggle + mobile bottom sheet ---- */
+  .filt-togglerow{display:flex;gap:8px;align-items:center;margin:10px 0 4px}
+  .filt-toggle{display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;
+    color:var(--pink);background:var(--pcard);border:1px solid var(--pborder);border-radius:999px;padding:10px 16px;min-height:44px;-webkit-tap-highlight-color:transparent}
+  .filt-toggle .fcount{background:var(--pred);color:#fff;border-radius:999px;font-size:11px;min-width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;padding:0 5px}
+  .filt-toggle .fcount[hidden]{display:none}
+  @media(max-width:900px){
+    .filters-wrap{position:fixed;left:0;right:0;bottom:0;z-index:700;background:rgba(13,15,20,.98);border-top:1px solid rgba(255,255,255,.14);
+      border-radius:18px 18px 0 0;max-height:72svh;overflow-y:auto;overscroll-behavior:contain;padding:14px 18px calc(18px + env(safe-area-inset-bottom));
+      transform:translateY(105%);transition:transform .28s var(--ease);box-shadow:0 -18px 44px rgba(0,0,0,.5)}
+    .filters-wrap.open{transform:none}
+    .filters-wrap .fw-grip{width:44px;height:4px;border-radius:99px;background:rgba(255,255,255,.25);margin:0 auto 12px}
+    .fw-close{position:absolute;top:10px;right:12px;width:36px;height:36px;border-radius:999px;background:rgba(255,255,255,.08);border:0;color:#fff;font-size:17px;cursor:pointer}
+    .fw-scrim{position:fixed;inset:0;z-index:690;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s ease}
+    .fw-scrim.show{opacity:1;pointer-events:auto}
+  }
+  @media(min-width:901px){
+    .filters-wrap .fw-grip,.fw-close,.fw-scrim{display:none}
+    .filters-wrap{display:none}
+    .filters-wrap.open{display:block}
+  }
+  /* ---- map pins (dark editorial) ---- */
+  .tcn-pin{background:var(--pgold);color:#14161f;border:2px solid rgba(9,10,14,.85);box-shadow:0 2px 10px rgba(0,0,0,.55)}
+  .tcn-pin.pin-pick{background:var(--pred);color:#fff}
+  .tcn-pin.pin-saved{background:#fff;color:var(--pred)}
+  .tcn-pin.pin-route{background:var(--pred);color:#fff;font-weight:800}
+  /* ---- updates banner image ---- */
+  .upd-hero{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--pborder);min-height:110px;display:flex;align-items:flex-end;margin:0 0 14px;
+    background:var(--pcard) url("./assets/updates-events.webp") center/cover no-repeat}
+  .upd-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,10,14,.25),rgba(9,10,14,.88))}
+  .upd-hero span{position:relative;z-index:1;padding:12px 16px;color:rgba(255,255,255,.85);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+  /* ---- search empty state ---- */
+  .empty-img{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--pborder);min-height:150px;display:flex;align-items:flex-end;
+    background:var(--pcard2) url("./assets/empty-search.webp") center/cover no-repeat;margin-bottom:12px}
+  .empty-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,10,14,.3),rgba(9,10,14,.86))}
+  .empty-img p{position:relative;z-index:1;padding:14px;margin:0;color:#fff;font-weight:700;font-size:14px}
+  @media (prefers-reduced-motion:reduce){.filters-wrap{transition:none}}
+  /* ---- screen system: each tab shows its own view (Home / Explore / Routes / Saved / Events) ---- */
+  .screen[hidden]{display:none!important}
+  #app-citybar[hidden],#city-section[hidden]{display:none!important}
+  /* Home: keep it to hero + overview + a few entry points */
+  .home-quick{max-width:1120px;margin:0 auto;padding:8px 20px clamp(30px,6vw,56px);display:flex;flex-wrap:wrap;gap:10px}
+  .home-quick a{display:inline-flex;align-items:center;gap:8px;font-family:var(--round);font-weight:700;font-size:13.5px;cursor:pointer;
+    color:var(--pink);background:var(--pcard);border:1px solid var(--pborder);border-radius:999px;padding:11px 18px;min-height:44px;text-decoration:none;-webkit-tap-highlight-color:transparent}
+  .home-quick a:hover{border-color:rgba(255,255,255,.35)}
+  .home-quick a .ic{color:var(--pred)}
+  /* Routes screen: My Route block + recommended city selector */
+  .routes-screen-head{font-family:var(--round);font-weight:800;font-size:clamp(20px,3vw,26px);color:var(--pink);margin:0 0 4px}
+  .routes-screen-sub{color:var(--pmuted);font-size:12.5px;margin:0 0 14px}
+  .myroute-box{background:var(--pcard);border:1px solid var(--pborder);border-radius:14px;padding:16px;margin:0 0 26px}
+  .myroute-box h3{font-family:var(--round);font-weight:800;font-size:16px;color:var(--pink);margin:0 0 4px;display:flex;align-items:center;gap:8px}
+  .myroute-box .sc-sub{color:var(--pmuted);font-size:12px;margin:0 0 12px}
+  .reco-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 10px}
+  .reco-head h3{font-family:var(--round);font-weight:800;font-size:18px;color:var(--pink);margin:0}
+  .reco-city{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+  .reco-city button{font:inherit;font-size:13px;font-weight:700;cursor:pointer;color:var(--psoft);background:var(--pcard);
+    border:1px solid var(--pborder);border-radius:999px;padding:9px 15px;min-height:40px;-webkit-tap-highlight-color:transparent}
+  .reco-city button:hover{border-color:rgba(255,255,255,.35);color:#fff}
+  .reco-city button.active{background:var(--pred);border-color:var(--pred);color:#fff}
+  /* prominent Google Maps button (card + sheet) */
+  .act-maps{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:8px;min-height:46px;
+    font-family:var(--round);font-weight:800;font-size:13.5px;letter-spacing:.01em;text-decoration:none;border-radius:11px;
+    background:var(--pred);color:#fff;border:1px solid var(--pred);-webkit-tap-highlight-color:transparent}
+  .act-maps:hover{background:var(--pred-d)}
+  .act-maps .ic{font-size:15px;line-height:1}
+  .sheet .act-maps{min-height:50px;font-size:15px;margin-top:14px}
+  /* ---- PC-only screen header images (desktop ≥901px). Mobile keeps its existing imagery untouched.
+     Images have a dark left margin + subject on the right, so overlays stay light (text on the left stays readable, right subject stays visible). ---- */
+  .map-hero-city{display:none}   /* mobile: no big city name over an image (image is desktop-only) */
+  /* Routes hero: shown on ALL widths. Mobile uses the portrait image; desktop swaps to the wide PC image (in the ≥901 block). */
+  .routes-hero{position:relative;display:block;border-radius:16px;overflow:hidden;border:1px solid var(--pborder);
+    min-height:200px;margin:0 0 20px;background:var(--pcard) url("./assets/paid-routes-mobile.webp") center 24%/cover no-repeat}
+  .routes-hero::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+    background:linear-gradient(180deg,rgba(9,10,14,.12) 0%,rgba(9,10,14,0) 30%,rgba(9,10,14,.5) 66%,rgba(9,10,14,.9) 100%)}
+  .routes-hero .rh-in{position:absolute;left:0;bottom:0;z-index:2;max-width:100%;padding:20px 22px}
+  .routes-hero .rh-title{font-family:var(--round);font-weight:800;color:#fff;font-size:clamp(24px,7vw,32px);margin:0 0 6px;letter-spacing:-.01em;text-shadow:0 2px 18px rgba(0,0,0,.7)}
+  .routes-hero .rh-sub{color:rgba(255,255,255,.92);font-size:13.5px;line-height:1.5;margin:0;text-shadow:0 1px 12px rgba(0,0,0,.8)}
+  .routes-screen-head,.routes-screen-sub{display:none}   /* the hero overlay carries the Routes title/sub on all widths */
+  @media(min-width:901px){
+    /* Saved banner + Events hero: swap to the new wide PC images; lighten overlay vs mobile (images are already dark) */
+    .saved-banner{min-height:200px;background-image:url("./assets/saved-hero-desktop.webp");background-position:center}
+    .saved-banner::after{background:linear-gradient(90deg,rgba(9,10,14,.5) 0%,rgba(9,10,14,.1) 50%,rgba(9,10,14,0) 82%),linear-gradient(180deg,rgba(9,10,14,0) 55%,rgba(9,10,14,.62) 100%)}
+    .upd-hero{min-height:200px;background-image:url("./assets/events-hero-desktop.webp")}
+    .upd-hero::after{background:linear-gradient(90deg,rgba(9,10,14,.5) 0%,rgba(9,10,14,.1) 50%,rgba(9,10,14,0) 82%),linear-gradient(180deg,rgba(9,10,14,0) 55%,rgba(9,10,14,.64) 100%)}
+    .upd-hero span{font-size:13px}
+
+    /* Routes hero: new high-quality image + Routes title/subtitle overlaid on the dark-left area.
+       The duplicate Routes heading/sub that sit OUTSIDE the image are hidden on desktop so the text shows once. */
+    .routes-hero{min-height:250px;background-image:url("./assets/paid-routes-hero-desktop.webp");background-position:left 32%}
+    .routes-hero::after{background:linear-gradient(90deg,rgba(9,10,14,.86) 0%,rgba(9,10,14,.55) 32%,rgba(9,10,14,.06) 68%),linear-gradient(180deg,rgba(9,10,14,.15) 0%,rgba(9,10,14,0) 42%,rgba(9,10,14,.4) 100%)}
+    .routes-hero .rh-in{position:absolute;left:0;bottom:0;z-index:2;max-width:62%;padding:26px 32px}
+    .routes-hero .rh-title{font-family:var(--round);font-weight:800;color:#fff;font-size:clamp(26px,3vw,36px);margin:0 0 8px;letter-spacing:-.01em;text-shadow:0 2px 18px rgba(0,0,0,.65)}
+    .routes-hero .rh-sub{color:rgba(255,255,255,.92);font-size:14.5px;line-height:1.5;margin:0;text-shadow:0 1px 12px rgba(0,0,0,.75)}
+    .routes-screen-head, .routes-screen-sub{display:none}
+
+    /* Map hero: high-quality Home-hero-style image with city name + blurb + shops·routes on the dark-left area */
+    .map-hero{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--pborder);
+      min-height:290px;background:var(--pcard) url("./assets/paid-map-hero-desktop.webp") left 30%/cover no-repeat;margin:0 0 20px;display:flex}
+    .map-hero::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+      background:linear-gradient(90deg,rgba(9,10,14,.92) 0%,rgba(9,10,14,.66) 38%,rgba(9,10,14,.12) 72%,rgba(9,10,14,0) 100%),linear-gradient(180deg,rgba(9,10,14,.12) 0%,rgba(9,10,14,0) 46%,rgba(9,10,14,.45) 100%)}
+    .map-hero .map-hero-in{position:relative;z-index:2;align-self:flex-end;max-width:60%;padding:26px 32px}
+    .map-hero .map-hero-city{display:block;font-family:var(--round);font-weight:800;color:#fff;font-size:clamp(28px,3.2vw,40px);margin:0 0 8px;letter-spacing:-.01em;text-shadow:0 2px 18px rgba(0,0,0,.65)}
+    .map-hero .city-blurb{color:rgba(255,255,255,.92);max-width:100%;font-size:15px;margin:0 0 8px;text-shadow:0 1px 12px rgba(0,0,0,.8)}
+    .map-hero .city-stats{color:rgba(255,255,255,.82);margin:0;text-shadow:0 1px 12px rgba(0,0,0,.8)}
+  }
+  /* filter sheet must sit ABOVE the Leaflet zoom controls; hide those controls while open */
+  html.filters-open .leaflet-control-container{display:none}
+  @media(max-width:900px){
+    .filters-wrap{z-index:1200}
+    .fw-scrim{z-index:1150}
+  }
+  </style>
 </head>
 <body>
   <!-- ===== Buyer access gate (shown until the purchaser password is entered) ===== -->
@@ -527,9 +775,26 @@
     </div>
   </div>
 
-  <div class="intbar"><div class="wrap"><span data-i18n-html="intbarNote"><b>Full Japan Fashion Map - 2026 Edition.</b> For personal use by the purchaser only. Please confirm opening hours, stock, prices, and access before visiting.</span></div></div>
+  <!-- ===== TCN page loader (near-black + white "tcn" + red accent); same identity as the public site ===== -->
+  <div id="tcn-loader" class="tcn-loader" role="status" aria-live="polite" aria-label="Loading Tokyo Closet Notes">
+    <div class="tcn-loader-inner">
+      <span class="tcn-loader-mark">tcn</span>
+      <span class="tcn-loader-name">Tokyo Closet Notes</span>
+    </div>
+  </div>
+  <script>
+  (function(){
+    var l=document.getElementById('tcn-loader'); if(!l) return;
+    var reduce=false;try{reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;}catch(e){}
+    function hide(){l.classList.add('tcn-hide');setTimeout(function(){l.classList.add('tcn-gone');},reduce?10:500);}
+    if(document.readyState==='complete'){hide();}else{window.addEventListener('load',function(){setTimeout(hide,reduce?0:250);});}
+    setTimeout(function(){if(!l.classList.contains('tcn-hide'))hide();},4000);
+  })();
+  </script>
 
-  <div class="wrap langrow">
+  <!-- app header: tcn wordmark + language switch -->
+  <div class="appbar">
+    <span class="appbar-brand"><span class="appbar-tcn">tcn</span><span class="appbar-word">Full Japan Fashion Map</span></span>
     <div class="langsw" id="lang-switch" role="group" aria-label="Language">
       <button type="button" data-lang="en">EN</button>
       <button type="button" data-lang="zh">中文</button>
@@ -537,50 +802,90 @@
     </div>
   </div>
 
-  <!-- section quick-nav (anchor scroll) — high up so Updates is reachable on mobile -->
-  <div class="wrap navrow">
-    <nav class="tabnav" id="tabnav" aria-label="Jump to section">
-      <button type="button" data-go="map" data-i18n="navMap">Map</button>
-      <button type="button" data-go="shops" data-i18n="navShops">Shops</button>
-      <button type="button" data-go="routes" data-i18n="navRoutes">Routes</button>
-      <button type="button" data-go="updates" class="tabnav-upd"><span data-i18n="navUpdates">Updates</span><span class="tabnav-badge" id="tabnav-badge" hidden></span></button>
-    </nav>
-  </div>
+  <!-- app tab bar: fixed bottom on mobile / sticky top nav on desktop -->
+  <nav class="tabbar" id="tabnav" aria-label="App sections">
+    <button type="button" data-go="home"><span class="ticon" aria-hidden="true">⌂</span><span data-i18n="navHome">Home</span></button>
+    <button type="button" data-go="map"><span class="ticon" aria-hidden="true">✦</span><span data-i18n="navMap">Map</span></button>
+    <button type="button" data-go="shops"><span class="ticon" aria-hidden="true">▤</span><span data-i18n="navShops">Shops</span></button>
+    <button type="button" data-go="routes"><span class="ticon" aria-hidden="true">⇢</span><span data-i18n="navRoutes">Routes</span></button>
+    <button type="button" data-go="saved"><span class="ticon" aria-hidden="true">♡</span><span data-i18n="navSaved">Saved</span><span class="tabbar-badge" id="saved-badge" hidden></span></button>
+    <button type="button" data-go="events"><span class="ticon" aria-hidden="true">◎</span><span data-i18n="navEvents">Events</span><span class="tabbar-badge" id="tabnav-badge" hidden></span></button>
+  </nav>
 
-  <header class="top">
-    <div class="wrap">
-      <p class="kicker" data-i18n="kicker">Full Japan Fashion Map · 2026 Edition</p>
-      <h1 class="title">Full Japan Fashion Map</h1>
-      <div class="edition-row"><span class="edition-badge" data-i18n="editionBadge">2026 Edition</span></div>
-      <p class="sub" data-i18n="sub">A researched, route-based shopping map for a real Japan trip — the shops worth crossing a city for, in the order to walk them.</p>
-      <div class="diffs">
-        <span data-i18n="d1">Route depth</span><span data-i18n="d2">Hidden shops</span><span data-i18n="d3">Brand notes</span><span data-i18n="d4">Shopping strategy</span><span data-i18n="d5">Travel-friendly order</span>
+  <!-- ===== HOME screen: hero + overview + a few entry points only ===== -->
+  <div class="screen" id="screen-home" data-screen="home">
+  <header class="home-hero" id="app-home" aria-label="Full Japan Fashion Map — home">
+    <div class="home-hero-ov" aria-hidden="true"></div>
+    <div class="home-hero-c">
+      <p class="hh-kicker" data-i18n="editionBadge">2026 Edition</p>
+      <h1 class="hh-title">Full Japan Fashion Map</h1>
+      <p class="hh-meta" data-i18n="hhMeta">200+ shops / 5 cities / curated routes</p>
+      <div class="hh-ctas">
+        <button type="button" class="hh-btn hh-primary" data-go2="citycards" data-i18n="hhStartCity">Start by City</button>
+        <button type="button" class="hh-btn" data-goscreen="routes" data-i18n="hhRoutes">Curated Routes</button>
+        <button type="button" class="hh-btn" data-goscreen="routes" data-i18n="hhMyRoute">Build My Route</button>
+        <button type="button" class="hh-btn" data-goscreen="events" data-i18n="hhUpdates">Latest Updates</button>
       </div>
     </div>
   </header>
 
-  <div class="citybar">
+  <!-- ===== City selection cards (Home entry point) ===== -->
+  <section class="citycards-sec" id="citycards" aria-label="Choose a city">
+    <div class="cc-head">
+      <h2 class="cc-title" data-i18n="ccTitle">Choose a city</h2>
+      <p class="cc-sub" data-i18n="ccSub">Tap a city to load its map & shops</p>
+    </div>
+    <div class="citycards" id="citycards-grid"></div>
+  </section>
+
+  <!-- Home quick links to the other tabs (no lists shown here) -->
+  <div class="home-quick">
+    <a data-goscreen="explore"><span class="ic" aria-hidden="true">✦</span><span data-i18n="navMap">Map</span></a>
+    <a data-goscreen="routes"><span class="ic" aria-hidden="true">⇢</span><span data-i18n="navRoutes">Routes</span></a>
+    <a data-goscreen="saved"><span class="ic" aria-hidden="true">♥</span><span data-i18n="navSaved">Saved</span></a>
+    <a data-goscreen="events"><span class="ic" aria-hidden="true">◎</span><span data-i18n="navEvents">Events</span></a>
+  </div>
+  </div><!-- /#screen-home -->
+
+  <div class="citybar" id="app-citybar" hidden>
     <div class="wrap"><div class="city-tabs" id="city-tabs" role="tablist" aria-label="City"></div></div>
   </div>
 
-  <section class="city">
+  <section class="city" id="city-section" hidden>
     <div class="wrap">
-      <p class="city-blurb" id="city-blurb"></p>
-      <p class="city-stats" id="city-stats"></p>
+      <!-- ===== EXPLORE screen (Map + Shops) ===== -->
+      <div class="screen" id="screen-explore" data-screen="explore">
+      <div class="map-hero" id="map-hero">
+        <div class="map-hero-in">
+          <h2 class="map-hero-city" id="map-hero-city"></h2>
+          <p class="city-blurb" id="city-blurb"></p>
+          <p class="city-stats" id="city-stats"></p>
+        </div>
+      </div>
 
       <h2 class="h" id="filter-head" data-i18n="filterMap">Filter the map</h2>
       <div class="toolbar">
         <div class="search"><input type="search" id="shop-search" data-i18n-ph="searchPh" placeholder="Search shop, brand, tag or area…" autocomplete="off" /></div>
       </div>
-      <div class="filters">
-        <p class="filt-label" data-i18n="area">Area</p>
-        <div class="filt-row" id="area-filters"></div>
-        <p class="filt-label" data-i18n="styleMood">Style / mood</p>
-        <div class="filt-row" id="style-filters"></div>
-        <p class="filt-label" data-i18n="rank">Rank</p>
-        <div class="filt-row" id="rank-filters"></div>
-        <p class="filt-label" data-i18n="status">Status</p>
-        <div class="filt-row" id="status-filters"></div>
+      <div class="filt-togglerow">
+        <button type="button" class="filt-toggle" id="filt-toggle" aria-expanded="false" aria-controls="filters-wrap">
+          <span aria-hidden="true">≡</span><span data-i18n="filtersBtn">Filters</span><span class="fcount" id="filt-count" hidden></span>
+        </button>
+      </div>
+      <div class="fw-scrim" id="fw-scrim"></div>
+      <div class="filters-wrap" id="filters-wrap" role="dialog" aria-label="Filters">
+        <div class="fw-grip" aria-hidden="true"></div>
+        <button type="button" class="fw-close" id="fw-close" aria-label="Close filters">×</button>
+        <div class="filters">
+          <p class="filt-label" data-i18n="area">Area</p>
+          <div class="filt-row" id="area-filters"></div>
+          <p class="filt-label" data-i18n="styleMood">Style / mood</p>
+          <div class="filt-row" id="style-filters"></div>
+          <p class="filt-label" data-i18n="rank">Rank</p>
+          <div class="filt-row" id="rank-filters"></div>
+          <p class="filt-label" data-i18n="status">Status</p>
+          <div class="filt-row" id="status-filters"></div>
+        </div>
       </div>
       <div class="filter-summary" id="filter-summary" aria-label="Active filters"></div>
 
@@ -601,15 +906,36 @@
         <button type="button" class="ri-btn" id="view-routes-btn" data-i18n="viewRoutes">View curated routes ↓</button>
       </div>
       <div class="shopgrid" id="shop-grid"></div>
+      </div><!-- /#screen-explore -->
 
-      <h2 class="h" id="routes-head" data-i18n="curatedRoutes">Curated routes</h2>
-      <p class="routes-intro" data-i18n="routesIntro">Walkable shopping plans built from the shops above — in the order to actually walk them. Pick one to focus the map and shop list.</p>
-      <div class="routes" id="routes"></div>
+      <!-- ===== ROUTES screen: My Route (top) + Recommended routes by city ===== -->
+      <div class="screen" id="screen-routes" data-screen="routes" hidden>
+        <div class="routes-hero">
+          <div class="rh-in">
+            <h2 class="rh-title" data-i18n="routesTabTitle">Routes</h2>
+            <p class="rh-sub" data-i18n="routesTabSub">Build your own day, or start from a curated route.</p>
+          </div>
+        </div>
+        <h2 class="routes-screen-head" data-i18n="routesTabTitle">Routes</h2>
+        <p class="routes-screen-sub" data-i18n="routesTabSub">Build your own day, or start from a curated route.</p>
+        <div class="myroute-box">
+          <h3><span data-i18n="myRouteH">My Route</span> <span class="saved-count" id="route-count-chip">0</span></h3>
+          <p class="sc-sub" data-i18n="myRouteSub">Your own stop order. No exact times or shortest path guaranteed — confirm hours before visiting.</p>
+          <div id="myroute-list"></div>
+          <div class="sv-foot" id="myroute-foot"></div>
+        </div>
+        <div class="reco-head"><h2 class="h" id="routes-head" data-i18n="recoRoutesH">Recommended routes</h2></div>
+        <p class="routes-intro" data-i18n="recoRoutesSub">Curated, walkable shopping plans — in the order to actually walk them. Pick a city, then focus a route on the map.</p>
+        <div class="reco-city" id="reco-city" role="group" aria-label="Route city"></div>
+        <div class="routes" id="routes"></div>
+      </div><!-- /#screen-routes -->
 
-      <!-- ===== Japan Fashion Updates (full list) ===== -->
-      <section class="updates-sec" id="updates" aria-label="Japan Fashion Updates">
+      <!-- ===== EVENTS screen (Japan Fashion Updates data; buyer-only) ===== -->
+      <div class="screen" id="screen-events" data-screen="events" hidden>
+      <section class="updates-sec" id="updates" aria-label="Events and pop-ups">
+        <div class="upd-hero" aria-hidden="true"><span data-i18n="updHeroTag">Pop-ups · flea markets · fairs</span></div>
         <div class="upd-sec-head">
-          <h2 data-i18n="updatesTitle">Japan Fashion Updates</h2>
+          <h2 data-i18n="eventsTitle">Events & Pop-ups</h2>
           <span class="upd-sec-count" id="upd-sec-count"></span>
         </div>
         <p class="upd-sec-intro" data-i18n="updatesIntro">Flea markets, pop-ups, vintage fairs, store events and new-shop notes. Manually checked — always confirm dates and details with the source before you go.</p>
@@ -640,6 +966,26 @@
           </div>
         </div>
       </section>
+      </div><!-- /#screen-events -->
+
+      <!-- ===== SAVED screen: saved shops only (localStorage; device-local) ===== -->
+      <div class="screen" id="screen-saved" data-screen="saved" hidden>
+      <section class="saved-sec" id="saved" aria-label="Saved shops">
+        <div class="saved-banner">
+          <div class="sb-in">
+            <h2 data-i18n="savedTitle">Saved shops</h2>
+            <p data-i18n="savedSub">Stored on this device only. Save shops while browsing the map.</p>
+          </div>
+        </div>
+        <div class="saved-cols saved-cols-1">
+          <div class="saved-col" id="saved-col-shops">
+            <h3><span data-i18n="savedShopsH">Saved shops</span> <span class="saved-count" id="saved-count-chip">0</span></h3>
+            <p class="sc-sub" data-i18n="savedShopsSub">Shops you don't want to miss.</p>
+            <div id="saved-list"></div>
+          </div>
+        </div>
+      </section>
+      </div><!-- /#screen-saved -->
     </div>
   </section>
 
@@ -686,6 +1032,237 @@
     // area/style/rank/status are multi-select arrays (empty = "All"); route is a single id or null
     var state = { city:"tokyo", area:[], style:[], rank:[], status:[], route:null, q:"", openShopId:null };
     var markers = {};
+
+    /* ===== Saved shops + My Route (device-local; localStorage only, no server) ===== */
+    var LS_SAVED='tcnPaidSavedShops', LS_ROUTE='tcnPaidMyRoute';
+    function lsGet(k){
+      try{ var v=JSON.parse(localStorage.getItem(k)||'[]');
+        return Array.isArray(v)?v.filter(function(id){ return SHOPS.some(function(s){return s.id===id;}); }):[];
+      }catch(e){ return []; }
+    }
+    function lsSet(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+    var savedIds=lsGet(LS_SAVED), routeIds=lsGet(LS_ROUTE);
+    function isSaved(id){ return savedIds.indexOf(id)!==-1; }
+    function inPlan(id){ return routeIds.indexOf(id)!==-1; }
+    function toggleSave(id){
+      var i=savedIds.indexOf(id); if(i===-1) savedIds.push(id); else savedIds.splice(i,1);
+      lsSet(LS_SAVED,savedIds); afterPlanChange();
+    }
+    function togglePlan(id){
+      var i=routeIds.indexOf(id); if(i===-1) routeIds.push(id); else routeIds.splice(i,1);
+      lsSet(LS_ROUTE,routeIds); afterPlanChange();
+    }
+    function movePlan(id,dir){
+      var i=routeIds.indexOf(id); if(i===-1) return;
+      var j=i+dir; if(j<0||j>=routeIds.length) return;
+      routeIds.splice(i,1); routeIds.splice(j,0,id);
+      lsSet(LS_ROUTE,routeIds); afterPlanChange();
+    }
+    function clearPlan(){ routeIds=[]; lsSet(LS_ROUTE,routeIds); afterPlanChange(); }
+    // one refresh path after any save/plan change: lists, badges, pins, cards, open sheet
+    function afterPlanChange(){
+      renderSaved(); refreshAllMarkerIcons(); renderCards(visible());
+      if(state.openShopId){ var sh=shopById(state.openShopId);
+        if(sh){ var b=document.getElementById('sheet-body'); var top=b?b.scrollTop:0;
+          if(b){ b.innerHTML=sheetHtml(sh); b.scrollTop=top; bindActs(b); } } }
+    }
+    // pin identity: numbered (My Route) > heart (saved) > red A (TCN pick / rank A) > cream dot
+    function pinHtml(s){
+      var ri=routeIds.indexOf(s.id);
+      if(ri!==-1) return '<span class="tcn-pin pin-route">'+(ri+1)+'</span>';
+      if(isSaved(s.id)) return '<span class="tcn-pin pin-saved">♥</span>';
+      if((s.rank||'B')==='A') return '<span class="tcn-pin pin-pick">A</span>';
+      return '<span class="tcn-pin">•</span>';
+    }
+    function refreshAllMarkerIcons(){
+      SHOPS.forEach(function(s){ var m=markers[s.id]; if(m){
+        m.setIcon(L.divIcon({className:'tcn-marker',html:pinHtml(s),iconSize:[32,32],iconAnchor:[16,16],popupAnchor:[0,-16]})); } });
+    }
+    // shared wiring for Save / Add-to-route buttons inside any rendered root
+    function bindActs(root){
+      root.querySelectorAll('[data-save]').forEach(function(b){
+        b.addEventListener('click',function(e){ e.stopPropagation(); toggleSave(b.getAttribute('data-save')); });
+      });
+      root.querySelectorAll('[data-plan]').forEach(function(b){
+        b.addEventListener('click',function(e){ e.stopPropagation(); togglePlan(b.getAttribute('data-plan')); });
+      });
+    }
+    // Save / My Route mini-button row (shared by card + sheet)
+    function savePlanRowHtml(s){
+      return '<div class="si-actions">'+
+        '<button type="button" class="act-mini'+(isSaved(s.id)?' on':'')+'" data-save="'+s.id+'" aria-pressed="'+(isSaved(s.id)?'true':'false')+'"><span class="ic" aria-hidden="true">♥</span>'+(isSaved(s.id)?t('savedBtn'):t('saveBtn'))+'</button>'+
+        '<button type="button" class="act-mini'+(inPlan(s.id)?' on':'')+'" data-plan="'+s.id+'" aria-pressed="'+(inPlan(s.id)?'true':'false')+'"><span class="ic" aria-hidden="true">+</span>'+(inPlan(s.id)?t('inRouteBtn'):t('addRouteBtn'))+'</button>'+
+      '</div>';
+    }
+    // prominent, tappable Google Maps button (opens in a new tab)
+    function mapsBtnHtml(s){
+      return '<a class="act-maps" target="_blank" rel="noopener" href="'+mapsUrl(s)+'"><span class="ic" aria-hidden="true">↗</span>'+t('openMaps')+'</a>';
+    }
+    // card actions = Save / My Route row + clear Google Maps button underneath
+    function actBtnsHtml(s){ return savePlanRowHtml(s)+mapsBtnHtml(s); }
+    function updateSavedBadge(){
+      var b=document.getElementById('saved-badge'); if(!b) return;
+      if(routeIds.length){ b.textContent=routeIds.length; b.hidden=false; } else { b.hidden=true; }
+    }
+    function svRow(s,opts){
+      var html='<div class="sv-item" data-svitem="'+s.id+'">'+
+        (opts.num!=null?'<span class="sv-num">'+opts.num+'</span>':'')+
+        '<button type="button" class="sv-main" data-svopen="'+s.id+'"><p class="sv-name">'+esc(s.name)+'</p>'+
+          '<p class="sv-loc">'+esc(s.area||'')+' · '+esc(CITIES[s.cityId].name)+'</p></button>'+
+        '<span class="sv-ctl">'+
+          '<a class="sv-btn" target="_blank" rel="noopener" href="'+mapsUrl(s)+'" aria-label="'+esc(t('openMaps'))+'">↗</a>'+
+          (opts.reorder?'<button type="button" class="sv-btn" data-svup="'+s.id+'" aria-label="Move up"'+(opts.first?' disabled':'')+'>↑</button>'+
+                        '<button type="button" class="sv-btn" data-svdown="'+s.id+'" aria-label="Move down"'+(opts.last?' disabled':'')+'>↓</button>':'')+
+          '<button type="button" class="sv-btn" data-svremove="'+s.id+'" data-svkind="'+opts.kind+'" aria-label="'+esc(t('removeLbl'))+'">×</button>'+
+        '</span></div>';
+      return html;
+    }
+    function renderSaved(){
+      var sl=document.getElementById('saved-list'), rl=document.getElementById('myroute-list'), rf=document.getElementById('myroute-foot');
+      if(!sl||!rl) return;
+      var sc=document.getElementById('saved-count-chip'); if(sc) sc.textContent=savedIds.length;
+      var rc=document.getElementById('route-count-chip'); if(rc) rc.textContent=routeIds.length;
+      updateSavedBadge();
+      if(!savedIds.length){
+        sl.innerHTML='<div class="sv-empty"><div class="sve-in"><p>'+t('emptySavedT')+'</p><small>'+t('emptySavedS')+'</small>'+
+          '<button type="button" class="act-mini" data-goscreen3="explore">'+t('exploreShops')+'</button></div></div>';
+      } else {
+        sl.innerHTML=savedIds.map(function(id){ var s=shopById(id); return s?svRow(s,{kind:'saved'}):''; }).join('');
+      }
+      if(!routeIds.length){
+        // My Route empty state: plain text + button, no background image (this is a working list, not a showcase)
+        rl.innerHTML='<div class="route-empty"><p>'+t('emptyRouteT')+'</p><small>'+t('emptyRouteS')+'</small>'+
+          '<button type="button" class="act-mini" data-goscreen3="explore">'+t('exploreShops')+'</button></div>';
+        if(rf) rf.innerHTML='';
+      } else {
+        rl.innerHTML=routeIds.map(function(id,i){ var s=shopById(id);
+          return s?svRow(s,{kind:'route',num:i+1,reorder:true,first:i===0,last:i===routeIds.length-1}):''; }).join('');
+        var first=shopById(routeIds[0]);
+        if(rf) rf.innerHTML=
+          (first?'<a class="act-mini" target="_blank" rel="noopener" href="'+mapsUrl(first)+'"><span class="ic" aria-hidden="true">↗</span>'+t('openFirstStop')+'</a>':'')+
+          '<button type="button" class="act-mini" id="clear-plan"><span class="ic" aria-hidden="true">×</span>'+t('clearRouteBtn')+'</button>';
+      }
+      // Saved rows live in #saved (Saved screen); My Route rows live in #screen-routes.
+      // Bind across both roots so reorder/remove/open work no matter which screen the row is on.
+      function bindSaveRoot(wrap){
+        if(!wrap) return;
+        wrap.querySelectorAll('[data-svopen]').forEach(function(b){ b.addEventListener('click',function(){ focusShop(b.getAttribute('data-svopen')); showScreen('explore',{scrollTo:'paid-map'}); }); });
+        wrap.querySelectorAll('[data-svup]').forEach(function(b){ b.addEventListener('click',function(){ movePlan(b.getAttribute('data-svup'),-1); }); });
+        wrap.querySelectorAll('[data-svdown]').forEach(function(b){ b.addEventListener('click',function(){ movePlan(b.getAttribute('data-svdown'),1); }); });
+        wrap.querySelectorAll('[data-svremove]').forEach(function(b){ b.addEventListener('click',function(){
+          var id=b.getAttribute('data-svremove');
+          if(b.getAttribute('data-svkind')==='saved') toggleSave(id); else togglePlan(id);
+        }); });
+        wrap.querySelectorAll('[data-goscreen3]').forEach(function(b){ b.addEventListener('click',function(){
+          showScreen(b.getAttribute('data-goscreen3'), {scrollTo:'shops-head'});
+        }); });
+      }
+      bindSaveRoot(document.getElementById('saved'));
+      bindSaveRoot(document.getElementById('screen-routes'));
+      var cp=document.getElementById('clear-plan'); if(cp) cp.addEventListener('click',clearPlan);
+    }
+
+    /* ===== City selection cards (image-led) ===== */
+    var CITY_IMG={tokyo:'city-tokyo',osaka:'city-osaka',kyoto:'city-kyoto',nagoya:'city-nagoya',fukuoka:'city-fukuoka'};
+    function renderCityCards(){
+      var g=document.getElementById('citycards-grid'); if(!g) return; g.innerHTML='';
+      CITY_ORDER.forEach(function(id){
+        var c=CITIES[id]; if(!c) return;
+        var n=SHOPS.filter(function(s){return s.cityId===id && statusOf(s)!=='hold';}).length;
+        var b=document.createElement('button'); b.type='button'; b.className='citycard'; b.setAttribute('data-citycard',id);
+        b.style.backgroundImage='url(./assets/'+CITY_IMG[id]+'.webp)';
+        b.innerHTML='<span class="cc-in"><span class="cc-name">'+esc(t(CITY_KEY[id]))+'</span>'+
+          '<span class="cc-count">'+n+' '+t('shopsWord')+' · '+(c.routes||[]).length+' '+t('routesWord')+'</span></span>';
+        b.addEventListener('click',function(){
+          // Home city card -> load that city and move to the Map screen (not just select it on Home)
+          selectCity(id);            // sets state.city, closeSheet(), fits the map to the city's shops via applyView()
+          setFiltersOpen(false);     // make sure no filter sheet is left open on the Map screen
+          syncCityCards();
+          showScreen('explore');     // switch to Map screen (Map tab active), landing at the top (city tabs -> map -> shops)
+        });
+        g.appendChild(b);
+      });
+      syncCityCards();
+    }
+    function syncCityCards(){
+      document.querySelectorAll('[data-citycard]').forEach(function(b){
+        b.classList.toggle('active', b.getAttribute('data-citycard')===state.city); });
+    }
+
+    /* ===== filter bottom sheet (mobile) / collapsible panel (desktop) ===== */
+    function updateFiltCount(){
+      var n=state.area.length+state.style.length+state.rank.length+state.status.length+(state.route?1:0)+((state.q||'').trim()?1:0);
+      var el=document.getElementById('filt-count'); if(el){ el.textContent=n; el.hidden=!n; }
+    }
+    function setFiltersOpen(o){
+      var fw=document.getElementById('filters-wrap'), ft=document.getElementById('filt-toggle'), fs=document.getElementById('fw-scrim');
+      if(!fw) return;
+      fw.classList.toggle('open',o);
+      if(ft) ft.setAttribute('aria-expanded',o?'true':'false');
+      if(fs) fs.classList.toggle('show',o);
+      // hide Leaflet zoom controls while the filter sheet is up so +/- can't overlap it
+      document.documentElement.classList.toggle('filters-open', o);
+    }
+
+    /* ===== screen router: Home / Explore(Map+Shops) / Routes / Saved / Events =====
+       each tab shows one screen; a ~1.5s loader plays on real screen changes only
+       (NOT on save / add-to-route / filter toggles). */
+    var reduceMotion=false; try{ reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches; }catch(e){}
+    var currentScreen='home';
+    function setEl(id,show){ var el=document.getElementById(id); if(el) el.hidden=!show; }
+    function appLoader(){
+      var l=document.getElementById('tcn-loader'); if(!l) return;
+      if(reduceMotion) return;
+      l.classList.remove('tcn-gone'); l.classList.remove('tcn-hide');
+      clearTimeout(l._t);
+      l._t=setTimeout(function(){ l.classList.add('tcn-hide'); setTimeout(function(){ l.classList.add('tcn-gone'); },500); }, 1500);
+    }
+    function applyScreen(name){
+      setEl('screen-home',   name==='home');
+      setEl('app-citybar',   name==='explore');
+      setEl('city-section',  name!=='home');
+      setEl('screen-explore',name==='explore');
+      setEl('screen-routes', name==='routes');
+      setEl('screen-events', name==='events');
+      setEl('screen-saved',  name==='saved');
+      document.querySelectorAll('#tabnav [data-go]').forEach(function(b){
+        var g=b.getAttribute('data-go');
+        b.classList.toggle('active', g===name || ((name==='explore')&&(g==='map'||g==='shops')));
+      });
+      if(name==='routes')  renderRecoRoutes();
+      if(name==='saved' || name==='routes') renderSaved();
+      if(name==='explore'){ setTimeout(function(){ if(map){ map.invalidateSize(); applyView(); } },60); }
+    }
+    // change screen with the transition loader; opts.scrollTo scrolls to an id, opts.instant skips loader
+    function showScreen(name, opts){
+      opts=opts||{};
+      var changed = name!==currentScreen;
+      currentScreen=name;
+      if(changed && !opts.instant) appLoader();
+      applyScreen(name);
+      window.scrollTo(0,0);
+      if(opts.scrollTo){ var el=document.getElementById(opts.scrollTo);
+        if(el) setTimeout(function(){ el.scrollIntoView({behavior:'smooth',block:'start'}); }, 70); }
+    }
+
+    /* ===== Recommended routes on the Routes screen — city-selectable, independent of the map ===== */
+    var routesCity = 'tokyo';
+    function renderRecoCityChips(){
+      var w=document.getElementById('reco-city'); if(!w) return; w.innerHTML='';
+      CITY_ORDER.forEach(function(id){
+        var b=document.createElement('button'); b.type='button'; b.setAttribute('data-recocity',id);
+        b.textContent=t(CITY_KEY[id]); b.classList.toggle('active', id===routesCity);
+        b.addEventListener('click',function(){ routesCity=id; renderRecoRoutes(); });
+        w.appendChild(b);
+      });
+    }
+    function renderRecoRoutes(){
+      if(!CITIES[routesCity]) routesCity='tokyo';
+      renderRecoCityChips();
+      var c=CITIES[routesCity], cs=SHOPS.filter(function(s){return s.cityId===routesCity;});
+      renderRoutes(c, cs);      // renders into #routes; toggle handler is city-aware (see renderRoutes)
+      syncRouteCards();
+    }
 
     /* Japan Fashion Updates — category labels + active category filter.
        Declared up here (NOT inside the Updates block lower down) so their values
@@ -740,7 +1317,22 @@
         fbTitle:"Help keep the map accurate", fbSub:"Spotted something to add, fix, or share? Send a quick note — we check everything before updating the map.",
         fbAdd:"Found a shop we should add?", fbReport:"Report an update or closure", fbFeedback:"Send map feedback", fbFootLink:"Send map feedback",
         fbComingTitle:"Feedback form coming soon", fbComingMsg:"Thanks for wanting to help! The in-page feedback form isn't live yet. For now, email tokyoclosetnotes@outlook.jp or DM @tokyo_closet_notes.", fbClose:"Got it",
-        navMap:"Map", navShops:"Shops", navRoutes:"Routes", navUpdates:"Updates", updatesLiveWord:"happening now & upcoming" },
+        navMap:"Map", navShops:"Shops", navRoutes:"Routes", navUpdates:"Updates", updatesLiveWord:"happening now & upcoming",
+        navHome:"Home", navSaved:"Saved", navEvents:"Events",
+        eventsTitle:"Events & Pop-ups",
+        routesTabTitle:"Routes", routesTabSub:"Build your own day, or start from a curated route.",
+        recoRoutesH:"Recommended routes", recoRoutesSub:"Curated, walkable shopping plans — in the order to actually walk them. Pick a city, then focus a route on the map.",
+        hhMeta:"200+ shops / 5 cities / curated routes", hhStartCity:"Start by City", hhRoutes:"Curated Routes", hhMyRoute:"Build My Route", hhUpdates:"Latest Updates",
+        ccTitle:"Choose a city", ccSub:"Tap a city to load its map & shops", updHeroTag:"Pop-ups · flea markets · fairs",
+        filtersBtn:"Filters",
+        savedTitle:"Saved shops", savedSub:"Stored on this device only. Save shops while browsing the map.",
+        savedShopsH:"Saved shops", savedShopsSub:"Shops you don't want to miss.",
+        myRouteH:"My Route", myRouteSub:"Your own stop order. No exact times or shortest path guaranteed — confirm hours before visiting.",
+        saveBtn:"Save", savedBtn:"Saved", addRouteBtn:"My Route", inRouteBtn:"In My Route",
+        openFirstStop:"Open first stop", clearRouteBtn:"Clear My Route", removeLbl:"Remove",
+        emptySavedT:"No saved shops yet.", emptySavedS:"Save the places you do not want to miss.",
+        emptyRouteT:"No stops yet.", emptyRouteS:"Add shops from the map to build your own shopping day.",
+        startByCity:"Start by city", exploreShops:"Browse shops", noResultsT:"No shops found." },
       zh:{ kicker:"完整日本时尚地图 · 2026 版", editionBadge:"2026 版", sub:"为真正的日本之旅精心研究的路线式购物地图——值得跨城前往的店铺，按步行顺序排列。",
         d1:"路线深度", d2:"隐藏店铺", d3:"品牌笔记", d4:"购物策略", d5:"适合旅行的顺序",
         filterMap:"筛选地图", area:"区域", styleMood:"风格 / 氛围", rank:"评级", status:"状态",
@@ -770,7 +1362,22 @@
         fbTitle:"帮助保持地图准确", fbSub:"发现可补充、需更正或想分享的内容？发条简短留言——我们会先核查再更新地图。",
         fbAdd:"有想推荐加入的店铺？", fbReport:"报告动态或闭店", fbFeedback:"发送地图反馈", fbFootLink:"发送地图反馈",
         fbComingTitle:"反馈表单即将上线", fbComingMsg:"感谢你的帮助！页内反馈表单尚未上线。目前请发邮件至 tokyoclosetnotes@outlook.jp 或私信 @tokyo_closet_notes。", fbClose:"知道了",
-        navMap:"地图", navShops:"店铺", navRoutes:"路线", navUpdates:"动态", updatesLiveWord:"进行中・即将开始" },
+        navMap:"地图", navShops:"店铺", navRoutes:"路线", navUpdates:"动态", updatesLiveWord:"进行中・即将开始",
+        navHome:"首页", navSaved:"收藏", navEvents:"活动",
+        eventsTitle:"活动与快闪",
+        routesTabTitle:"路线", routesTabSub:"创建你自己的行程，或从精选路线开始。",
+        recoRoutesH:"推荐路线", recoRoutesSub:"精选、可步行的购物计划——按实际步行顺序排列。先选城市，再在地图上聚焦某条路线。",
+        hhMeta:"200+ 店铺 / 5 座城市 / 精选路线", hhStartCity:"按城市开始", hhRoutes:"精选路线", hhMyRoute:"创建我的路线", hhUpdates:"最新动态",
+        ccTitle:"选择城市", ccSub:"点击城市即可加载地图与店铺", updHeroTag:"快闪 · 跳蚤市集 · 展会",
+        filtersBtn:"筛选",
+        savedTitle:"收藏的店铺", savedSub:"仅保存在本设备上。浏览地图时随时收藏店铺。",
+        savedShopsH:"收藏的店铺", savedShopsSub:"不想错过的店铺。",
+        myRouteH:"我的路线", myRouteSub:"你自己的顺序。不保证准确时间或最短路径——出发前请确认营业时间。",
+        saveBtn:"收藏", savedBtn:"已收藏", addRouteBtn:"加入路线", inRouteBtn:"已在路线",
+        openFirstStop:"打开第一站", clearRouteBtn:"清空我的路线", removeLbl:"移除",
+        emptySavedT:"还没有收藏的店铺。", emptySavedS:"收藏你不想错过的店铺。",
+        emptyRouteT:"还没有站点。", emptyRouteS:"从地图添加店铺，规划属于你自己的购物日。",
+        startByCity:"按城市开始", exploreShops:"浏览店铺", noResultsT:"没有找到店铺。" },
       ko:{ kicker:"풀 재팬 패션 맵 · 2026 에디션", editionBadge:"2026 에디션", sub:"진짜 일본 여행을 위한 리서치 기반 루트형 쇼핑 지도 — 도시를 가로질러 갈 가치가 있는 매장을, 걷는 순서대로.",
         d1:"루트 깊이", d2:"숨은 매장", d3:"브랜드 노트", d4:"쇼핑 전략", d5:"여행 친화적 순서",
         filterMap:"지도 필터", area:"지역", styleMood:"스타일 / 무드", rank:"등급", status:"상태",
@@ -800,7 +1407,22 @@
         fbTitle:"지도 정확도 유지에 도움 주세요", fbSub:"추가·수정·공유할 내용을 발견하셨나요? 간단히 알려주세요 — 지도 반영 전 모두 확인합니다.",
         fbAdd:"추가하면 좋을 매장이 있나요?", fbReport:"업데이트·폐점 제보", fbFeedback:"지도 피드백 보내기", fbFootLink:"지도 피드백 보내기",
         fbComingTitle:"피드백 폼 준비 중", fbComingMsg:"도와주셔서 감사합니다! 페이지 내 피드백 폼은 아직 준비 중입니다. 지금은 tokyoclosetnotes@outlook.jp 이메일 또는 @tokyo_closet_notes DM으로 보내주세요.", fbClose:"확인",
-        navMap:"지도", navShops:"매장", navRoutes:"루트", navUpdates:"업데이트", updatesLiveWord:"진행 중·예정" }
+        navMap:"지도", navShops:"매장", navRoutes:"루트", navUpdates:"업데이트", updatesLiveWord:"진행 중·예정",
+        navHome:"홈", navSaved:"저장", navEvents:"이벤트",
+        eventsTitle:"이벤트 & 팝업",
+        routesTabTitle:"루트", routesTabSub:"나만의 하루를 만들거나, 큐레이션 루트에서 시작하세요.",
+        recoRoutesH:"추천 루트", recoRoutesSub:"실제로 걷는 순서대로 구성한, 걸어서 도는 쇼핑 플랜. 도시를 고른 뒤 지도에서 루트를 집중해 보세요.",
+        hhMeta:"200+ 매장 / 5개 도시 / 큐레이션 루트", hhStartCity:"도시에서 시작", hhRoutes:"큐레이션 루트", hhMyRoute:"나의 루트 만들기", hhUpdates:"최신 업데이트",
+        ccTitle:"도시 선택", ccSub:"도시를 탭하면 지도와 매장이 열립니다", updHeroTag:"팝업 · 플리마켓 · 페어",
+        filtersBtn:"필터",
+        savedTitle:"저장한 매장", savedSub:"이 기기에만 저장됩니다. 지도를 둘러보며 매장을 저장하세요.",
+        savedShopsH:"저장한 매장", savedShopsSub:"놓치고 싶지 않은 매장.",
+        myRouteH:"나의 루트", myRouteSub:"내가 정한 순서입니다. 정확한 시간이나 최단 경로를 보장하지 않습니다 — 방문 전 영업시간을 확인하세요.",
+        saveBtn:"저장", savedBtn:"저장됨", addRouteBtn:"루트에 추가", inRouteBtn:"루트에 있음",
+        openFirstStop:"첫 번째 스팟 열기", clearRouteBtn:"나의 루트 비우기", removeLbl:"제거",
+        emptySavedT:"아직 저장한 매장이 없습니다.", emptySavedS:"놓치고 싶지 않은 매장을 저장하세요.",
+        emptyRouteT:"아직 스팟이 없습니다.", emptyRouteS:"지도에서 매장을 추가해 나만의 쇼핑 하루를 만드세요.",
+        startByCity:"도시에서 시작", exploreShops:"매장 둘러보기", noResultsT:"매장을 찾을 수 없습니다." }
     };
     var LANG = (function(){ try{ return localStorage.getItem('tcnLang')||'en'; }catch(e){ return 'en'; } })();
     if(!I18N[LANG]) LANG='en';
@@ -831,13 +1453,14 @@
     // city / search / filters / route / bottom sheet / map position.
     function relocalize(){
       var c=CITIES[state.city], cs=cityShops();
+      var mhc=document.getElementById('map-hero-city'); if(mhc) mhc.textContent=t(CITY_KEY[state.city]);   // keep Map hero city name localized
       document.getElementById('city-blurb').textContent=cityBlurb(c);
       var core=cs.filter(function(s){return statusOf(s)==="core";}).length;
       var cand=cs.filter(function(s){return statusOf(s)==="candidate";}).length;
       document.getElementById('city-stats').textContent=(core+cand)+' '+t('shopsWord')+' · '+c.routes.length+' '+t('routesWord');
       renderAreaFilters(c); renderStyleFilters(cs); renderRankFilters(); renderStatusFilters();
       syncFilterChips();                       // re-apply active filter selections
-      renderRoutes(c, cs); syncRouteCards();   // re-apply active route + button labels
+      renderRecoRoutes(); syncRouteCards();    // re-apply recommended routes (routes screen) + active route
       updateShopsHead();
       var vs=visible();
       renderCards(vs);                         // list (re-marks open shop active)
@@ -847,6 +1470,7 @@
         if(sh){ var body=document.getElementById('sheet-body'); var top=body?body.scrollTop:0; if(body){ body.innerHTML=sheetHtml(sh); body.scrollTop=top; } }
       }
       try{ renderUpdates(); renderLatestUpdates(); }catch(e){}  // Japan Fashion Updates re-render in the active language
+      renderCityCards(); renderSaved();          // 2026-07 app UI: city cards + Saved/My Route in the active language
       // NOTE: map position is intentionally left untouched (no applyView) to preserve the current view.
     }
     function setLang(lang){
@@ -862,7 +1486,8 @@
       attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
 
     SHOPS.forEach(function(s){
-      var icon=L.divIcon({className:'tcn-marker',html:'<span class="tcn-pin">S</span>',iconSize:[32,32],iconAnchor:[16,16],popupAnchor:[0,-16]});
+      // pin identity: numbered (My Route) > heart (saved) > red A (rank A pick) > cream dot
+      var icon=L.divIcon({className:'tcn-marker',html:pinHtml(s),iconSize:[32,32],iconAnchor:[16,16],popupAnchor:[0,-16]});
       var m=L.marker(s.coords,{icon:icon,title:s.name});
       m.on('click',function(){ focusShop(s.id); });   // marker click opens the bottom sheet
       markers[s.id]=m;
@@ -874,9 +1499,28 @@
       b.addEventListener('click',function(){ setLang(b.getAttribute('data-lang')); });
     });
     applyStaticI18n();
+    renderCityCards();
+    renderSaved();
+    // home hero CTAs — smooth-scroll to their target section
+    document.querySelectorAll('[data-go2]').forEach(function(b){
+      b.addEventListener('click',function(){
+        var el=document.getElementById(b.getAttribute('data-go2')); if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+    // filter panel toggle (bottom sheet on mobile) — button, close, scrim, Escape
+    (function(){
+      var ft=document.getElementById('filt-toggle'), fw=document.getElementById('filters-wrap'),
+          fc=document.getElementById('fw-close'), fs=document.getElementById('fw-scrim');
+      if(ft&&fw){ ft.addEventListener('click',function(){ setFiltersOpen(!fw.classList.contains('open')); }); }
+      if(fc) fc.addEventListener('click',function(){ setFiltersOpen(false); });
+      if(fs) fs.addEventListener('click',function(){ setFiltersOpen(false); });
+      document.addEventListener('keydown',function(e){
+        if(e.key==='Escape'&&fw&&fw.classList.contains('open')) setFiltersOpen(false); });
+    })();
     selectCity("tokyo");
     // Updates render is wrapped so a data hiccup can never abort the section-nav wiring below.
     try{ renderUpdates(); renderLatestUpdates(); }catch(updErr){ if(window.console) console.error('Updates render failed:', updErr); }
+    showScreen('home',{instant:true});   // start on the Home screen; other screens stay hidden until a tab is tapped
     setTimeout(function(){ map.invalidateSize(); applyView(); },250);
 
     function cityShops(){ return SHOPS.filter(function(s){return s.cityId===state.city;}); }
@@ -917,13 +1561,14 @@
       closeSheet();
       var c=CITIES[id];
       document.querySelectorAll('#city-tabs .city-tab').forEach(function(t){ t.classList.toggle('active', t.getAttribute('data-city')===id); });
+      var mhc=document.getElementById('map-hero-city'); if(mhc) mhc.textContent=t(CITY_KEY[id]);   // city name on the Map hero (desktop)
       document.getElementById('city-blurb').textContent=cityBlurb(c);
       var cs=cityShops();
       var core=cs.filter(function(s){return statusOf(s)==="core";}).length;
       var cand=cs.filter(function(s){return statusOf(s)==="candidate";}).length;
       document.getElementById('city-stats').textContent=(core+cand)+' '+t('shopsWord')+' · '+c.routes.length+' '+t('routesWord');
       var sb=document.getElementById('shop-search'); if(sb) sb.value='';
-      renderRoutes(c, cs);
+      routesCity=id; renderRecoRoutes();     // keep the Routes screen's recommended list in sync with the map city
       renderAreaFilters(c);
       renderStyleFilters(cs);
       renderRankFilters();
@@ -966,9 +1611,15 @@
         w.appendChild(el);
       });
       w.querySelectorAll('.timeline button').forEach(function(b){
-        b.addEventListener('click',function(){ focusShop(b.getAttribute('data-shop')); });
+        b.addEventListener('click',function(){ focusShop(b.getAttribute('data-shop')); showScreen('explore',{scrollTo:'paid-map'}); });
       });
-      w.querySelectorAll('[data-route-toggle]').forEach(function(b){ b.addEventListener('click',function(){ toggleRoute(b.getAttribute('data-route-toggle')); }); });
+      // "Focus this route" is city-aware: match the map to this route's city, then jump to the map
+      w.querySelectorAll('[data-route-toggle]').forEach(function(b){ b.addEventListener('click',function(){
+        var rid=b.getAttribute('data-route-toggle');
+        if(state.city!==c.id){ selectCity(c.id); }
+        toggleRoute(rid);
+        showScreen('explore',{scrollTo:'paid-map'});
+      }); });
     }
 
     // route is a toggle: pick it once to narrow, pick the same one again (or Clear route) to release
@@ -1080,6 +1731,8 @@
       });
       renderCards(vs);
       renderSummary(vs);
+      updateFiltCount();
+      syncCityCards();
       // if the open shop was filtered/searched out of view, close its sheet
       if(state.openShopId && !vs.some(function(s){return s.id===state.openShopId;})){ closeSheet(); }
       applyView(vs);
@@ -1096,7 +1749,9 @@
       document.getElementById('shop-count').textContent=t('showing')+' '+vs.length+' '+t('of')+' '+baseCount()+' '+(vs.length===1?t('shopSuffix'):t('shopsSuffix'));
       grid.innerHTML='';
       if(!vs.length){
-        grid.innerHTML='<div class="empty"><p>'+t('noMatch')+'</p>'+
+        grid.innerHTML='<div class="empty">'+
+          '<div class="empty-img"><p>'+t('noResultsT')+'</p></div>'+
+          '<p>'+t('noMatch')+'</p>'+
           '<button type="button" class="rbtn" id="empty-clear">'+t('clearAllFilters')+'</button></div>';
         var ec=document.getElementById('empty-clear'); if(ec) ec.addEventListener('click', clearAll);
         return;
@@ -1106,8 +1761,10 @@
         var statusChip = st==="candidate"
           ? '<span class="statuschip st-cand">'+t('needsCheck')+'</span>'
           : '<span class="statuschip st-core">'+t('verified')+'</span>';
-        var item=document.createElement('button'); item.type='button'; item.className='shopitem'; item.setAttribute('data-shop',s.id);
-        // compact item: name + rank/status · area/city · 2-line Why go preview · up to 3 tags + "View details"
+        // div (not button) so the Save / My Route buttons can nest legally; still keyboard-openable
+        var item=document.createElement('div'); item.className='shopitem'; item.setAttribute('data-shop',s.id);
+        item.setAttribute('role','button'); item.tabIndex=0;
+        // compact item: name + rank/status · area/city · 2-line Why go preview · tags + actions
         item.innerHTML=
           '<div class="si-top">'+
             '<h3 class="si-name">'+esc(s.name)+'</h3>'+
@@ -1118,8 +1775,11 @@
           '<div class="si-foot">'+
             '<div class="si-tags">'+(s.styles||[]).slice(0,3).map(function(x){return '<span>'+esc(styleLabel(x))+'</span>';}).join('')+'</div>'+
             '<span class="si-more">'+t('viewDetails')+'</span>'+
-          '</div>';
-        item.addEventListener('click',function(){ focusShop(s.id); });
+          '</div>'+
+          actBtnsHtml(s);
+        item.addEventListener('click',function(e){ if(e.target.closest('.act-mini')) return; focusShop(s.id); });
+        item.addEventListener('keydown',function(e){ if(e.key==='Enter'&&e.target===item){ focusShop(s.id); } });
+        bindActs(item);
         if(state.openShopId===s.id){ item.classList.add('active'); }
         grid.appendChild(item);
       });
@@ -1162,13 +1822,15 @@
         (s.brandNotes?'<p class="brandnote"><b>'+t('brands')+'</b>'+esc(s.brandNotes)+'</p>':'')+
         (s.address?'<p class="sheet-addr">'+esc(s.address)+'</p>':'')+
         '<p class="sheet-confirm">'+t('confirmNote')+'</p>'+
-        '<div class="act">'+
-          '<a class="maps" target="_blank" rel="noopener" href="'+mapsUrl(s)+'">'+t('openMaps')+'</a>'+
-          (s.site?'<a class="site" target="_blank" rel="noopener" href="'+esc(s.site)+'">'+t('officialSite')+'</a>':'')+
-        '</div>';
+        // Save / My Route, then a clear full-width Google Maps button, then optional official site
+        savePlanRowHtml(s)+
+        mapsBtnHtml(s)+
+        (s.site?'<div class="act" style="margin-top:8px"><a class="site" target="_blank" rel="noopener" href="'+esc(s.site)+'">'+t('officialSite')+'</a></div>':'');
     }
     function openSheet(s){
-      document.getElementById('sheet-body').innerHTML=sheetHtml(s);
+      var body=document.getElementById('sheet-body');
+      body.innerHTML=sheetHtml(s);
+      bindActs(body);
       document.getElementById('sheet-body').scrollTop=0;
       var sheet=document.getElementById('sheet'), scrim=document.getElementById('sheet-scrim');
       sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
@@ -1380,10 +2042,20 @@
       body.scrollTop=0; sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false'); if(scrim) scrim.classList.add('show');
     }
     document.querySelectorAll('[data-fb]').forEach(function(b){ b.addEventListener('click', function(){ openFeedbackPanel(); }); });
-    // top section quick-nav — anchor scroll only (no scroll-spy / sticky)
-    var NAV_TARGET={ map:'filter-head', shops:'shops-head', routes:'routes-head', updates:'updates' };
+    // app tab bar — each tab switches to its own screen (Map & Shops share the Explore screen)
+    var TAB_SCREEN={ home:'home', map:'explore', shops:'explore', routes:'routes', saved:'saved', events:'events' };
+    var TAB_SCROLL={ map:'filter-head', shops:'shops-head' };
     document.querySelectorAll('#tabnav [data-go]').forEach(function(b){
-      b.addEventListener('click', function(){ var el=document.getElementById(NAV_TARGET[b.getAttribute('data-go')]); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); });
+      b.addEventListener('click', function(){
+        var g=b.getAttribute('data-go');
+        showScreen(TAB_SCREEN[g], { scrollTo: TAB_SCROLL[g] });
+        // active state honours the exact tab pressed (Map vs Shops), applyScreen handles the rest
+        document.querySelectorAll('#tabnav [data-go]').forEach(function(x){ x.classList.toggle('active', x===b); });
+      });
+    });
+    // Home hero + home quick links jump to a screen
+    document.querySelectorAll('[data-goscreen]').forEach(function(b){
+      b.addEventListener('click', function(){ showScreen(b.getAttribute('data-goscreen')); });
     });
     // Escape also closes the light feedback panel (additive; shop-sheet Escape is wired separately)
     document.addEventListener('keydown', function(e){
@@ -1400,11 +2072,9 @@
     var recenterBtn=document.getElementById('recenter');
     if(recenterBtn){ recenterBtn.addEventListener('click', function(){ applyView(visible()); }); }
 
-    // "View curated routes" invitation scrolls down to the routes section (wired once)
+    // "View curated routes" invitation switches to the Routes screen (wired once)
     var viewRoutesBtn=document.getElementById('view-routes-btn');
-    if(viewRoutesBtn){ viewRoutesBtn.addEventListener('click', function(){
-      var rt=document.getElementById('routes-head'); if(rt) rt.scrollIntoView({behavior:'smooth', block:'start'});
-    }); }
+    if(viewRoutesBtn){ viewRoutesBtn.addEventListener('click', function(){ showScreen('routes'); }); }
 
     // bottom sheet close controls (wired once): close button, scrim tap, Escape
     var sheetCloseBtn=document.getElementById('sheet-close');
